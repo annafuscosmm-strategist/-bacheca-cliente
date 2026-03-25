@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spazio Cliente — Anna Fusco</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bordeaux: #6B1A1A;
+    --bordeaux-light: #8B2525;
+    --bordeaux-pale: #F5EDED;
+    --crema: #F7F2EC;
+    --crema-dark: #EDE5D8;
+    --oro: #B8955A;
+    --oro-light: #D4B17A;
+    --testo: #2A1A1A;
+    --testo-light: #5C4040;
+    --bianco: #FDFAF6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Jost', sans-serif; background: var(--crema); color: var(--testo); }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: var(--bordeaux);
+    padding: 52px 64px 44px;
+    position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: ''; position: absolute; top: -70px; right: -70px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(184,149,90,0.10); pointer-events: none;
+  }
+  .header-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--oro-light); margin-bottom: 14px;
+  }
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 300; color: var(--crema); line-height: 1.1;
+  }
+  .header h1 em { font-style: italic; color: var(--oro-light); }
+  .header-meta {
+    display: flex; align-items: center; gap: 24px;
+    margin-top: 24px; padding-top: 20px;
+    border-top: 1px solid rgba(184,149,90,0.2);
+  }
+  .header-meta .item { display: flex; flex-direction: column; gap: 3px; }
+  .header-meta .item .lbl {
+    font-size: 10px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(247,242,236,0.4);
+  }
+  .header-meta .item .val {
+    font-size: 14px; font-weight: 300; color: var(--crema);
+  }
+  .meta-div { width: 1px; height: 28px; background: rgba(184,149,90,0.25); }
+
+  /* ─── PERCORSO SWITCHER ─── */
+  .switcher-wrap {
+    background: var(--bianco);
+    border-bottom: 1px solid rgba(184,149,90,0.15);
+    padding: 0 64px;
+    display: flex; gap: 0;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .switcher-tab {
+    padding: 18px 32px;
+    font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--testo-light);
+    cursor: pointer; border-bottom: 3px solid transparent;
+    transition: all 0.2s; user-select: none;
+    opacity: 0.5;
+  }
+  .switcher-tab:hover { opacity: 0.8; }
+  .switcher-tab.active {
+    color: var(--bordeaux); border-bottom-color: var(--bordeaux);
+    opacity: 1;
+  }
+
+  /* ─── BENVENUTO ─── */
+  .benvenuto {
+    margin: 36px 64px 0;
+    background: var(--bianco);
+    border-left: 3px solid var(--oro);
+    border-radius: 0 8px 8px 0;
+    padding: 24px 32px;
+  }
+  .benvenuto-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--oro); margin-bottom: 8px;
+  }
+  .benvenuto p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300; font-style: italic;
+    color: var(--testo); line-height: 1.55;
+  }
+  .benvenuto p strong { font-style: normal; font-weight: 600; color: var(--bordeaux); }
+
+  /* ─── CONTAINER ─── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 64px 80px; }
+
+  /* ─── PANNELLI ─── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ─── SECTION LABEL ─── */
+  .section-label {
+    display: flex; align-items: center; gap: 14px; margin: 52px 0 22px;
+  }
+  .section-label .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; color: var(--oro); min-width: 26px;
+  }
+  .section-label h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 23px; font-weight: 400; color: var(--bordeaux);
+  }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(to right, var(--oro-light), transparent); opacity: 0.35; }
+
+  /* ─── CARD ─── */
+  .card {
+    background: var(--bianco); border-radius: 10px;
+    padding: 24px 28px; margin-bottom: 12px;
+    border: 1px solid rgba(184,149,90,0.12);
+  }
+  .card-title {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--oro); margin-bottom: 10px;
+  }
+  .card p { font-size: 14px; font-weight: 300; color: var(--testo-light); line-height: 1.7; }
+
+  /* ─── PROSSIMO PASSO ─── */
+  .passo-banner {
+    background: var(--bordeaux); border-radius: 10px;
+    padding: 24px 30px; display: flex;
+    align-items: center; justify-content: space-between; gap: 20px;
+    margin-bottom: 12px;
+  }
+  .passo-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--oro-light); margin-bottom: 6px;
+  }
+  .passo-testo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; font-weight: 300; font-style: italic;
+    color: var(--crema); line-height: 1.4;
+  }
+  .passo-testo strong { font-style: normal; font-weight: 600; color: var(--oro-light); }
+  .btn-primario {
+    font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    background: var(--oro); color: var(--bianco); border: none;
+    padding: 10px 20px; border-radius: 4px; cursor: pointer;
+    text-decoration: none; display: inline-block; transition: background 0.2s;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .btn-primario:hover { background: var(--oro-light); }
+
+  /* ─── NOTA ─── */
+  .nota {
+    background: var(--bordeaux-pale); border-radius: 8px;
+    padding: 16px 22px; font-size: 13px; font-weight: 300;
+    font-style: italic; color: var(--bordeaux); line-height: 1.6;
+    border-left: 3px solid var(--bordeaux); margin-top: 12px;
+  }
+
+  /* ─── SESSIONI TABLE ─── */
+  .sessioni-table {
+    width: 100%; background: var(--bianco);
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid rgba(184,149,90,0.12);
+  }
+  .sessioni-table thead { background: var(--bordeaux); }
+  .sessioni-table thead th {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(247,242,236,0.7);
+    padding: 14px 18px; text-align: left;
+  }
+  .sessioni-table tbody tr {
+    border-bottom: 1px solid rgba(184,149,90,0.09);
+    transition: background 0.15s;
+  }
+  .sessioni-table tbody tr:hover { background: var(--bordeaux-pale); }
+  .sessioni-table tbody tr:last-child { border-bottom: none; }
+  .sessioni-table tbody td {
+    padding: 13px 18px; font-size: 13px;
+    font-weight: 300; color: var(--testo); vertical-align: middle;
+  }
+  .snum {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300; color: var(--oro);
+  }
+  .badge {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 20px;
+  }
+  .badge-dp { background: rgba(184,149,90,0.12); color: var(--oro); }
+  .badge-ok { background: rgba(90,140,90,0.1); color: #3A6A3A; }
+  .badge-pr { background: rgba(107,26,26,0.08); color: var(--bordeaux); }
+  .btn-prenota {
+    font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    background: var(--bordeaux); color: var(--crema); border: none;
+    padding: 7px 14px; border-radius: 4px; cursor: pointer;
+    text-decoration: none; display: inline-block; transition: background 0.2s;
+  }
+  .btn-prenota:hover { background: var(--bordeaux-light); }
+
+  /* ─── TIMELINE (Maschera 30gg) ─── */
+  .timeline { display: flex; flex-direction: column; }
+  .week-row {
+    display: grid; grid-template-columns: 80px 1fr;
+    position: relative;
+  }
+  .week-row:not(:last-child)::after {
+    content: ''; position: absolute;
+    left: 55px; top: 46px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(107,26,26,0.3), rgba(107,26,26,0.05));
+  }
+  .week-anchor {
+    display: flex; flex-direction: column; align-items: center;
+    padding-top: 20px; gap: 5px; position: relative; z-index: 1;
+  }
+  .week-dot {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--bordeaux);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; font-weight: 300; color: var(--crema);
+  }
+  .week-lbl {
+    font-size: 9px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--testo-light); opacity: 0.4;
+  }
+  .week-body { padding: 16px 0 16px 20px; }
+  .week-card {
+    background: var(--bianco); border-radius: 10px;
+    border: 1px solid rgba(184,149,90,0.12); padding: 18px 22px;
+  }
+  .week-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 400; color: var(--bordeaux); margin-bottom: 6px;
+  }
+  .week-card .desc {
+    font-size: 12px; font-weight: 300; color: var(--testo-light);
+    line-height: 1.5; margin-bottom: 12px;
+  }
+  .task-list { list-style: none; }
+  .task-list li {
+    display: flex; align-items: flex-start; gap: 9px;
+    font-size: 13px; font-weight: 300; color: var(--testo);
+    padding: 6px 0; border-bottom: 1px solid rgba(184,149,90,0.07);
+    line-height: 1.45;
+  }
+  .task-list li:last-child { border-bottom: none; }
+  .chk {
+    width: 17px; height: 17px; border-radius: 50%;
+    border: 2px solid rgba(184,149,90,0.3); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: transparent; cursor: pointer;
+    transition: all 0.2s; margin-top: 1px;
+  }
+  .chk:hover { border-color: var(--bordeaux); }
+  .chk.done { background: var(--bordeaux); border-color: var(--bordeaux); color: var(--crema); }
+
+  /* ─── FASI GRID (Virgilio 6 mesi) ─── */
+  .fasi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .fase-card {
+    background: var(--bianco); border-radius: 10px;
+    border: 1px solid rgba(184,149,90,0.12);
+    padding: 22px 26px; position: relative; overflow: hidden;
+  }
+  .fase-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%; background: var(--bordeaux); opacity: 0.15;
+  }
+  .fase-card.attiva::before { opacity: 1; }
+  .fase-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .fase-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px; font-weight: 300; color: var(--crema-dark); line-height: 1;
+  }
+  .fase-mesi {
+    font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--oro);
+    background: rgba(184,149,90,0.1); padding: 3px 9px; border-radius: 20px;
+  }
+  .fase-card h4 {
+    font-size: 14px; font-weight: 600; color: var(--bordeaux); margin-bottom: 6px;
+  }
+  .fase-card p {
+    font-size: 12px; font-weight: 300; color: var(--testo-light); line-height: 1.5;
+  }
+  .fase-link {
+    display: inline-block; margin-top: 12px;
+    font-size: 11px; font-weight: 500; color: var(--oro);
+    text-decoration: none; border-bottom: 1px solid rgba(184,149,90,0.3);
+    padding-bottom: 1px; transition: color 0.15s;
+  }
+  .fase-link:hover { color: var(--bordeaux); }
+
+  /* ─── PILASTRI (Virgilio) ─── */
+  .pilastri-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .pilastro {
+    background: var(--bordeaux); border-radius: 10px;
+    padding: 20px 18px; text-align: center;
+  }
+  .pilastro .p-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; color: var(--oro-light); line-height: 1;
+  }
+  .pilastro h4 {
+    font-size: 12px; font-weight: 600; color: var(--crema);
+    margin-top: 8px; line-height: 1.4;
+  }
+  .pilastro p {
+    font-size: 11px; font-weight: 300; color: rgba(247,242,236,0.55);
+    margin-top: 6px; line-height: 1.4;
+  }
+
+  /* ─── PROGRESSI ─── */
+  .prog-wrap {
+    background: var(--bianco); border-radius: 10px;
+    border: 1px solid rgba(184,149,90,0.12); overflow: hidden;
+  }
+  .prog-head {
+    background: var(--bordeaux); padding: 18px 26px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .prog-head span {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(247,242,236,0.6);
+  }
+  .prog-pct {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; color: var(--oro-light);
+  }
+  .milestone-list { padding: 6px 0; list-style: none; }
+  .milestone-list li {
+    display: flex; align-items: flex-start; gap: 13px;
+    padding: 12px 26px; font-size: 13px; font-weight: 300;
+    color: var(--testo); line-height: 1.5;
+    border-bottom: 1px solid rgba(184,149,90,0.07);
+  }
+  .milestone-list li:last-child { border-bottom: none; }
+
+  /* ─── LOG DECISIONI ─── */
+  .dec-card { background: var(--bianco); border-radius: 10px; border: 1px solid rgba(184,149,90,0.12); overflow: hidden; }
+  .dec-head {
+    padding: 18px 26px; border-bottom: 1px solid rgba(184,149,90,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .dec-head h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; font-weight: 400; color: var(--bordeaux);
+  }
+  .btn-add {
+    font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    background: transparent; color: var(--oro);
+    border: 1px solid rgba(184,149,90,0.35);
+    padding: 6px 14px; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-add:hover { background: var(--bordeaux-pale); color: var(--bordeaux); border-color: var(--bordeaux); }
+  .dec-row {
+    display: flex; align-items: flex-start; gap: 18px;
+    padding: 16px 26px; border-bottom: 1px solid rgba(184,149,90,0.07);
+  }
+  .dec-row:last-child { border-bottom: none; }
+  .dec-data { font-size: 11px; font-weight: 500; color: var(--oro); min-width: 76px; padding-top: 2px; }
+  .dec-testo { font-size: 13px; font-weight: 300; color: var(--testo); line-height: 1.6; flex: 1; }
+  .dec-sess { font-size: 11px; color: var(--testo-light); opacity: 0.5; min-width: 56px; text-align: right; padding-top: 2px; }
+
+  /* ─── COMUNICAZIONE ─── */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .info-box { background: var(--bianco); border-radius: 10px; padding: 22px 26px; border: 1px solid rgba(184,149,90,0.12); }
+  .info-box .ico { font-size: 18px; margin-bottom: 10px; }
+  .info-box h4 { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--bordeaux); margin-bottom: 8px; }
+  .info-box ul { padding-left: 14px; }
+  .info-box li, .info-box p { font-size: 13px; font-weight: 300; color: var(--testo-light); line-height: 1.7; }
+
+  /* ─── OB GRID ─── */
+  .ob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ob-card { background: var(--bianco); border-radius: 10px; border: 1px solid rgba(184,149,90,0.12); overflow: hidden; }
+  .ob-head { padding: 16px 22px; border-bottom: 1px solid rgba(184,149,90,0.1); }
+  .ob-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--bordeaux); }
+  .ob-head p { font-size: 11px; font-weight: 300; color: var(--testo-light); margin-top: 3px; }
+  .ob-list { padding: 10px 22px; list-style: none; }
+  .ob-list li {
+    display: flex; gap: 9px; align-items: flex-start;
+    padding: 8px 0; font-size: 12px; font-weight: 300; color: var(--testo);
+    border-bottom: 1px solid rgba(184,149,90,0.06); line-height: 1.45;
+  }
+  .ob-list li:last-child { border-bottom: none; }
+  .ob-list li::before { content: '—'; color: var(--oro); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: var(--testo); padding: 28px 64px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 300; font-style: italic; color: var(--crema);
+  }
+  .footer-brand span { color: var(--oro-light); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a {
+    font-size: 10px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(247,242,236,0.35); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--oro-light); }
+
+  @media (max-width: 768px) {
+    .header, .benvenuto { padding: 36px 24px; }
+    .benvenuto { margin: 24px 24px 0; }
+    .container { padding: 0 24px 60px; }
+    .switcher-wrap { padding: 0 24px; }
+    .fasi-grid, .pilastri-grid, .info-grid, .ob-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 16px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <div class="header-tag">Anna Fusco · Strategia Multicanale</div>
+  <h1>Il tuo <em>spazio</em><br>di lavoro</h1>
+  <div class="header-meta">
+    <div class="item">
+      <span class="lbl">Cliente</span>
+      <span class="val">[Nome Cliente]</span>
+    </div>
+    <div class="meta-div"></div>
+    <div class="item">
+      <span class="lbl">Percorso</span>
+      <span class="val" id="header-percorso">La Maschera di Pulcinella</span>
+    </div>
+    <div class="meta-div"></div>
+    <div class="item">
+      <span class="lbl">Avvio</span>
+      <span class="val">[Data inizio]</span>
+    </div>
+    <div class="meta-div"></div>
+    <div class="item">
+      <span class="lbl">Scadenza</span>
+      <span class="val" id="header-scadenza">[+ 30 giorni]</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SWITCHER ═══ -->
+<div class="switcher-wrap">
+  <div class="switcher-tab active" onclick="switchPercorso('maschera', this)">La Maschera di Pulcinella</div>
+  <div class="switcher-tab" onclick="switchPercorso('virgilio', this)">Virgilio</div>
+</div>
+
+<!-- ═══ BENVENUTO ═══ -->
+<div class="benvenuto">
+  <div class="benvenuto-tag">Benvenuta</div>
+  <p id="benvenuto-testo">Questo è il tuo spazio operativo per i prossimi <strong>30 giorni</strong>. Qui trovi il programma settimana per settimana, le sessioni da prenotare, i materiali e il tuo log decisioni. Ogni settimana avrai meno domande — è esattamente il punto.</p>
+</div>
+
+<!-- ═══ CONTAINER ═══ -->
+<div class="container">
+
+  <!-- ════════════════════════════════════
+       PANNELLO — LA MASCHERA DI PULCINELLA
+       ════════════════════════════════════ -->
+  <div class="panel active" id="panel-maschera">
+
+    <!-- 01. PROSSIMO PASSO -->
+    <div class="section-label">
+      <span class="num">01</span>
+      <h2>Prossimo passo</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="passo-banner">
+      <div>
+        <div class="passo-tag">Da fare adesso</div>
+        <div class="passo-testo">Completa il <strong>questionario di allineamento</strong> e prenota la sessione 1. Hai 72 ore dall'accesso.</div>
+      </div>
+      <a href="#" class="btn-primario">Apri questionario →</a>
+    </div>
+
+    <!-- 02. PROGRAMMA SETTIMANALE -->
+    <div class="section-label">
+      <span class="num">02</span>
+      <h2>Programma — 30 giorni</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Trasformazione attesa</div>
+      <p>Dal punto A — pubblichi ma non converti, hai idee ma non un sistema — al punto B: offerta chiara, strategia multicanale attiva, sistema che porta contatti qualificati anche quando sei offline.</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="week-row">
+        <div class="week-anchor">
+          <div class="week-dot">1</div>
+          <div class="week-lbl">Sett.</div>
+        </div>
+        <div class="week-body">
+          <div class="week-card">
+            <h3>Offerta & Cliente ideale</h3>
+            <p class="desc">Definiamo cosa vendi, a chi, e perché dovrebbero sceglierti. Senza questa base il resto non tiene.</p>
+            <ul class="task-list">
+              <li><span class="chk" onclick="toggleChk(this)"></span>Questionario di allineamento completato</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Sessione 1 — Kick-off e analisi offerta</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Suite di offerte definita e posizionata</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Cliente ideale: profilo operativo completato</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-anchor">
+          <div class="week-dot">2</div>
+          <div class="week-lbl">Sett.</div>
+        </div>
+        <div class="week-body">
+          <div class="week-card">
+            <h3>Strategia & Canali</h3>
+            <p class="desc">Costruiamo la roadmap: quali canali presidii, con quale ritmo, con quale voce. Piano editoriale attivo dalla fine di questa settimana.</p>
+            <ul class="task-list">
+              <li><span class="chk" onclick="toggleChk(this)"></span>Sessione 2 — Strategia multicanale</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Piano editoriale mensile strutturato</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Tono di voce operativo definito</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Primi 4 contenuti prodotti e approvati</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-anchor">
+          <div class="week-dot">3</div>
+          <div class="week-lbl">Sett.</div>
+        </div>
+        <div class="week-body">
+          <div class="week-card">
+            <h3>Email marketing & Automazioni</h3>
+            <p class="desc">Newsletter impostata, sequenza di benvenuto attiva, primo invio fatto. Il sistema inizia a lavorare senza di te.</p>
+            <ul class="task-list">
+              <li><span class="chk" onclick="toggleChk(this)"></span>Sessione 3 — Email e automazioni</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Lista email impostata su MailerLite</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Sequenza di benvenuto scritta e attiva</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Prima newsletter inviata</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-anchor">
+          <div class="week-dot">4</div>
+          <div class="week-lbl">Sett.</div>
+        </div>
+        <div class="week-body">
+          <div class="week-card">
+            <h3>Lead generation & Integrazione</h3>
+            <p class="desc">Funnel attivo, lead magnet live, canali collegati. Sessione finale di revisione e consegna del sistema completo.</p>
+            <ul class="task-list">
+              <li><span class="chk" onclick="toggleChk(this)"></span>Lead magnet creato e pubblicato</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Funnel di acquisizione attivo</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Sessione 4 — Review finale e consegna</li>
+              <li><span class="chk" onclick="toggleChk(this)"></span>Sistema multicanale integrato e funzionante</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /timeline -->
+
+    <!-- 03. SESSIONI -->
+    <div class="section-label">
+      <span class="num">03</span>
+      <h2>Le tue sessioni</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <table class="sessioni-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Sessione</th>
+          <th>Tema</th>
+          <th>Data</th>
+          <th>Stato</th>
+          <th>Prenota</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="snum">1</span></td>
+          <td>Kick-off</td>
+          <td>Offerta + cliente ideale</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">2</span></td>
+          <td>Strategia</td>
+          <td>Canali, voce, piano editoriale</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">3</span></td>
+          <td>Email & Automazioni</td>
+          <td>Newsletter, sequenze, MailerLite</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">4</span></td>
+          <td>Review finale</td>
+          <td>Funnel, lead gen, consegna sistema</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nota">Le sessioni si prenotano con almeno 48h di anticipo. Se devi disdire, avvisami entro 24h. Iniziamo puntuali — il tempo è tuo quanto il mio.</div>
+
+  </div><!-- /panel-maschera -->
+
+
+  <!-- ════════════════════════════════
+       PANNELLO — VIRGILIO
+       ════════════════════════════════ -->
+  <div class="panel" id="panel-virgilio">
+
+    <!-- 01. PROSSIMO PASSO -->
+    <div class="section-label">
+      <span class="num">01</span>
+      <h2>Prossimo passo</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="passo-banner">
+      <div>
+        <div class="passo-tag">Da fare adesso</div>
+        <div class="passo-testo">Completa il <strong>questionario di allineamento</strong> e prenota la prima call strategica. Partiamo dalla tua offerta suite.</div>
+      </div>
+      <a href="#" class="btn-primario">Apri questionario →</a>
+    </div>
+
+    <!-- 02. I 4 PILASTRI -->
+    <div class="section-label">
+      <span class="num">02</span>
+      <h2>I 4 pilastri del percorso</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="pilastri-grid">
+      <div class="pilastro">
+        <div class="p-num">01</div>
+        <h4>Offerte magnetiche</h4>
+        <p>Suite completa che si vende da sola</p>
+      </div>
+      <div class="pilastro">
+        <div class="p-num">02</div>
+        <h4>Strategia di autorevolezza</h4>
+        <p>Roadmap per diventare il riferimento nella tua nicchia</p>
+      </div>
+      <div class="pilastro">
+        <div class="p-num">03</div>
+        <h4>Contenuti potenti</h4>
+        <p>Piano editoriale che costruisce leadership</p>
+      </div>
+      <div class="pilastro">
+        <div class="p-num">04</div>
+        <h4>Sistema multicanale</h4>
+        <p>Funnel che attrae clienti premium in autonomia</p>
+      </div>
+    </div>
+
+    <!-- 03. PROGRAMMA 6 MESI -->
+    <div class="section-label">
+      <span class="num">03</span>
+      <h2>Programma — 6 mesi</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Trasformazione attesa</div>
+      <p>Dal punto A — brava ma non riconosciuta come riferimento, comunicazione che non converte — al punto B: personal brand posizionato, sistema coerente e sostenibile, clienti che arrivano perché ti cercano loro.</p>
+    </div>
+
+    <div class="fasi-grid">
+      <div class="fase-card attiva">
+        <div class="fase-head">
+          <div class="fase-num">01</div>
+          <span class="fase-mesi">Mese 1</span>
+        </div>
+        <h4>Fondamenta — Offerta & Posizionamento</h4>
+        <p>Definiamo la suite di offerte, il cliente ideale preciso, il posizionamento differenziante. Senza questa chiarezza tutto il resto oscilla.</p>
+        <a href="#" class="fase-link">Materiali fase 1 →</a>
+      </div>
+      <div class="fase-card">
+        <div class="fase-head">
+          <div class="fase-num">02</div>
+          <span class="fase-mesi">Mese 2</span>
+        </div>
+        <h4>Voce & Strategia di contenuto</h4>
+        <p>Costruiamo il piano editoriale, il tono di voce operativo, i formati. I contenuti smettono di essere un peso e diventano sistema.</p>
+        <a href="#" class="fase-link">Materiali fase 2 →</a>
+      </div>
+      <div class="fase-card">
+        <div class="fase-head">
+          <div class="fase-num">03</div>
+          <span class="fase-mesi">Mese 3</span>
+        </div>
+        <h4>Email marketing & Nutrizione</h4>
+        <p>Newsletter, automazioni, sequenze. La lista email diventa il tuo asset principale — indipendente dall'algoritmo.</p>
+        <a href="#" class="fase-link">Materiali fase 3 →</a>
+      </div>
+      <div class="fase-card">
+        <div class="fase-head">
+          <div class="fase-num">04</div>
+          <span class="fase-mesi">Mese 4</span>
+        </div>
+        <h4>Lead generation & Funnel</h4>
+        <p>Lead magnet, opt-in page, funnel di acquisizione. Il sistema inizia a generare contatti qualificati in modo prevedibile.</p>
+        <a href="#" class="fase-link">Materiali fase 4 →</a>
+      </div>
+      <div class="fase-card">
+        <div class="fase-head">
+          <div class="fase-num">05</div>
+          <span class="fase-mesi">Mese 5</span>
+        </div>
+        <h4>Lancio & Vendita</h4>
+        <p>Struttura del lancio, copy della sales page, sequenze email di vendita. Primo lancio progettato e eseguito insieme.</p>
+        <a href="#" class="fase-link">Materiali fase 5 →</a>
+      </div>
+      <div class="fase-card">
+        <div class="fase-head">
+          <div class="fase-num">06</div>
+          <span class="fase-mesi">Mese 6</span>
+        </div>
+        <h4>Ottimizzazione & Autonomia</h4>
+        <p>Analisi risultati, ottimizzazione del sistema, consolidamento dell'autonomia. Esci con un business che si sostiene da solo.</p>
+        <a href="#" class="fase-link">Materiali fase 6 →</a>
+      </div>
+    </div>
+
+    <!-- 04. SESSIONI -->
+    <div class="section-label">
+      <span class="num">04</span>
+      <h2>Le tue sessioni</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Come funziona</div>
+      <p>2 call al mese — una strategica, una operativa. Più supporto WhatsApp per i dubbi tra una sessione e l'altra, correzione contenuti con feedback e accesso a tutti i materiali e programmi esistenti per 1 anno.</p>
+    </div>
+
+    <table class="sessioni-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Sessione</th>
+          <th>Tipo</th>
+          <th>Fase</th>
+          <th>Data</th>
+          <th>Stato</th>
+          <th>Prenota</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="snum">1</span></td>
+          <td>Kick-off</td>
+          <td>Strategica</td>
+          <td>Fase 1</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">2</span></td>
+          <td>Offerta operativa</td>
+          <td>Operativa</td>
+          <td>Fase 1</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">3</span></td>
+          <td>Strategia contenuti</td>
+          <td>Strategica</td>
+          <td>Fase 2</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">4</span></td>
+          <td>Piano editoriale</td>
+          <td>Operativa</td>
+          <td>Fase 2</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">5</span></td>
+          <td>Email & automazioni</td>
+          <td>Strategica</td>
+          <td>Fase 3</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">6</span></td>
+          <td>Newsletter live</td>
+          <td>Operativa</td>
+          <td>Fase 3</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">7</span></td>
+          <td>Lead generation</td>
+          <td>Strategica</td>
+          <td>Fase 4</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">8</span></td>
+          <td>Funnel attivo</td>
+          <td>Operativa</td>
+          <td>Fase 4</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">9</span></td>
+          <td>Strategia lancio</td>
+          <td>Strategica</td>
+          <td>Fase 5</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">10</span></td>
+          <td>Lancio live</td>
+          <td>Operativa</td>
+          <td>Fase 5</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">11</span></td>
+          <td>Analisi & ottimizzazione</td>
+          <td>Strategica</td>
+          <td>Fase 6</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+        <tr>
+          <td><span class="snum">12</span></td>
+          <td>Chiusura & consegna</td>
+          <td>Offboarding</td>
+          <td>Fase 6</td>
+          <td>—</td>
+          <td><span class="badge badge-dp">Da prenotare</span></td>
+          <td><a href="#" class="btn-prenota">Prenota</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nota">Le call si prenotano tramite Calendly con almeno 48h di anticipo. La call strategica apre la fase, quella operativa la chiude. Vieni con domande già formulate — non con fogli bianchi.</div>
+
+  </div><!-- /panel-virgilio -->
+
+
+  <!-- ═══ SEZIONI COMUNI A ENTRAMBI ═══ -->
+
+  <!-- PROGRESSI -->
+  <div class="section-label">
+    <span class="num" id="sec-prog-num">05</span>
+    <h2>I tuoi progressi</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="prog-wrap">
+    <div class="prog-head">
+      <span>Milestone del percorso</span>
+      <span class="prog-pct" id="prog-count">0 / 6</span>
+    </div>
+    <ul class="milestone-list" id="milestone-list">
+      <!-- popolato da JS in base al percorso attivo -->
+    </ul>
+  </div>
+
+  <!-- LOG DECISIONI -->
+  <div class="section-label">
+    <span class="num" id="sec-dec-num">06</span>
+    <h2>Log decisioni</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="card" style="margin-bottom: 12px;">
+    <div class="card-title">A cosa serve</div>
+    <p>Ogni sessione si chiude con una decisione precisa scritta qui. Questo log responsabilizza e tiene il filo tra una call e l'altra. Niente "ci penso" — una decisione concreta ogni volta.</p>
+  </div>
+
+  <div class="dec-card">
+    <div class="dec-head">
+      <h3>Decisioni prese</h3>
+      <button class="btn-add">+ Aggiungi</button>
+    </div>
+    <div class="dec-row">
+      <span class="dec-data">gg/mm/aa</span>
+      <span class="dec-testo" style="font-style:italic;opacity:0.4;">Le decisioni operative prese durante le sessioni appariranno qui.</span>
+      <span class="dec-sess">Sess. —</span>
+    </div>
+  </div>
+
+  <!-- COMUNICAZIONE -->
+  <div class="section-label">
+    <span class="num" id="sec-com-num">07</span>
+    <h2>Comunicazione & regole</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-box">
+      <div class="ico">📩</div>
+      <h4>Come contattarmi</h4>
+      <ul>
+        <li>Canale dedicato: WhatsApp Business</li>
+        <li>Per domande operative tra le sessioni</li>
+        <li>Non rispondo la domenica e nei festivi</li>
+        <li>Risposta entro 24h nei giorni lavorativi</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <div class="ico">🗓</div>
+      <h4>Le call</h4>
+      <ul>
+        <li>Prenotazione via link Calendly</li>
+        <li>Durata: 60 minuti</li>
+        <li>Disdetta con almeno 24h di anticipo</li>
+        <li>Iniziamo puntuali — sempre</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <div class="ico">⏱</div>
+      <h4>I miei orari</h4>
+      <ul>
+        <li>Lun–Ven: 9:00–18:00</li>
+        <li>Call disponibili: 10:00–17:00</li>
+        <li>Assenze programmate comunicate via canale</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <div class="ico">📌</div>
+      <h4>Cosa ti chiedo</h4>
+      <ul>
+        <li>Presenti alle call — non rimandare</li>
+        <li>Esercizi completati prima della sessione successiva</li>
+        <li>Domande formulate, non fogli bianchi</li>
+        <li>Decisioni prese — non rimandate</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ONBOARDING / OFFBOARDING -->
+  <div class="section-label">
+    <span class="num" id="sec-ob-num">08</span>
+    <h2>Inizio & fine percorso</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="ob-grid">
+    <div class="ob-card">
+      <div class="ob-head">
+        <h3>Inizio percorso</h3>
+        <p>Le prime 48 ore decidono la direzione</p>
+      </div>
+      <ul class="ob-list">
+        <li>Email di conferma + accesso a questo spazio</li>
+        <li>Contratto firmato e pagamento registrato</li>
+        <li>Questionario di allineamento completato</li>
+        <li>Sessione 1 prenotata entro 72 ore</li>
+        <li>Accesso al canale WhatsApp dedicato</li>
+        <li>Recap di cosa include il percorso e cosa è richiesto da te</li>
+      </ul>
+    </div>
+    <div class="ob-card">
+      <div class="ob-head">
+        <h3>Fine percorso</h3>
+        <p>Chiudiamo bene — è parte del risultato</p>
+      </div>
+      <ul class="ob-list">
+        <li>Call di chiusura: analisi risultati + prossimi passi autonomi</li>
+        <li>Questionario di feedback finale</li>
+        <li>Testimonianza (se vuoi condividerla)</li>
+        <li>Consegna di tutti i materiali prodotti</li>
+        <li>Indicazioni per continuare in autonomia con il sistema costruito</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="nota">Non posso garantire risultati — posso garantire quello che offro io: struttura, direzione e presenza. I risultati li costruiamo insieme, tu con il tuo lavoro, io con il mio metodo.</div>
+
+</div><!-- /container -->
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <div class="footer-brand">Anna <span>Fusco</span> · Strategia Multicanale</div>
+  <div class="footer-links">
+    <a href="https://annafusco.com">annafusco.com</a>
+    <a href="https://instagram.com/annafusco_funnelexpert">Instagram</a>
+    <a href="#">L'Eco delle Sirene</a>
+  </div>
+</div>
+
+<script>
+  const milestones = {
+    maschera: [
+      "Questionario di allineamento completato",
+      "Offerta suite definita e posizionata",
+      "Piano editoriale mensile attivo",
+      "Newsletter impostata e primo invio fatto",
+      "Funnel di lead generation costruito",
+      "Sistema multicanale integrato e funzionante"
+    ],
+    virgilio: [
+      "Questionario di allineamento completato",
+      "Suite di offerte magnetiche definita",
+      "Piano editoriale e tono di voce operativi",
+      "Lista email attiva con automazione di benvenuto",
+      "Funnel di lead generation live",
+      "Primo lancio progettato ed eseguito",
+      "Sistema multicanale autonomo e ottimizzato"
+    ]
+  };
+
+  function renderMilestones(percorso) {
+    const list = document.getElementById('milestone-list');
+    const items = milestones[percorso];
+    list.innerHTML = items.map(m => `
+      <li>
+        <span class="chk" onclick="toggleChk(this)"></span>
+        ${m}
+      </li>
+    `).join('');
+    document.getElementById('prog-count').textContent = '0 / ' + items.length;
+  }
+
+  function toggleChk(el) {
+    el.classList.toggle('done');
+    el.textContent = el.classList.contains('done') ? '✓' : '';
+    updateProgCount();
+  }
+
+  function updateProgCount() {
+    const all = document.querySelectorAll('#milestone-list .chk');
+    const done = document.querySelectorAll('#milestone-list .chk.done');
+    document.getElementById('prog-count').textContent = done.length + ' / ' + all.length;
+  }
+
+  function switchPercorso(id, tab) {
+    // tab
+    document.querySelectorAll('.switcher-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    // panels
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+
+    // header
+    const nomi = { maschera: 'La Maschera di Pulcinella', virgilio: 'Virgilio' };
+    const scadenze = { maschera: '[+ 30 giorni]', virgilio: '[+ 6 mesi]' };
+    document.getElementById('header-percorso').textContent = nomi[id];
+    document.getElementById('header-scadenza').textContent = scadenze[id];
+
+    // benvenuto
+    const benvenuti = {
+      maschera: 'Questo è il tuo spazio operativo per i prossimi <strong>30 giorni</strong>. Qui trovi il programma settimana per settimana, le sessioni da prenotare, i materiali e il tuo log decisioni. Ogni settimana avrai meno domande — è esattamente il punto.',
+      virgilio: 'Questo è il tuo spazio operativo per i prossimi <strong>6 mesi</strong>. Qui trovi le fasi del percorso, le sessioni da prenotare, i materiali per ogni pilastro e il tuo log decisioni. Ogni mese sei più autonoma — è la misura del nostro lavoro.'
+    };
+    document.getElementById('benvenuto-testo').innerHTML = benvenuti[id];
+
+    // milestones
+    renderMilestones(id);
+
+    // scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // init
+  renderMilestones('maschera');
+</script>
+</body>
+</html>
