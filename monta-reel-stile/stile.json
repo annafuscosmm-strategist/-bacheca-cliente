@@ -1,0 +1,80 @@
+{
+ "nome": "Anna (palette soft: sabbia, panna, vinaccia)",
+ "lingua": "it",
+ "font": {
+  "testo": {
+   "famiglia": "Outfit",
+   "pesi": "800",
+   "google": true,
+   "corsivo": false,
+   "file": "outfit-800.woff2"
+  },
+  "accento": {
+   "famiglia": "Playfair Display",
+   "pesi": "700",
+   "google": true,
+   "corsivo": true,
+   "file": "playfair-display-700-italic.woff2"
+  },
+  "mano": {
+   "famiglia": "Caveat",
+   "pesi": "700",
+   "google": true,
+   "file": "caveat-700.woff2"
+  }
+ },
+ "colori": {
+  "testo": "#FFFFFF",
+  "accento": "#E8D3A6",
+  "scheda": "#FBF8F6",
+  "inchiostro": "#2A2626",
+  "secondario": "#A8636A",
+  "evidenzia": "#EED6D3",
+  "sfondo_inserti": "#F3ECE4",
+  "scuro": "#3B2C2E"
+ },
+ "sottotitoli": {
+  "posizione": "centro",
+  "left": 60,
+  "top": 1300,
+  "larghezza": 960,
+  "dimensione": 76,
+  "allineamento": "center",
+  "maiuscolo": false,
+  "parole_per_volta": 1,
+  "accento_scala": 1.25,
+  "accento_corsivo": true,
+  "contorno": "ombra"
+ },
+ "parole_grandi": {
+  "top": 760,
+  "dimensione": 170,
+  "font": "testo",
+  "maiuscolo": false
+ },
+ "titolo": {
+  "riga1_font": "accento",
+  "riga1_dimensione": 108,
+  "riga2_font": "testo",
+  "riga2_dimensione": 140,
+  "top_riga1": 190,
+  "top_riga2": 820,
+  "durata": 3.6
+ },
+ "schede": {
+  "raggio": 34,
+  "tema": "chiaro"
+ },
+ "inserti": {
+  "raggio": 34
+ },
+ "suoni": {
+  "attivi": true,
+  "volume": 0.55
+ },
+ "zoom": {
+  "attivi": true,
+  "forza": 1.08
+ },
+ "animazione": "media"
+}
