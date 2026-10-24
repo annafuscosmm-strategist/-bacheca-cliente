@@ -1,0 +1,25 @@
+    <div id="f0" class="fs">
+      <div class="k">una mia cliente</div>
+      <div class="op">&#8220;</div>
+      <div class="ttl">Era una<br>nebbia.</div>
+      <div class="sub">poi si &#232; diradata</div>
+    </div>
+    <div id="f1" class="fs">
+      <div class="k">grazie al percorso</div>
+      <div class="list">
+        <div class="li" id="f1a"><span class="ck">&#10003;</span>la mia <em>cliente</em></div>
+        <div class="li" id="f1b"><span class="ck">&#10003;</span>le <em>3 macro aree</em></div>
+        <div class="li" id="f1c"><span class="ck">&#10003;</span>la <em>trasformazione</em> che offro</div>
+      </div>
+      <div class="stamp" id="f1s">&#232; cambiato tutto</div>
+    </div>
+    <div id="f2" class="fs">
+      <div class="k">oggi</div>
+      <div class="strikew" id="f2w">la confusione<i id="f2s"></i></div>
+      <div class="big2" id="f2b">non c'&#232; pi&#249;</div>
+    </div>
+    <div id="f3" class="fs">
+      <div class="k">oggi</div>
+      <div class="ttl">So cosa faccio<br>e a chi parlo.</div>
+      <div class="foll" id="f3f">+ Segui &#183; <span class="it">dietro le quinte</span></div>
+    </div>

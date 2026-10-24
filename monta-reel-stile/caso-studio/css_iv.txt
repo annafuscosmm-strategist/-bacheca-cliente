@@ -1,0 +1,21 @@
+.it{font-family:var(--f-accento);font-style:italic;font-weight:var(--w-accento)}
+.lab{position:absolute;left:0;right:0;display:flex;justify-content:center}
+.lab .in{display:flex;align-items:center;gap:12px;padding:16px 36px;border-radius:999px;background:#FFFFFF;color:#2B2724;font-size:40px;font-weight:600;letter-spacing:-.01em;box-shadow:0 14px 34px rgba(90,60,55,.22);white-space:nowrap}
+.lab .in.dark{background:#A8636A;color:#FFF5EF}
+.lab .in .it{color:#A8636A}
+.lab .in.dark .it{color:#FDEEE9}
+.fs{position:absolute;inset:0;background:#F4ECDE;color:#2B2724;opacity:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:150px 90px 300px;text-align:center}
+.fs .k{font-size:36px;letter-spacing:.26em;text-transform:uppercase;color:#A8636A;font-weight:700}
+.fs .ttl{font-family:var(--f-accento);font-style:italic;font-weight:var(--w-accento);font-size:128px;line-height:1.0;color:#2B2724}
+.fs .sub{font-family:var(--f-accento);font-style:italic;font-size:52px;color:#A8636A}
+.fs .op{font-family:var(--f-accento);font-style:italic;font-size:120px;color:rgba(43,39,36,.12);line-height:.5;height:60px}
+.fs .list{display:flex;flex-direction:column;gap:26px;margin-top:6px}
+.fs .li{display:flex;align-items:center;gap:20px;justify-content:center;font-family:var(--f-testo);font-weight:600;font-size:62px;letter-spacing:-.02em;color:#2B2724;opacity:0}
+.fs .li .ck{width:54px;height:54px;flex:none;border-radius:50%;background:#A8636A;color:#FFF5EF;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800}
+.fs .li em{font-family:var(--f-accento);font-style:italic;font-weight:var(--w-accento);color:#A8636A}
+.fs .stamp{margin-top:14px;padding:16px 42px;border:6px solid #A8636A;border-radius:18px;color:#A8636A;font-family:var(--f-testo);font-weight:var(--w-testo);font-size:80px;transform:rotate(-4deg);opacity:0;box-shadow:0 12px 30px rgba(90,60,55,.22)}
+.fs .strikew{position:relative;display:inline-block;font-family:var(--f-accento);font-style:italic;font-weight:var(--w-accento);font-size:118px;color:rgba(43,39,36,.38)}
+.fs .strikew i{position:absolute;left:-10px;right:-10px;top:54%;height:9px;background:#A8636A;transform-origin:0 50%;transform:scaleX(0);border-radius:5px}
+.fs .big2{font-family:var(--f-testo);font-weight:var(--w-testo);font-size:118px;color:#2B2724;opacity:0;letter-spacing:-.02em}
+.fs .foll{margin-top:34px;padding:18px 46px;border-radius:999px;background:#A8636A;color:#FFF5EF;font-size:46px;font-weight:600;opacity:0}
+.fs .foll .it{color:#FDEEE9}

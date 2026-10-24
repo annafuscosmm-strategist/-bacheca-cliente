@@ -1,0 +1,14 @@
+  const fsin=(s,t)=>tl.fromTo(s,{opacity:0},{opacity:1,duration:.4,ease:'power2.out',immediateRender:false},t);
+  const fsout=(s,t)=>tl.to(s,{opacity:0,duration:.4,ease:'power2.in'},t);
+  const li=(s,t)=>tl.fromTo(s,{opacity:0,y:26},{opacity:1,y:0,duration:.5,ease:'power2.out',immediateRender:false},t);
+  const labin=(s,t)=>tl.fromTo(s,{opacity:0,y:-20},{opacity:1,y:0,duration:.4,ease:'power2.out',immediateRender:false},t);
+  const labout=(s,t)=>tl.to(s,{opacity:0,y:-16,duration:.3,ease:'power2.in'},t);
+  const spop=(s,t)=>tl.fromTo(s,{opacity:0,scale:1.3,rotation:-4},{opacity:1,scale:1,rotation:-4,duration:.4,ease:'back.out(2)',immediateRender:false},t);
+  fsin('#f0',0.0); fsout('#f0',2.8);
+  labin('#l0',11.3); labout('#l0',17.6);
+  fsin('#f1',17.9); li('#f1a',20.4); li('#f1b',23.2); li('#f1c',25.6); spop('#f1s',30.8); fsout('#f1',31.7);
+  labin('#l1',32.3); labout('#l1',42.6);
+  labin('#l2',44.0); labout('#l2',46.1);
+  fsin('#f2',46.3); tl.fromTo('#f2s',{scaleX:0},{scaleX:1,duration:.4,ease:'power2.out',immediateRender:false},46.9);
+  tl.fromTo('#f2b',{opacity:0,y:24},{opacity:1,y:0,duration:.45,ease:'back.out(1.6)',immediateRender:false},48.2); fsout('#f2',49.7);
+  fsin('#f3',50.6); tl.fromTo('#f3f',{opacity:0,scale:.8},{opacity:1,scale:1,duration:.4,ease:'back.out(1.8)',immediateRender:false},55.5);
