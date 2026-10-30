@@ -1,9 +1,7 @@
 # File di lavoro pesanti/intermedi dei reel (non versionati)
 reel/_sorgenti_dl/
 reel/**/export/
-reel/**/check/
-reel/**/check2/
-reel/**/check3/
+reel/**/check*/
 *.mp4
 *.wav
 *.log
