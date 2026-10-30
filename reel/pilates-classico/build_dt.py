@@ -11,7 +11,7 @@ cues = [
  (22.72,24.80, "Beh, io credo", "nel cambiamento."),
  (24.80,29.10, "Credo nel restare aggiornati", "con la scienza."),
  (29.20,32.20, "E molto di ciò che faceva Joe,", None),
- (32.20,34.80, "con rispetto e amore", "per la mia maestra,"),
+ (32.20,34.80, "con rispetto e amore", "per il mio maestro,"),
  (34.88,37.30, "non era scientifico.", None),
  (37.36,40.20, "Joe non era un medico.", None),
  (40.32,43.80, "Joe non aveva", "una formazione scientifica."),
