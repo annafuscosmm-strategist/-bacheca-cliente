@@ -22,3 +22,9 @@ bash render3.sh            # produce export/reel-v3.mp4
 ## Note
 - NON usare libass/filtro `subtitles` con file .ass: con molti sottotitoli compare una virgola fantasma a inizio riga (bug libass). Usare `drawtext` (già impostato in `build_dt.py`).
 - Trascrizione: `hyperframes transcribe -e parakeet` (trascrive la lingua parlata anche con `-l es`).
+
+## Parte inferiore dinamica (b-roll in movimento)
+La cliente era quasi sempre ferma in un tratto continuo. Soluzione: analizzato il movimento su tutto video2 (YDIF via signalstats) e selezionati solo gli spezzoni in movimento, montati con tagli netti.
+- `build_montage.sh` — rigenera `bottom_montage.mp4` dagli spezzoni scelti (124-146, 197-220, 249-278, 674-681, 696-717, 722-727.5).
+- `filter_dyn_montage.txt` — compone usando `bottom_montage.mp4` come parte inferiore.
+- `render6.sh` — render finale.
