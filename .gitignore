@@ -2,3 +2,11 @@
 reel/reference/
 # Cartelle di lavoro dei reel (video pesanti, rigenerabili)
 reel/
+
+# Promo agenzia: output e file rigenerabili (restano in locale)
+agenzia-promo/progetto/export/
+agenzia-promo/progetto/snapshots/
+agenzia-promo/progetto/assets/sfx/
+agenzia-promo/progetto/assets/sfx.wav
+# Video di riferimento di altri creator
+agenzia-promo/ispirazione/ispo.mp4

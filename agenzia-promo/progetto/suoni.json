@@ -1,0 +1,10 @@
+{"cue":[
+ {"t":0.45,"suono":"whoosh-short","vol":0.5},
+ {"t":0.4,"suono":"whoosh-cinematic","vol":0.4},
+ {"t":3.0,"suono":"whoosh-short","vol":0.45},
+ {"t":5.6,"suono":"whoosh-short","vol":0.45},
+ {"t":8.2,"suono":"whoosh-short","vol":0.45},
+ {"t":10.45,"suono":"riser","vol":0.45},
+ {"t":10.95,"suono":"impact-bass-1","vol":0.55},
+ {"t":11.35,"suono":"sparkle","vol":0.3}
+]}
