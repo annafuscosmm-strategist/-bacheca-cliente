@@ -62,6 +62,8 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#161312}
 #wm{margin-top:8px;font-family:'Outfit',sans-serif;font-weight:800;color:var(--ink);font-size:58px;letter-spacing:.14em;opacity:0}
 #claimfin{margin-top:26px;font-family:'Playfair',serif;font-style:italic;font-weight:700;color:var(--bordeaux);font-size:60px;line-height:1.12;text-align:center;opacity:0}
 #ctaf{margin-top:50px;font-family:'Outfit',sans-serif;font-weight:800;color:var(--avorio);background:var(--ink);padding:22px 48px;border-radius:999px;font-size:40px;opacity:0}
+#ctaf b{color:var(--oro2);letter-spacing:.04em}
+#ctasub{margin-top:16px;font-family:'Playfair',serif;font-style:italic;font-weight:700;color:var(--bordeaux);font-size:40px;opacity:0}
 #finsea{position:absolute;left:0;bottom:0;width:1080px;height:300px;opacity:0;overflow:hidden}
 #finsea svg{position:absolute;width:2160px;height:300px;overflow:visible}
 #finsea path{fill:none;stroke:var(--oro);stroke-linecap:round;stroke-width:4}
@@ -120,7 +122,8 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#161312}
     <img id="logo" src="assets/logo.png" />
     <div id="wm">MARKETING&nbsp;VERACE</div>
     <div id="claimfin">Dal territorio.<br/>Per chi lo vive.</div>
-    <div id="ctaf">Scrivici in DM</div>
+    <div id="ctaf">Scrivimi <b>VERACE</b></div>
+    <div id="ctasub">per fissare una call</div>
     <div id="finsea"><svg viewBox="0 0 2160 300"><path id="fs1" d=""/><path id="fs2" d="" style="opacity:.6;stroke-width:3"/></svg></div>
   </div>
 </div>
@@ -188,6 +191,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#161312}
   tl.fromTo('#wm',{opacity:0,y:16},{opacity:1,y:0,duration:.45,ease:'power2.out'},F+1.1);
   tl.fromTo('#claimfin',{opacity:0,y:14},{opacity:1,y:0,duration:.5,ease:'power2.out'},F+1.3);
   tl.fromTo('#ctaf',{opacity:0,scale:.82},{opacity:1,scale:1,duration:.45,ease:'back.out(2)'},F+1.6);
+  tl.fromTo('#ctasub',{opacity:0,y:10},{opacity:1,y:0,duration:.4,ease:'power2.out'},F+1.85);
 
   window.__timelines=window.__timelines||{};
   window.__timelines['main']=tl;
