@@ -42,13 +42,12 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#F1E6D1}
 .fade.t{top:0;background:linear-gradient(#F1E6D1,rgba(241,230,209,0))}
 .fade.b{bottom:0;background:linear-gradient(0deg,#ECDFC6,rgba(236,223,198,0))}
 
-#card{position:absolute;z-index:4;left:70px;right:70px;top:640px;background:var(--panna2);
-  border:3px solid rgba(33,30,29,.1);border-radius:54px;padding:72px 56px 64px;text-align:center;
-  box-shadow:0 40px 90px rgba(60,40,15,.22),0 10px 24px rgba(60,40,15,.12)}
-#card .kick{font-family:'Outfit',sans-serif;font-weight:800;color:var(--oro2);font-size:34px;letter-spacing:.22em;margin-bottom:26px}
-#card .h{font-family:'Outfit',sans-serif;font-weight:800;color:var(--ink);font-size:84px;line-height:1.04;letter-spacing:-.02em}
+#card{position:absolute;z-index:4;left:50px;right:50px;top:700px;text-align:center}
+#card .h{font-family:'Outfit',sans-serif;font-weight:800;color:var(--ink);font-size:100px;line-height:1.04;letter-spacing:-.025em;
+  text-shadow:0 0 30px rgba(244,235,217,.96),0 0 16px rgba(244,235,217,.98),0 0 9px rgba(244,235,217,1),0 3px 10px rgba(244,235,217,.95),0 2px 3px rgba(80,55,20,.16)}
 #card .h .b{color:var(--bordeaux)}
-#card .sub{margin-top:26px;font-family:'Playfair',serif;font-style:italic;font-weight:700;color:var(--oro2);font-size:46px}
+#card .sub{margin-top:30px;font-family:'Playfair',serif;font-style:italic;font-weight:700;color:var(--oro2);font-size:58px;
+  text-shadow:0 0 26px rgba(244,235,217,.96),0 0 14px rgba(244,235,217,.98),0 0 8px rgba(244,235,217,1),0 2px 6px rgba(244,235,217,.95)}
 #tapwrap{position:absolute;z-index:6;left:0;top:0;width:0;height:0}
 #tap{position:absolute;left:-30px;top:-16px;width:92px;height:92px}
 #tap svg{width:92px;height:92px;fill:var(--ink);filter:drop-shadow(0 6px 12px rgba(0,0,0,.28))}
@@ -64,7 +63,6 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#F1E6D1}
   <div class="fade b"></div>
 
   <div id="card">
-    <div class="kick">MARKETING VERACE</div>
     <div class="h">Clicca sulla <span class="b">cifra</span><br/>che desideri</div>
     <div class="sub">e leggi la descrizione</div>
   </div>
@@ -110,10 +108,8 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#F1E6D1}
   });
 
   // card entrance
-  tl.fromTo('#card',{opacity:0,scale:.86,y:24},{opacity:1,scale:1,y:0,duration:.7,ease:'back.out(1.5)'},0.15);
-  tl.fromTo('#card .kick',{opacity:0,y:-10},{opacity:1,y:0,duration:.4},0.4);
-  tl.fromTo('#card .h',{opacity:0,y:14},{opacity:1,y:0,duration:.5},0.5);
-  tl.fromTo('#card .sub',{opacity:0,y:10},{opacity:1,y:0,duration:.45},0.7);
+  tl.fromTo('#card .h',{opacity:0,y:16},{opacity:1,y:0,duration:.6,ease:'power3.out'},0.3);
+  tl.fromTo('#card .sub',{opacity:0,y:12},{opacity:1,y:0,duration:.5,ease:'power2.out'},0.55);
 
   // hand roams the whole screen in an ellipse + ghirigoro, as if searching for a figure
   const tw=document.getElementById('tapwrap');
