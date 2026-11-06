@@ -1,0 +1,8 @@
+{"cue":[
+ {"t":0.15,"suono":"whoosh-short","vol":0.3},
+ {"t":1.6,"suono":"click-soft","vol":0.4},
+ {"t":3.4,"suono":"click-soft","vol":0.4},
+ {"t":5.2,"suono":"click-soft","vol":0.4},
+ {"t":7.0,"suono":"click-soft","vol":0.4},
+ {"t":8.8,"suono":"click-soft","vol":0.4}
+]}
