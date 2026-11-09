@@ -1,0 +1,5 @@
+# Workspace reel — escludi artefatti pesanti e rigenerabili
+reel/*/node_modules/
+reel/*/build/*.mp4
+reel/*/build/_f_*.png
+reel/*/assets/fonts/*.css
