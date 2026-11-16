@@ -12,5 +12,5 @@
 [s7]drawtext=fontfile=fonts/DMSerifDisplay.ttf:textfile=work/reel2/cues/c_08.txt:expansion=none:text_align=C:fontcolor=white:fontsize=52:borderw=5:bordercolor=0x7a1f2b:shadowcolor=black@0.5:shadowx=2:shadowy=3:line_spacing=10:x=(w-text_w)/2:y=1470-text_h:enable='between(t,43.1,46.3)'[s8];
 [s8]drawtext=fontfile=fonts/DMSerifDisplay.ttf:textfile=work/reel2/cues/c_09.txt:expansion=none:text_align=C:fontcolor=white:fontsize=52:borderw=5:bordercolor=0x7a1f2b:shadowcolor=black@0.5:shadowx=2:shadowy=3:line_spacing=10:x=(w-text_w)/2:y=1470-text_h:enable='between(t,46.3,50.8)'[s9];
 [s9]tpad=stop_mode=clone:stop_duration=3.0[cte];
-[cte]drawbox=x=0:y=820:w=1080:h=280:color=black@0.45:t=fill[cte2];
+[cte]drawbox=x=0:y=820:w=1080:h=280:color=black@0.45:t=fill:enable='gte(t,51.5)'[cte2];
 [cte2]drawtext=fontfile=fonts/DMSerifDisplay.ttf:textfile=work/reel2/outro.txt:expansion=none:text_align=C:fontcolor=white:fontsize=60:borderw=5:bordercolor=0x7a1f2b:line_spacing=12:shadowcolor=black@0.6:shadowx=2:shadowy=3:x=(w-text_w)/2:y=890:enable='gte(t,51.5)'[outv]

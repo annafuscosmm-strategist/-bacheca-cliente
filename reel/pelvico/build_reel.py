@@ -42,7 +42,7 @@ if cfg.get("outro"):
     open(f"{d}/outro.txt","w",encoding="utf-8").write(cfg["outro"])
     F.append(f"[{cur}]tpad=stop_mode=clone:stop_duration={OUTRO}[cte]")
     dur=cfg["dur"]
-    F.append(f"[cte]drawbox=x=0:y=820:w=1080:h=280:color=black@0.45:t=fill[cte2]")
+    F.append(f"[cte]drawbox=x=0:y=820:w=1080:h=280:color=black@0.45:t=fill:enable='gte(t,{dur})'[cte2]")
     F.append(f"[cte2]drawtext=fontfile={FONT}:textfile={d}/outro.txt:expansion=none:text_align=C:"
              f"fontcolor=white:fontsize=60:borderw=5:bordercolor=0x7a1f2b:line_spacing=12:"
              f"shadowcolor=black@0.6:shadowx=2:shadowy=3:x=(w-text_w)/2:y=890:"
