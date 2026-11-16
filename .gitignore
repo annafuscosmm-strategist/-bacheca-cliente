@@ -13,3 +13,6 @@ reel/pilates-classico/cues/_prova.txt
 reel/pilates-classico/cues/test.txt
 reel/fonts/
 analisi/
+reel/pelvico/tr/
+reel/pelvico/work/**/*.log
+reel/pelvico/work/render_all.log
