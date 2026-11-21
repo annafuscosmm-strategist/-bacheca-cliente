@@ -19,14 +19,12 @@
 <style>
 @font-face{font-family:'Outfit';src:url('assets/fonts/outfit-800.woff2') format('woff2');font-weight:800;font-style:normal;font-display:block}
 @font-face{font-family:'Playfair';src:url('assets/fonts/playfair-display-700-italic.woff2') format('woff2');font-weight:700;font-style:italic;font-display:block}
-:root{--avorio:#F3ECDC;--avorio2:#ECE2CB;--bordeaux:#7E1710;--bordeaux2:#5C0E08;--oro:#C4AA77;--oro2:#D9C291;--ink:#232019;--cream:#F4ECD6}
+:root{--avorio:#F3ECDC;--bordeaux:#7E1710;--oro:#C4AA77;--oro2:#D9C291;--ink:#232019;--cream:#F4ECD6}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1080px;height:1920px;overflow:hidden;background:#F3ECDC}
 #root{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Outfit',sans-serif;background:#F3ECDC}
-.scene{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
-.pop{display:flex;align-items:center;justify-content:center;flex-direction:column;width:100%;height:100%}
-
-/* ambient bg for TV scenes */
+.scene{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center}
+.pop{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .bg-avorio{background:radial-gradient(120% 80% at 50% 26%, #F7F1E3 0%, #F0E7D2 55%, #E7DBBE 100%)}
 
 /* retro TV */
@@ -38,47 +36,38 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#F3ECDC}
   background:radial-gradient(130% 110% at 50% 16%, #F6EFD8, #E7DBBC 72%, #D8C9A4);
   box-shadow:inset 0 0 46px rgba(90,60,20,.42),inset 0 0 0 7px rgba(40,20,8,.18)}
 .screen .word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:'Outfit';font-weight:800;color:#7E1710;font-size:112px;letter-spacing:.01em}
+  font-family:'Outfit';font-weight:800;color:#7E1710;font-size:104px;letter-spacing:.01em;text-align:center;line-height:.98;padding:0 24px}
 .screen .scan{position:absolute;inset:0;background:repeating-linear-gradient(rgba(0,0,0,.05) 0 2px,transparent 2px 5px)}
 .screen .glare{position:absolute;top:-30px;left:-40px;width:66%;height:60%;border-radius:40px;
   background:linear-gradient(135deg,rgba(255,255,255,.55),transparent 66%)}
 .panel{display:flex;align-items:center;gap:26px;margin:34px 16px 0}
-.grille{flex:1;height:76px;border-radius:16px;background:
-  repeating-linear-gradient(rgba(0,0,0,.26) 0 5px, rgba(255,255,255,.05) 5px 12px);
-  box-shadow:inset 0 0 0 2px rgba(0,0,0,.2)}
-.knob{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 36% 30%, #E6CE92, #C4AA77 58%, #937b45);
-  box-shadow:0 8px 16px rgba(0,0,0,.4),inset 0 -5px 10px rgba(0,0,0,.35)}
+.grille{flex:1;height:76px;border-radius:16px;background:repeating-linear-gradient(rgba(0,0,0,.26) 0 5px, rgba(255,255,255,.05) 5px 12px);box-shadow:inset 0 0 0 2px rgba(0,0,0,.2)}
+.knob{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 36% 30%, #E6CE92, #C4AA77 58%, #937b45);box-shadow:0 8px 16px rgba(0,0,0,.4),inset 0 -5px 10px rgba(0,0,0,.35)}
 .knob.sm{width:54px;height:54px}
 .leg{position:absolute;bottom:-24px;width:70px;height:30px;border-radius:0 0 16px 16px;background:#3f0b06}
 .leg.l{left:120px}.leg.r{right:120px}
 
-/* role cards (full screen textures) */
-.card{position:absolute;inset:0}
-.card .label{position:absolute;left:80px;bottom:150px;font-family:'Outfit';font-weight:800;font-size:150px;letter-spacing:-.02em}
+/* role cards */
+.card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.label{text-align:center;padding:0 70px;line-height:1.0;letter-spacing:-.02em;font-family:'Outfit';font-weight:800}
+.label.it{font-family:'Playfair';font-style:italic;font-weight:700;letter-spacing:0;line-height:1.04}
 .tex-bordeaux{background:
   radial-gradient(40% 30% at 22% 20%, rgba(255,150,120,.14), transparent 60%),
   radial-gradient(44% 34% at 82% 72%, rgba(0,0,0,.28), transparent 60%),
   radial-gradient(60% 50% at 60% 40%, rgba(255,170,140,.08), transparent 70%),
   linear-gradient(150deg,#8A1D14,#7E1710 50%,#5C0E08)}
-.tex-oro{background:
-  repeating-linear-gradient(90deg, #C9AF7C 0 10px, #BBA06B 10px 20px),
-  linear-gradient(#C4AA77,#C4AA77)}
-.tex-ink{background:
-  radial-gradient(60% 40% at 50% 12%, rgba(196,170,119,.12), transparent 60%),
-  linear-gradient(160deg,#2b271f,#232019 60%,#17140f)}
+.tex-oro{background:repeating-linear-gradient(90deg, #C9AF7C 0 10px, #BBA06B 10px 20px),linear-gradient(#C4AA77,#C4AA77)}
+.tex-ink{background:radial-gradient(60% 40% at 50% 12%, rgba(196,170,119,.12), transparent 60%),linear-gradient(160deg,#2b271f,#232019 60%,#17140f)}
 .grain{position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;background-image:
   radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.5), transparent),
   radial-gradient(1px 1px at 70% 60%, rgba(0,0,0,.5), transparent),
   radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,.4), transparent),
   radial-gradient(1px 1px at 85% 25%, rgba(0,0,0,.4), transparent);background-size:140px 140px,180px 180px,120px 120px,160px 160px}
 
-/* hero card */
 .hero{background:radial-gradient(120% 90% at 50% 20%, #9A2619, #7E1710 52%, #4e0c06);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.hero .h{font-family:'Outfit';font-weight:800;color:#F4ECD6;font-size:118px;line-height:1.02;letter-spacing:-.02em;text-align:center}
+.hero .h{font-family:'Outfit';font-weight:800;color:#F4ECD6;font-size:124px;line-height:1.0;letter-spacing:-.02em}
 .hero .h .o{color:var(--oro2)}
-.hero .sub{margin-top:26px;font-family:'Playfair';font-style:italic;font-weight:700;color:#F4ECD6;font-size:64px}
 
-/* logo card */
 .logocard{background:radial-gradient(120% 80% at 50% 30%, #F7F1E3, #EEE3CB 70%, #E4D7B8);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 #logo{width:560px}
 .wm{margin-top:12px;font-family:'Outfit';font-weight:800;color:var(--ink);font-size:62px;letter-spacing:.14em}
@@ -86,78 +75,51 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#F3ECDC}
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="13.5" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="14.5" data-width="1080" data-height="1920">
 
-  <!-- S1 TV NON -->
-  <div class="scene bg-avorio" id="s0"><div class="pop"><div class="tv"><div class="tvbody">
-    <div class="screen"><div class="glare"></div><div class="word">NON</div><div class="scan"></div></div>
-    <div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div>
-    <div class="leg l"></div><div class="leg r"></div></div></div></div></div>
+  <!-- TV words -->
+  <div class="scene bg-avorio tvscene" id="s0"><div class="pop"><div class="tv"><div class="tvbody"><div class="screen"><div class="glare"></div><div class="word">NON</div><div class="scan"></div></div><div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div><div class="leg l"></div><div class="leg r"></div></div></div></div></div>
+  <div class="scene bg-avorio tvscene" id="s1"><div class="pop"><div class="tv"><div class="tvbody"><div class="screen"><div class="glare"></div><div class="word">SONO</div><div class="scan"></div></div><div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div><div class="leg l"></div><div class="leg r"></div></div></div></div></div>
+  <div class="scene bg-avorio tvscene" id="s2"><div class="pop"><div class="tv"><div class="tvbody"><div class="screen"><div class="glare"></div><div class="word">SOLO</div><div class="scan"></div></div><div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div><div class="leg l"></div><div class="leg r"></div></div></div></div></div>
+  <div class="scene bg-avorio tvscene" id="s3"><div class="pop"><div class="tv"><div class="tvbody"><div class="screen"><div class="glare"></div><div class="word" style="font-size:76px">UN'AGENZIA</div><div class="scan"></div></div><div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div><div class="leg l"></div><div class="leg r"></div></div></div></div></div>
+  <div class="scene bg-avorio tvscene" id="s4"><div class="pop"><div class="tv"><div class="tvbody"><div class="screen"><div class="glare"></div><div class="word">SONO</div><div class="scan"></div></div><div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div><div class="leg l"></div><div class="leg r"></div></div></div></div></div>
+  <div class="scene bg-avorio tvscene" id="s5"><div class="pop"><div class="tv"><div class="tvbody"><div class="screen"><div class="glare"></div><div class="word" style="font-size:88px">LA TUA…</div><div class="scan"></div></div><div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div><div class="leg l"></div><div class="leg r"></div></div></div></div></div>
 
-  <!-- S2 TV SOLO -->
-  <div class="scene bg-avorio" id="s1"><div class="pop"><div class="tv"><div class="tvbody">
-    <div class="screen"><div class="glare"></div><div class="word">SOLO</div><div class="scan"></div></div>
-    <div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div>
-    <div class="leg l"></div><div class="leg r"></div></div></div></div></div>
+  <!-- role cards -->
+  <div class="scene" id="s6"><div class="pop"><div class="card tex-bordeaux"><div class="grain"></div><div class="label" style="color:#F4ECD6;font-size:118px">Social<br/>Media<br/>Manager.</div></div></div></div>
+  <div class="scene" id="s7"><div class="pop"><div class="card tex-oro"><div class="grain"></div><div class="label" style="color:#2a2113;font-size:132px">Content<br/>Creator.</div></div></div></div>
+  <div class="scene" id="s8"><div class="pop"><div class="card tex-ink"><div class="grain"></div><div class="label it" style="color:#F3ECDC;font-size:150px">Copywriter.</div></div></div></div>
+  <div class="scene" id="s9"><div class="pop"><div class="card tex-bordeaux"><div class="grain"></div><div class="label it" style="color:#F4ECD6;font-size:150px">Web<br/>Designer.</div></div></div></div>
+  <div class="scene" id="s10"><div class="pop"><div class="card tex-oro"><div class="grain"></div><div class="label it" style="color:#2a2113;font-size:148px">Storyteller.</div></div></div></div>
+  <div class="scene" id="s11"><div class="pop"><div class="card tex-ink"><div class="grain"></div><div class="label it" style="color:#F3ECDC;font-size:150px">In pratica…</div></div></div></div>
 
-  <!-- S3 Social -->
-  <div class="scene" id="s2"><div class="pop"><div class="card tex-bordeaux"><div class="grain"></div><div class="label" style="color:#F4ECD6">Social.</div></div></div></div>
-  <!-- S4 Content -->
-  <div class="scene" id="s3"><div class="pop"><div class="card tex-oro"><div class="grain"></div><div class="label" style="color:#2a2113">Content.</div></div></div></div>
-  <!-- S5 Web -->
-  <div class="scene" id="s4"><div class="pop"><div class="card tex-ink"><div class="grain"></div><div class="label" style="color:#F3ECDC">Web.</div></div></div></div>
+  <!-- hero -->
+  <div class="scene" id="s12"><div class="pop"><div class="card hero"><div class="grain"></div><div class="h">La tua partner<br/><span class="o">a 360°!</span></div></div></div></div>
 
-  <!-- S6 TV MA -->
-  <div class="scene bg-avorio" id="s5"><div class="pop"><div class="tv"><div class="tvbody">
-    <div class="screen"><div class="glare"></div><div class="word">MA</div><div class="scan"></div></div>
-    <div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div>
-    <div class="leg l"></div><div class="leg r"></div></div></div></div></div>
-
-  <!-- S7 TV SONO -->
-  <div class="scene bg-avorio" id="s6"><div class="pop"><div class="tv"><div class="tvbody">
-    <div class="screen"><div class="glare"></div><div class="word">SONO</div><div class="scan"></div></div>
-    <div class="panel"><div class="grille"></div><div class="knob"></div><div class="knob sm"></div></div>
-    <div class="leg l"></div><div class="leg r"></div></div></div></div></div>
-
-  <!-- S8 hero -->
-  <div class="scene" id="s7"><div class="pop"><div class="card hero"><div class="grain"></div>
-    <div class="h">La tua partner<br/><span class="o">a 360°</span></div>
-    <div class="sub">verace.</div></div></div></div>
-
-  <!-- S9 logo -->
-  <div class="scene" id="s8"><div class="pop"><div class="card logocard">
-    <img id="logo" src="assets/logo.png" />
-    <div class="wm">MARKETING&nbsp;VERACE</div>
-    <div class="tl">strategia · social · content · web</div>
-  </div></div></div>
+  <!-- logo -->
+  <div class="scene" id="s13"><div class="pop"><div class="card logocard"><img id="logo" src="assets/logo.png" /><div class="wm">MARKETING&nbsp;VERACE</div><div class="tl">strategia · social · content · web</div></div></div></div>
 
 </div>
 
 <script>
 (function(){
-  const beats=[0.2,1.25,2.35,3.45,4.55,5.65,6.75,7.9,10.0]; // s0..s8 start times
-  const end=13.5;
+  const beats=[0.2,0.9,1.6,2.3,3.05,3.75,4.5,5.6,6.7,7.8,8.9,10.0,11.1,12.9];
+  const end=14.5;
+  const N=14;
   const tl=gsap.timeline({paused:true});
-  const N=9;
   for(let i=0;i<N;i++){
     const s='#s'+i, t=beats[i], tnext=(i<N-1?beats[i+1]:end);
     gsap.set(s,{opacity:0});
     tl.set(s,{opacity:1},t);
     if(i<N-1) tl.set(s,{opacity:0},tnext);
-    // pop on the content
-    tl.fromTo(s+' .pop',{scale:1.05,opacity:0.2},{scale:1,opacity:1,duration:.42,ease:'power3.out'},t);
+    tl.fromTo(s+' .pop',{scale:1.05,opacity:0.2},{scale:1,opacity:1,duration:.4,ease:'power3.out'},t);
   }
-  // TV word flash-in (quick scale) for TV scenes 0,1,5,6
-  [0,1,5,6].forEach(i=>{ tl.fromTo('#s'+i+' .word',{opacity:0,scale:.6},{opacity:1,scale:1,duration:.28,ease:'back.out(2.4)'},beats[i]+.08); });
-  // card label slide-up for 2,3,4
-  [2,3,4].forEach(i=>{ tl.fromTo('#s'+i+' .label',{y:60,opacity:0},{y:0,opacity:1,duration:.5,ease:'power3.out'},beats[i]+.06); });
-  // hero text
-  tl.fromTo('#s7 .h',{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:'back.out(1.7)'},beats[7]+.1);
-  tl.fromTo('#s7 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.4},beats[7]+.45);
-  // logo card
-  tl.fromTo('#s8 #logo',{opacity:0,scale:.8,y:18},{opacity:1,scale:1,y:0,duration:.6,ease:'back.out(1.6)'},beats[8]+.15);
-  tl.fromTo('#s8 .wm',{opacity:0,y:14},{opacity:1,y:0,duration:.45},beats[8]+.5);
-  tl.fromTo('#s8 .tl',{opacity:0,y:12},{opacity:1,y:0,duration:.4},beats[8]+.7);
+  [0,1,2,3,4,5].forEach(i=>{ tl.fromTo('#s'+i+' .word',{opacity:0,scale:.55},{opacity:1,scale:1,duration:.26,ease:'back.out(2.4)'},beats[i]+.06); });
+  [6,7,8,9,10,11].forEach(i=>{ tl.fromTo('#s'+i+' .label',{y:50,opacity:0},{y:0,opacity:1,duration:.46,ease:'power3.out'},beats[i]+.05); });
+  tl.fromTo('#s12 .h',{opacity:0,scale:.82},{opacity:1,scale:1,duration:.5,ease:'back.out(1.7)'},beats[12]+.1);
+  tl.fromTo('#s13 #logo',{opacity:0,scale:.8,y:18},{opacity:1,scale:1,y:0,duration:.6,ease:'back.out(1.6)'},beats[13]+.15);
+  tl.fromTo('#s13 .wm',{opacity:0,y:14},{opacity:1,y:0,duration:.45},beats[13]+.5);
+  tl.fromTo('#s13 .tl',{opacity:0,y:12},{opacity:1,y:0,duration:.4},beats[13]+.7);
 
   window.__timelines=window.__timelines||{};
   window.__timelines['main']=tl;
