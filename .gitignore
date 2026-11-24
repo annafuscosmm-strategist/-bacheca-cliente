@@ -57,3 +57,8 @@ agenzia-promo/grinch/export/
 agenzia-promo/grinch/snapshots/
 agenzia-promo/grinch/assets/sfx/
 agenzia-promo/grinch/assets/sfx.wav
+# Promo agenzia — Befana: output rigenerabili
+agenzia-promo/befana/export/
+agenzia-promo/befana/snapshots/
+agenzia-promo/befana/assets/sfx/
+agenzia-promo/befana/assets/sfx.wav
