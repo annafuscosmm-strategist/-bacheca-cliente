@@ -52,3 +52,8 @@ agenzia-promo/elfo/export/
 agenzia-promo/elfo/snapshots/
 agenzia-promo/elfo/assets/sfx/
 agenzia-promo/elfo/assets/sfx.wav
+# Promo agenzia — Grinch: output rigenerabili
+agenzia-promo/grinch/export/
+agenzia-promo/grinch/snapshots/
+agenzia-promo/grinch/assets/sfx/
+agenzia-promo/grinch/assets/sfx.wav
