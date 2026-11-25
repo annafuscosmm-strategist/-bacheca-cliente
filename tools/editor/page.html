@@ -1,0 +1,272 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Verace Studio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Caveat:wght@700&display=swap">
+<style>
+/* Studio editor — warm editorial palette, theme-aware. Layout: header · [preview | tabbed panel] · timeline. */
+:root{
+  --bg:#ECE3D3; --bg2:#E3D8C4; --panel:#FDF9F1; --panel2:#F6EDDD; --fg:#2A2621; --muted:#8c8173;
+  --line:#e6dcc8; --line2:#d8ccb4; --accent:#B5863A; --accent2:#A8636A; --ink:#2B2724;
+  --danger:#AC3F3F; --ok:#3E7A54; --stage:#1c1815; --chip:#efe4cf;
+  --grad:linear-gradient(135deg,#C7A45E,#A8636A);
+  --shadow:0 10px 30px -12px rgba(70,50,25,.35); --shadow-sm:0 2px 10px -4px rgba(70,50,25,.3);
+  --r:16px; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1a1613; --bg2:#141009; --panel:#26211d; --panel2:#2f2925; --fg:#F2E8D6; --muted:#a99e8d;
+  --line:#352f28; --line2:#433c33; --accent:#E0C488; --accent2:#CE8D97; --ink:#F2E8D6;
+  --danger:#d96a6a; --ok:#6fae86; --stage:#100c0a; --chip:#352f28;
+  --shadow:0 12px 34px -14px rgba(0,0,0,.6); --shadow-sm:0 2px 12px -4px rgba(0,0,0,.5); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#1a1613; --bg2:#141009; --panel:#26211d; --panel2:#2f2925; --fg:#F2E8D6; --muted:#a99e8d;
+  --line:#352f28; --line2:#433c33; --accent:#E0C488; --accent2:#CE8D97; --ink:#F2E8D6;
+  --danger:#d96a6a; --ok:#6fae86; --stage:#100c0a; --chip:#352f28;
+  --shadow:0 12px 34px -14px rgba(0,0,0,.6); --shadow-sm:0 2px 12px -4px rgba(0,0,0,.5); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:
+  radial-gradient(900px 400px at 85% -8%, color-mix(in srgb,var(--accent) 16%,transparent), transparent 60%),
+  radial-gradient(800px 420px at 0% 110%, color-mix(in srgb,var(--accent2) 14%,transparent), transparent 55%),
+  var(--bg);
+  color:var(--fg);font-family:'Outfit',system-ui,sans-serif;margin:0;min-height:100%}
+.app{display:flex;flex-direction:column;gap:14px;max-width:1420px;margin:0 auto;min-height:100%;
+  padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px));padding-block:14px}
+h1,h2,h3,h4{margin:0;font-weight:800;text-wrap:balance}
+button{font-family:inherit;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line2);background:var(--panel);color:var(--fg);
+  padding:9px 13px;border-radius:12px;font-weight:700;font-size:13.5px;transition:.14s;white-space:nowrap}
+.btn:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.btn.accent{background:var(--grad);border:none;color:#2a2113;font-weight:800}
+.btn.ghost{background:transparent;border-color:transparent}
+.btn.ghost:hover{background:var(--panel)}
+.btn.danger{color:#fff;background:var(--danger);border-color:var(--danger)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:9px}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.ico{width:16px;height:16px;flex:0 0 auto}
+
+/* header */
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
+  border-radius:20px;padding:11px 15px;box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;gap:11px;margin-right:auto}
+.logo{width:38px;height:38px;border-radius:11px;background:var(--grad);display:grid;place-items:center;color:#2a2113;
+  font-family:'Playfair Display',serif;font-weight:800;font-size:20px;box-shadow:var(--shadow-sm)}
+.brand b{font-size:18px;letter-spacing:.2px;font-family:'Playfair Display',serif;font-weight:700}
+.brand span{display:block;font-size:10.5px;color:var(--muted);font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.divv{width:1px;height:24px;background:var(--line2);margin:0 2px}
+
+/* main */
+.main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start}
+.stage-wrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:12px;align-items:center}
+.stage{position:relative;background:var(--stage);border-radius:14px;overflow:hidden;width:100%;max-width:min(52vh,330px);
+  aspect-ratio:9/16;display:grid;place-items:center;touch-action:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.stage canvas{width:100%;height:100%;display:block;cursor:grab}
+.stage.empty{cursor:default}
+.drop{position:absolute;inset:12px;border:2px dashed var(--line2);border-radius:12px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;text-align:center;color:var(--muted);padding:18px}
+.drop h3{color:var(--fg);font-size:16px}.drop p{font-size:12.5px;margin:0;max-width:220px;line-height:1.5}
+.transport{display:flex;align-items:center;gap:10px;width:100%;max-width:min(52vh,330px)}
+.transport .time{font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--muted);font-weight:700;min-width:92px}
+.play{width:46px;height:46px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;border:none;
+  background:var(--grad);color:#2a2113;box-shadow:var(--shadow-sm)}
+.play .ico{width:20px;height:20px}
+
+/* panel + tabs */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;overflow:hidden;min-height:460px}
+.tabs{display:flex;gap:2px;padding:7px;background:var(--panel2);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tab{flex:1;min-width:58px;border:none;background:transparent;color:var(--muted);font-weight:700;font-size:12.5px;
+  padding:8px 6px;border-radius:9px;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.12s}
+.tab .ico{width:17px;height:17px}
+.tab.on{background:var(--panel);color:var(--fg);box-shadow:var(--shadow-sm)}
+.pane{padding:15px;display:none;flex-direction:column;gap:13px;overflow:auto;max-height:64vh}
+.pane.on{display:flex}
+.sec-t{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hint{color:var(--muted);font-size:12.5px;line-height:1.55}
+
+/* vibes */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.vibe{border:1px solid var(--line2);border-radius:13px;padding:10px;cursor:pointer;transition:.14s;background:var(--panel2);
+  display:flex;flex-direction:column;gap:7px;text-align:left}
+.vibe:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:var(--accent)}
+.vibe.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent)}
+.vibe .sw{height:34px;border-radius:8px}
+.vibe b{font-size:13.5px}.vibe span{font-size:10.5px;color:var(--muted);line-height:1.35}
+
+/* reference */
+.ref{border:1px dashed var(--line2);border-radius:12px;padding:12px;display:flex;gap:11px;align-items:center}
+.ref img{width:40px;height:71px;object-fit:cover;border-radius:7px;background:var(--stage);flex:0 0 auto}
+
+/* fields */
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+  display:flex;justify-content:space-between}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+textarea,select,input[type=text],input[type=number]{font-family:inherit;background:var(--panel2);color:var(--fg);
+  border:1px solid var(--line2);border-radius:10px;padding:9px 11px;font-size:14px;width:100%}
+textarea{resize:vertical;min-height:54px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line2);background:var(--chip);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:700;cursor:pointer}
+.chip.on{background:var(--grad);border:none;color:#2a2113}
+.swatches{display:flex;gap:6px;flex-wrap:wrap}
+.sw2{width:26px;height:26px;border-radius:8px;border:2px solid transparent;cursor:pointer}
+.sw2.on{border-color:var(--fg)}
+.toggle{display:flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden}
+.toggle button{flex:1;border:none;background:var(--panel2);color:var(--fg);padding:8px;font-weight:700;font-size:12.5px}
+.toggle button.on{background:var(--grad);color:#2a2113}
+
+/* fx + sound banks */
+.bank{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.bcard{border:1px solid var(--line2);border-radius:12px;padding:10px;background:var(--panel2);display:flex;flex-direction:column;gap:8px;transition:.14s}
+.bcard:hover{border-color:var(--accent)}
+.bcard .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--chip)}
+.bcard b{font-size:13px}.bcard .d{font-size:10.5px;color:var(--muted);line-height:1.3}
+.bcard.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 40%,transparent)}
+.brow{display:flex;gap:6px}
+.soundlist{display:flex;flex-direction:column;gap:7px}
+.srow{display:flex;align-items:center;gap:9px;border:1px solid var(--line2);border-radius:11px;padding:8px 10px;background:var(--panel2)}
+.srow .nm{flex:1;min-width:0}.srow .nm b{font-size:13px;display:block}.srow .nm span{font-size:10.5px;color:var(--muted)}
+.iconbtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--line2);background:var(--panel);display:grid;place-items:center;color:var(--fg);flex:0 0 auto}
+
+/* chat */
+.chat{height:100%;min-height:0}
+.chatlog{flex:1;overflow:auto;display:flex;flex-direction:column;gap:9px;padding:4px 2px;min-height:220px}
+.msg{max-width:88%;padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.msg.me{align-self:flex-end;background:var(--grad);color:#2a2113;border-bottom-right-radius:5px;font-weight:600}
+.msg.ai{align-self:flex-start;background:var(--panel2);border:1px solid var(--line);border-bottom-left-radius:5px}
+.msg.ai .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.msg.sys{align-self:center;color:var(--muted);font-size:11.5px;text-align:center}
+.typing{align-self:flex-start;color:var(--muted);font-size:12px;padding:4px 8px}
+.chatbar{display:flex;gap:7px;padding-top:10px;border-top:1px solid var(--line);margin-top:8px}
+.chatbar textarea{min-height:40px;max-height:110px}
+
+/* timeline */
+.tl{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:13px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:10px}
+.tlbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tlbar .sp{margin-left:auto}
+.zoom{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;font-weight:700}
+.tracks{position:relative;overflow-x:auto;overflow-y:hidden;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+.tlinner{position:relative;min-width:100%}
+.ruler{position:relative;height:24px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.ruler .tick{position:absolute;top:0;height:100%;border-left:1px solid var(--line);font-size:10px;color:var(--muted);padding-left:4px;font-variant-numeric:tabular-nums;user-select:none}
+.track{position:relative;height:54px;border-bottom:1px dashed var(--line);cursor:pointer}
+.track:last-child{border-bottom:none}
+.tlabel{position:absolute;left:7px;top:6px;font-size:9.5px;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
+  pointer-events:none;background:var(--panel);padding:2px 6px;border-radius:5px;z-index:3;box-shadow:var(--shadow-sm)}
+.taddr{position:absolute;right:7px;top:8px;font-size:11px;font-weight:800;color:var(--accent);z-index:3;pointer-events:none}
+.clip{position:absolute;top:7px;bottom:7px;border-radius:8px;overflow:hidden;cursor:grab;border:2px solid transparent;user-select:none;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.clip .cl-t{position:absolute;inset:0;display:flex;align-items:center;padding:0 8px 0 10px;font-size:11.5px;font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55);pointer-events:none;white-space:nowrap;overflow:hidden}
+.clip.sel{border-color:#fff;box-shadow:0 0 0 2px var(--accent)}
+.clip .h{position:absolute;top:0;bottom:0;width:10px;cursor:ew-resize;z-index:2}
+.clip .h.l{left:0}.clip .h.r{right:0}
+.clip.vid{background:linear-gradient(135deg,#5b7fa3,#3c5a79)}
+.clip.aud{background:linear-gradient(135deg,var(--ok),#2c5a3f)}
+.clip.txt{background:linear-gradient(135deg,var(--accent2),#7e4a50)}
+.playhead{position:absolute;top:0;bottom:0;width:2px;background:var(--danger);z-index:6;pointer-events:none}
+.playhead::before{content:"";position:absolute;top:0;left:-5px;border:6px solid transparent;border-top-color:var(--danger)}
+.note{font-size:11.5px;color:var(--muted);line-height:1.5}
+.kbd{font:700 11px ui-monospace,monospace;background:var(--chip);border:1px solid var(--line2);border-radius:5px;padding:1px 5px}
+input[type=file]{display:none}
+
+/* modal + toast + lists */
+.modal{position:fixed;inset:0;background:rgba(20,14,10,.55);display:grid;place-items:center;z-index:50;padding:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px;max-width:560px;width:100%;box-shadow:var(--shadow);max-height:86vh;overflow:auto}
+.card h2{font-size:19px;margin-bottom:8px;font-family:'Playfair Display',serif}
+.card pre{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:11.5px;max-height:230px;overflow:auto;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,monospace}
+.mbody{display:flex;flex-direction:column;gap:2px;max-height:56vh;overflow:auto}
+.litem{display:flex;gap:11px;align-items:center;padding:8px;border:1px solid var(--line2);border-radius:12px;margin-bottom:8px}
+.lthumb{width:46px;height:82px;object-fit:cover;border-radius:7px;background:var(--stage);flex:0 0 auto}
+.lmeta{flex:1;min-width:0}.lmeta b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lmeta span{font-size:11.5px;color:var(--muted)}
+.lacts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.empty-note{color:var(--muted);font-size:13px;text-align:center;padding:22px 8px;line-height:1.6}
+.styprev{width:40px;height:40px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;font-weight:800;border:1px solid var(--line2)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:10px 16px;border-radius:11px;font-weight:700;font-size:13px;z-index:60;box-shadow:var(--shadow);opacity:0;transition:.2s;pointer-events:none}
+.toast.show{opacity:1}
+.hidden{display:none!important}
+
+@media (max-width:900px){.main{grid-template-columns:1fr}.stage,.transport{max-width:min(60vh,300px)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="app" id="app">
+  <div class="bar">
+    <div class="brand"><div class="logo">V</div><div><b>Verace Studio</b><span>Editor reel</span></div></div>
+    <button class="btn ghost sm" id="saveProjBtn" title="Salva progetto"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h12l2 2v16H5zM8 3v6h7V3M8 21v-7h8v7"/></svg>Salva</button>
+    <button class="btn ghost sm" id="projBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h6l2 2h10v10H3z"/></svg>Progetti</button>
+    <button class="btn ghost sm" id="libBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>Libreria</button>
+    <button class="btn ghost sm" id="stylesBtn2"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.2"/><circle cx="15.5" cy="10" r="1.2"/><circle cx="12" cy="15" r="1.2"/></svg>Stili</button>
+    <span class="divv"></span>
+    <button class="btn ghost sm" id="themeBtn" title="Tema"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></svg></button>
+    <button class="btn ghost sm" id="helpBtn">Guida</button>
+    <button class="btn ghost sm" id="undoBtn" disabled><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
+    <label class="btn" for="videoFile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Carica</label>
+    <button class="btn accent" id="exportBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3M8 7l4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>Esporta</button>
+  </div>
+
+  <div class="main">
+    <div class="stage-wrap">
+      <div class="stage empty" id="stage">
+        <canvas id="canvas" width="540" height="960" class="hidden"></canvas>
+        <div class="drop" id="drop"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15V3M8 7l4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+          <h3>Carica il tuo video</h3><p>Trascina qui un file verticale, o usa «Carica». Poi scegli una vibe e lascia che Claude ti proponga le idee.</p>
+          <label class="btn accent" for="videoFile">Scegli video</label></div>
+      </div>
+      <div class="transport">
+        <button class="play" id="playBtn" title="Play/Pausa"><svg class="ico" id="playIco" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+        <span class="time" id="timeLbl">0:00 / 0:00</span>
+        <div class="row" style="margin-left:auto;gap:6px">
+          <button class="btn sm ghost" id="splitBtn" title="Taglia (S)"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 8 20 18M8.5 16 20 6"/></svg></button>
+          <button class="btn sm ghost danger" id="delBtn" title="Elimina (Canc)" disabled><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="tabs">
+        <button class="tab on" data-tab="vibe"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.4 5.3L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-.7z"/></svg>Vibe</button>
+        <button class="tab" data-tab="fx"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Effetti</button>
+        <button class="tab" data-tab="sound"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>Suoni</button>
+        <button class="tab" data-tab="text"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5h14M12 5v14M9 19h6"/></svg>Testo</button>
+        <button class="tab" data-tab="chat"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6.5A8 8 0 1 1 21 12z"/></svg>Chat</button>
+      </div>
+      <div class="pane on" id="paneVibe"></div>
+      <div class="pane" id="paneFx"></div>
+      <div class="pane" id="paneSound"></div>
+      <div class="pane" id="paneText"></div>
+      <div class="pane" id="paneChat"></div>
+    </div>
+  </div>
+
+  <div class="tl">
+    <div class="tlbar">
+      <button class="btn sm" id="addTextBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5h14M12 5v14M9 19h6"/></svg>Testo</button>
+      <button class="btn sm" id="addSoundBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>Suono</button>
+      <button class="btn sm" id="addFxBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Effetto</button>
+      <div class="sp"></div>
+      <div class="zoom"><button class="btn sm ghost" id="zoomOut">−</button>Zoom<button class="btn sm ghost" id="zoomIn">+</button></div>
+    </div>
+    <div class="tracks" id="tracks">
+      <div class="tlinner" id="tlinner">
+        <div class="ruler" id="ruler"></div>
+        <div class="track" data-track="video"><div class="tlabel">Video</div></div>
+        <div class="track" data-track="audio"><div class="tlabel">Audio</div><div class="taddr">+ banca suoni</div></div>
+        <div class="track" data-track="text"><div class="tlabel">Testo · Emoji</div></div>
+        <div class="playhead" id="playheadEl" style="left:0"></div>
+      </div>
+    </div>
+    <div class="note">Scorciatoie: <span class="kbd">Spazio</span> play · <span class="kbd">S</span> taglia · <span class="kbd">Canc</span> elimina · <span class="kbd">←/→</span> cursore · <span class="kbd">Z</span> annulla</div>
+  </div>
+</div>
+
+<input type="file" id="videoFile" accept="video/*">
+<input type="file" id="audioFile" accept="audio/*">
+<input type="file" id="refFile" accept="video/*">
+<div class="toast" id="toast"></div>
+
+<script>
+window.DEMO_B64="__DEMO_B64__";
+</script>
+<script src="app.js"></script>
