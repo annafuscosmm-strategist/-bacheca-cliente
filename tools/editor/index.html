@@ -128,6 +128,14 @@ input[type=file]{display:none}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--fg);color:var(--bg);
   padding:10px 16px;border-radius:10px;font-weight:700;font-size:13px;z-index:60;box-shadow:var(--shadow);opacity:0;transition:.2s;pointer-events:none}
 .toast.show{opacity:1}
+.mbody{display:flex;flex-direction:column;gap:2px;max-height:56vh;overflow:auto}
+.litem{display:flex;gap:11px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:11px;margin-bottom:8px}
+.lthumb{width:46px;height:82px;object-fit:cover;border-radius:7px;background:var(--stage);flex:0 0 auto}
+.lmeta{flex:1;min-width:0}.lmeta b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lmeta span{font-size:11.5px;color:var(--muted)}
+.lacts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.empty-note{color:var(--muted);font-size:13px;text-align:center;padding:22px 8px;line-height:1.6}
+.styprev{width:40px;height:40px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;font-weight:800;border:1px solid var(--line)}
 
 @media (max-width:860px){
   .main{grid-template-columns:1fr}
@@ -146,6 +154,11 @@ input[type=file]{display:none}
     <button class="btn ghost sm" id="themeBtn" title="Tema chiaro/scuro"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></svg></button>
     <button class="btn ghost sm" id="helpBtn">Guida</button>
     <button class="btn ghost sm" id="undoBtn" disabled><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>Annulla</button>
+    <span style="width:1px;height:22px;background:var(--line)"></span>
+    <button class="btn ghost sm" id="saveProjBtn" title="Salva progetto"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h12l2 2v16H5zM8 3v6h7V3M8 21v-7h8v7"/></svg>Salva</button>
+    <button class="btn ghost sm" id="projBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h6l2 2h10v10H3z"/></svg>Progetti</button>
+    <button class="btn ghost sm" id="libBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>Libreria</button>
+    <button class="btn ghost sm" id="stylesBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.2"/><circle cx="15.5" cy="10" r="1.2"/><circle cx="12" cy="15" r="1.2"/></svg>Stili</button>
     <label class="btn" for="videoFile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Carica video</label>
     <button class="btn accent" id="exportBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3M8 7l4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>Esporta</button>
   </div>
@@ -215,11 +228,23 @@ const S={
   segments:[],           // {id,in,out,eff:{bri,con,sat,scale,preset},fi,fo}
   audios:[],             // {id,name,buf,start,in,out,vol}
   overlays:[],           // {id,kind,text,x,y,size,color,font,bold,start,end}
-  playhead:0, playing:false, sel:null, pps:48, undo:[]
+  playhead:0, playing:false, sel:null, pps:48, undo:[], projectId:null, projectName:""
 };
 let AC=null, master=null, exportDest=null, vidSrcNode=null, vidGain=null, playingSources=[];
 let DL=null; // downloads capability (viewer only)
-try{if(window.claude&&claude.use){claude.use("downloads").then(d=>{DL=d;}).catch(()=>{});}}catch(e){}
+const CAP={db:null,assets:null,user:null,ready:false,canWrite:true};
+async function initCaps(){
+  if(!(window.claude&&claude.use))return;
+  try{
+    const [db,assets,user,dl]=await Promise.all([
+      claude.use("db").catch(()=>null),claude.use("assets").catch(()=>null),
+      claude.use("user").catch(()=>null),claude.use("downloads").catch(()=>null)]);
+    CAP.db=db;CAP.assets=assets;CAP.user=user;DL=dl;CAP.ready=true;
+    if(user){try{const w=await user.can("data.write");CAP.canWrite=(w!==false);}catch(e){}}
+  }catch(e){}
+  if(typeof updateStudioUI==="function")updateStudioUI();
+}
+initCaps();
 
 /* ---------- DOM ---------- */
 const canvas=$("#canvas"), ctx=canvas.getContext("2d");
@@ -262,12 +287,14 @@ function ensureAudio(){
 }
 
 /* ---------- load video ---------- */
-function loadVideoFromUrl(url,label){
+function loadVideoFromUrl(url,label,opts){
+  opts=opts||{};
   const v=document.createElement("video");
   v.src=url;v.playsInline=true;v.preload="auto";v.crossOrigin="anonymous";
   v.addEventListener("loadedmetadata",()=>{
-    S.src={el:v,url,dur:v.duration,w:v.videoWidth,h:v.videoHeight};
-    if(!S.segments.length)S.segments=[newSeg(0,v.duration)];
+    S.src={el:v,url,dur:v.duration,w:v.videoWidth,h:v.videoHeight,blob:opts.blob||null,assetId:opts.assetId||null};
+    if(opts.after){try{opts.after();}catch(e){}}
+    else if(!S.segments.length)S.segments=[newSeg(0,v.duration)];
     stage.classList.remove("empty");canvas.classList.remove("hidden");
     if(AC&&!vidSrcNode){try{vidSrcNode=AC.createMediaElementSource(v);vidGain=AC.createGain();
       vidSrcNode.connect(vidGain);vidGain.connect(master);}catch(e){}}
@@ -281,17 +308,25 @@ function newSeg(i,o){return{id:uid(),in:i,out:o,eff:{bri:100,con:100,sat:100,sca
 
 $("#videoFile").addEventListener("change",e=>{
   const f=e.target.files[0];if(!f)return;
-  S.segments=[];S.audios=[];S.overlays=[];S.undo=[];$("#undoBtn").disabled=true;
-  loadVideoFromUrl(URL.createObjectURL(f),"Video caricato");
+  S.segments=[];S.audios=[];S.overlays=[];S.undo=[];S.projectId=null;$("#undoBtn").disabled=true;
+  loadVideoFromUrl(URL.createObjectURL(f),"Video caricato",{blob:f});
 });
 
 /* ---------- audio load ---------- */
+let relinkTarget=null;
 $("#audioFile").addEventListener("change",async e=>{
   const f=e.target.files[0];if(!f)return;ensureAudio();
+  if(relinkTarget){
+    const clip=S.audios.find(a=>a.id===relinkTarget);relinkTarget=null;
+    if(clip){try{const buf=await AC.decodeAudioData(await f.arrayBuffer());
+      clip.buf=buf;clip.blob=f;clip.missing=false;clip.out=Math.min(clip.out||buf.duration,clip.in+buf.duration);
+      renderTracks();renderProps();toast("Audio ricollegato");}catch(err){toast("Audio non supportato");}}
+    e.target.value="";return;
+  }
   try{
     const buf=await AC.decodeAudioData(await f.arrayBuffer());
     snapshot();
-    S.audios.push({id:uid(),name:f.name.replace(/\.[^.]+$/,"").slice(0,22),buf,
+    S.audios.push({id:uid(),name:f.name.replace(/\.[^.]+$/,"").slice(0,22),buf,blob:f,assetId:null,
       start:S.playhead,in:0,out:buf.duration,vol:1});
     renderAll();select({kind:"audio",id:S.audios[S.audios.length-1].id});
     toast("Suono aggiunto");
@@ -358,6 +393,7 @@ function scheduleAudio(fromT){
   if(!AC)return;stopSources();
   const now=AC.currentTime;
   for(const c of S.audios){
+    if(!c.buf)continue;
     const clipDur=c.out-c.in, endT=c.start+clipDur;
     if(endT<=fromT)continue;
     let offset=c.in,when=now+(c.start-fromT),dur=clipDur;
@@ -443,8 +479,9 @@ function renderTracks(){
     vt.appendChild(el);
   });
   S.audios.forEach(a=>{
-    const el=clipEl("aud",a.start*S.pps,(a.out-a.in)*S.pps,"♪ "+a.name,
+    const el=clipEl("aud",a.start*S.pps,(a.out-a.in)*S.pps,(a.missing?"⚠ ":"♪ ")+a.name,
       S.sel&&S.sel.kind==="audio"&&S.sel.id===a.id,{kind:"audio",id:a.id});
+    if(a.missing)el.style.opacity=".6";
     at.appendChild(el);
   });
   S.overlays.forEach(o=>{
@@ -543,6 +580,13 @@ function renderSegProps(p,s){
 }
 function renderAudioProps(p,a){
   p.innerHTML=`<h3>🎵 ${a.name}</h3>`;
+  if(a.missing){
+    const w=document.createElement("div");w.className="field";
+    w.innerHTML=`<p class="hint" style="color:var(--danger)">⚠ Il file audio non è salvato nel progetto. Ricaricalo per sentirlo.</p>`;
+    const b=document.createElement("button");b.className="btn sm accent";b.textContent="Ricarica file audio";
+    b.onclick=()=>{relinkTarget=a.id;$("#audioFile").click();};
+    w.appendChild(b);p.appendChild(w);
+  }
   p.appendChild(slider("Volume",Math.round(a.vol*100),0,150,"%",v=>{a.vol=v/100;}));
   const f=document.createElement("div");f.className="field";
   f.innerHTML=`<label>Inizio sulla timeline</label>`;
@@ -707,7 +751,8 @@ $("#helpBtn").addEventListener("click",()=>{
   <b>4. Suoni e musica</b> — «Suono / Musica», poi trascina il blocco verde dove vuoi; regola il volume.<br>
   <b>5. Testo ed emoji</b> — aggiungili e <b>trascinali sul video</b> per posizionarli. Scegli font, colore, durata.<br>
   <b>6. Effetti e transizioni</b> — seleziona un clip video: look, luminosità, zoom e dissolvenze.<br>
-  <b>7. Esporta</b> — «Esporta»: scarica il video (apri il file sul tuo computer) oppure copia il piano e mandamelo per il render in alta qualità.
+  <b>7. Esporta</b> — «Esporta»: scarica il video, salvalo nella Libreria, oppure copia il piano e mandamelo per il render in alta qualità.<br>
+  <b>8. Salva e ritrova</b> — «Salva» tiene il progetto (video, tagli, testi, effetti); «Progetti» per riaprirli; «Libreria» raccoglie i video esportati; «Stili» salva un look o uno stile di testo e lo riapplichi con un clic. Tutto resta legato al tuo account ed è condivisibile col link.
   </p>
   <div class="row" style="margin-top:8px"><button class="btn accent" data-x>Ho capito</button></div></div>`;
   m.addEventListener("click",ev=>{if(ev.target===m||ev.target.hasAttribute("data-x"))m.remove();});
@@ -737,6 +782,7 @@ function openExport(){
     <p class="note">Durata: <b>${fmt(total())}</b> · ${S.segments.length} clip · ${S.audios.length} audio · ${S.overlays.length} testi/emoji</p>
     <div style="display:flex;flex-direction:column;gap:10px;margin:14px 0">
       <button class="btn accent" id="exPlan"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7h8M8 12h8M8 17h5"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>Copia il piano per Claude · alta qualità (1080×1920)</button>
+      <button class="btn" id="exLib"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v13H4z"/><path d="M4 7l2-3h12l2 3M10 12l4 2-4 2z"/></svg>Salva nella Libreria</button>
       <button class="btn" id="exVideo"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3M8 7l4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>Scarica video adesso (.webm)</button>
     </div>
     <p class="note">Il piano contiene tutti i tagli, effetti, testi e tempi: incollamelo in chat e ti rendo il reel finale in alta qualità con i tuoi font.<br>
@@ -745,7 +791,8 @@ function openExport(){
     <div class="row" style="margin-top:10px"><button class="btn ghost" data-x>Chiudi</button></div></div>`;
   m.addEventListener("click",ev=>{if(ev.target===m||ev.target.hasAttribute("data-x"))if(!recording){m.remove();}});
   m.querySelector("#exPlan").onclick=()=>showPlan(m);
-  m.querySelector("#exVideo").onclick=()=>recordVideo(m);
+  m.querySelector("#exVideo").onclick=()=>recordVideo(m,"download");
+  m.querySelector("#exLib").onclick=()=>recordVideo(m,"library");
   document.body.appendChild(m);
 }
 function showPlan(m){
@@ -760,30 +807,47 @@ function showPlan(m){
   };
 }
 let recording=false;
-async function recordVideo(m){
+function thumbDataUrl(){
+  try{const c=document.createElement("canvas");c.width=120;c.height=213;
+    c.getContext("2d").drawImage(canvas,0,0,120,213);return c.toDataURL("image/jpeg",0.5);}catch(e){return"";}
+}
+async function recordVideo(m,sink){
+  sink=sink||"download";
   if(recording)return;const area=m.querySelector("#exArea");
+  if(sink==="library"&&(!CAP.assets||!CAP.db)){area.innerHTML=`<p class="note">La libreria è disponibile solo nella versione online dell'editor (link condivisibile), non nel file aperto in locale.</p>`;return;}
   if(typeof MediaRecorder==="undefined"){area.innerHTML=`<p class="note">Il tuo browser non supporta la registrazione. Usa «Copia il piano».</p>`;return;}
   ensureAudio();if(AC.state==="suspended")await AC.resume();
   const types=["video/webm;codecs=vp9,opus","video/webm;codecs=vp8,opus","video/webm","video/mp4"];
   const mime=types.find(t=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(t))||"";
   const vstream=canvas.captureStream(30);
   const stream=new MediaStream([...vstream.getVideoTracks(),...exportDest.stream.getAudioTracks()]);
-  let rec;try{rec=new MediaRecorder(stream,mime?{mimeType:mime,videoBitsPerSecond:6000000}:undefined);}
+  let rec;try{rec=new MediaRecorder(stream,mime?{mimeType:mime,videoBitsPerSecond:3500000}:undefined);}
   catch(e){area.innerHTML=`<p class="note">Registrazione non disponibile qui. Usa «Copia il piano».</p>`;return;}
   const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
   recording=true;
   area.innerHTML=`<p class="note" id="exMsg">Registrazione in corso… <b id="exPct">0%</b> (resta su questa scheda)</p>`;
-  pause();S.playhead=0;seekTo(0);
+  pause();S.playhead=0;seekTo(0);drawFrame();const thumb=thumbDataUrl();
   rec.onstop=async()=>{
     recording=false;const blob=new Blob(chunks,{type:mime.split(";")[0]||"video/webm"});
-    const ext=mime.includes("mp4")?"mp4":"webm";const fn="verace-reel."+ext;
+    const ext=mime.includes("mp4")?"mp4":"webm";const fn=(S.projectName||"verace-reel").replace(/[^\w\-]+/g,"-")+"."+ext;
     const sizeMB=(blob.size/1048576).toFixed(1);
+    if(sink==="library"){
+      area.innerHTML=`<p class="note">Caricamento nella libreria…</p>`;
+      try{
+        const up=await CAP.assets.upload(blob,{type:mime.includes("mp4")?"video/mp4":"video/webm"});
+        await CAP.db.collection("exports").add({name:S.projectName||"Reel senza nome",assetId:up.id,ext,
+          durationSec:+total().toFixed(1),sizeBytes:blob.size,thumb,createdAt:Date.now()});
+        area.innerHTML=`<p class="note">✓ Salvato nella Libreria (${sizeMB} MB). Aprila dalla barra in alto.</p>`;
+      }catch(err){
+        const msg=err&&err.code==="too_large"?"Il video supera 20 MB: accorcia il reel o abbassa la qualità.":"Caricamento non riuscito. Riprova o usa «Scarica».";
+        area.innerHTML=`<p class="note">${msg}</p>`;
+      }
+      return;
+    }
     if(DL){
       try{await DL.save({filename:fn,data:blob});
         area.innerHTML=`<p class="note">✓ Video salvato (${sizeMB} MB). Per la qualità massima 1080×1920 con i tuoi font, usa «Copia il piano».</p>`;return;
-      }catch(err){
-        if(err&&err.code==="declined"){area.innerHTML=`<p class="note">Salvataggio annullato.</p>`;return;}
-      }
+      }catch(err){if(err&&err.code==="declined"){area.innerHTML=`<p class="note">Salvataggio annullato.</p>`;return;}}
     }
     const url=URL.createObjectURL(blob);
     try{const a=document.createElement("a");a.href=url;a.download=fn;document.body.appendChild(a);a.click();a.remove();}catch(e){}
@@ -805,14 +869,229 @@ async function recordVideo(m){
 $("#exportBtn").addEventListener("click",openExport);
 
 /* ---------- boot: load demo ---------- */
-function b64ToBlobUrl(b64,type){
+function b64ToBlob(b64,type){
   const bin=atob(b64);const len=bin.length;const bytes=new Uint8Array(len);
   for(let i=0;i<len;i++)bytes[i]=bin.charCodeAt(i);
-  return URL.createObjectURL(new Blob([bytes],{type}));
+  return new Blob([bytes],{type});
 }
 (function boot(){
   renderAll();drawFrame();
-  try{if(DEMO_B64&&DEMO_B64.length>100){loadVideoFromUrl(b64ToBlobUrl(DEMO_B64,"video/mp4"),"Clip demo caricata — prova a modificarla");}}
+  try{if(DEMO_B64&&DEMO_B64.length>100){const b=b64ToBlob(DEMO_B64,"video/mp4");
+    loadVideoFromUrl(URL.createObjectURL(b),"Clip demo caricata — prova a modificarla",{blob:b});}}
   catch(e){}
 })();
+</script>
+<script>
+"use strict";
+/* ============ STUDIO: progetti · libreria · stili ============ */
+const cloudOn=()=>!!(CAP.db&&CAP.assets);
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function fmtDate(ms){try{return new Date(ms).toLocaleDateString("it-IT",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});}catch(e){return"";}}
+const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+function openModal(titleHtml){
+  const m=document.createElement("div");m.className="modal";
+  const card=document.createElement("div");card.className="card";
+  card.innerHTML=`<h2>${titleHtml}</h2><div class="mbody"></div>
+    <div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn ghost" data-x>Chiudi</button></div>`;
+  m.appendChild(card);
+  m.addEventListener("click",ev=>{if(ev.target===m||ev.target.hasAttribute("data-x"))m.remove();});
+  document.body.appendChild(m);return{m,body:card.querySelector(".mbody")};
+}
+function infoModal(title,text){const{body}=openModal(title);body.innerHTML=`<p class="note">${text}</p>`;}
+
+/* ---- source asset ---- */
+async function ensureSourceAsset(){
+  if(S.src.assetId)return S.src.assetId;
+  if(!S.src.blob)throw{code:"no_blob"};
+  const t=(S.src.blob.type||"");
+  const type=t.includes("webm")?"video/webm":(t.includes("mp4")?"video/mp4":"");
+  if(!type)throw{code:"bad_type"};
+  const up=await CAP.assets.upload(S.src.blob,{type});S.src.assetId=up.id;return up.id;
+}
+
+/* ---- projects ---- */
+async function listProjects(){
+  const s=await CAP.db.collection("projects").orderBy("updatedAt","desc").limit(100).get();
+  return s.docs.map(d=>({id:d.id,...d.data()}));
+}
+async function saveProjectDoc(name){
+  await ensureSourceAsset();
+  S.projectName=name;
+  const id=S.projectId||uid();const now=Date.now();
+  const body={name,updatedAt:now,createdAt:S.projectCreatedAt||now,
+    source:{assetId:S.src.assetId,w:S.src.w,h:S.src.h,dur:+S.src.dur.toFixed(3)},
+    segments:S.segments.map(s=>({in:+s.in.toFixed(3),out:+s.out.toFixed(3),eff:s.eff,fi:s.fi,fo:s.fo})),
+    overlays:S.overlays.map(o=>({kind:o.kind,text:o.text,x:o.x,y:o.y,size:o.size,color:o.color,font:o.font,bold:o.bold,start:o.start,end:o.end})),
+    audios:S.audios.map(a=>({name:a.name,start:a.start,in:a.in,out:a.out,vol:a.vol})),
+    thumb:thumbDataUrl()};
+  await CAP.db.collection("projects").doc(id).set(body);
+  S.projectId=id;S.projectCreatedAt=body.createdAt;
+}
+function loadProjectData(p,id){
+  S.segments=[];S.audios=[];S.overlays=[];S.undo=[];$("#undoBtn").disabled=true;
+  S.projectId=id;S.projectName=p.name;S.projectCreatedAt=p.createdAt;
+  loadVideoFromUrl("/_blob/"+p.source.assetId,"Progetto aperto: "+p.name,{assetId:p.source.assetId,after:()=>{
+    S.segments=(p.segments||[]).map(s=>({id:uid(),in:s.in,out:s.out,
+      eff:s.eff||{bri:100,con:100,sat:100,scale:100,preset:"none"},fi:s.fi||0,fo:s.fo||0}));
+    if(!S.segments.length)S.segments=[{id:uid(),in:0,out:S.src.dur,eff:{bri:100,con:100,sat:100,scale:100,preset:"none"},fi:0,fo:0}];
+    S.overlays=(p.overlays||[]).map(o=>({...o,id:uid()}));
+    S.audios=(p.audios||[]).map(a=>({id:uid(),name:a.name,start:a.start,in:a.in,out:a.out,vol:a.vol,buf:null,blob:null,assetId:null,missing:true}));
+  }});
+}
+function doSaveProject(){
+  if(!cloudOn()){infoModal("Salva progetto","I progetti si salvano nella versione <b>online</b> dell'editor (il link condivisibile), così li ritrovi sempre. Nel file aperto in locale non sono disponibili — lì puoi comunque esportare il video.");return;}
+  if(!CAP.canWrite){infoModal("Salva progetto","Hai accesso in sola lettura a questo studio.");return;}
+  if(!S.src){toast("Carica prima un video");return;}
+  const{m,body}=openModal("💾 Salva progetto");
+  body.innerHTML=`<div class="field"><label>Nome del progetto</label>
+    <input type="text" id="pName" maxlength="60" value="${esc(S.projectName||"Reel senza nome")}"></div>
+    <button class="btn accent" id="pSave" style="margin-top:4px">Salva</button>
+    <p class="note" id="pMsg" style="margin-top:8px">Si salva il video, i tagli, i testi e gli effetti. (I file audio vanno riaggiunti alla riapertura.)</p>`;
+  body.querySelector("#pSave").onclick=async()=>{
+    const name=(body.querySelector("#pName").value||"").trim()||"Reel senza nome";
+    const msg=body.querySelector("#pMsg");msg.textContent="Salvataggio in corso… (carico il video)";
+    try{await saveProjectDoc(name);msg.innerHTML="✓ Progetto salvato.";toast("Progetto salvato");setTimeout(()=>m.remove(),700);}
+    catch(e){msg.textContent=e&&e.code==="bad_type"?"Per salvare serve un video MP4 o WebM (.mov non supportato). Puoi comunque montare ed esportare.":
+      (e&&e.code==="too_large"?"Il video supera 20 MB: usa una clip più leggera.":"Salvataggio non riuscito. Riprova.");}
+  };
+}
+async function openProjects(){
+  if(!cloudOn()){infoModal("📁 Progetti","I progetti sono disponibili nella versione <b>online</b> dell'editor (link condivisibile).");return;}
+  const{body}=openModal("📁 Progetti");
+  const mapFn=it=>{
+    const acts=[`<button class="btn sm accent" data-a="open">Apri</button>`];
+    if(CAP.canWrite)acts.push(`<button class="btn sm ghost" data-a="ren">Rinomina</button>`,`<button class="btn sm ghost danger" data-a="del">Elimina</button>`);
+    return{thumb:it.thumb,title:it.name,sub:fmtDate(it.updatedAt),acts:acts.join("")};
+  };
+  const actFn=async(it,a,row)=>{
+    if(a==="open"){document.querySelectorAll(".modal").forEach(x=>x.remove());loadProjectData(it,it.id);}
+    else if(a==="del"){await CAP.db.collection("projects").doc(it.id).delete();row.remove();if(!body.querySelector(".litem"))refresh();toast("Progetto eliminato");}
+    else if(a==="ren"){prompt2(row,it.name,async v=>{await CAP.db.collection("projects").doc(it.id).update({name:v,updatedAt:Date.now()});it.name=v;toast("Rinominato");refresh();});}
+  };
+  async function refresh(){body.innerHTML=`<p class="note">Caricamento…</p>`;
+    let list;try{list=await listProjects();}catch(e){body.innerHTML=`<p class="empty-note">Impossibile leggere i progetti.</p>`;return;}
+    renderList(body,list,"Nessun progetto salvato.<br>Monta un reel e premi «Salva».",mapFn,actFn);}
+  refresh();
+}
+
+/* ---- library (exported videos) ---- */
+async function openLibrary(){
+  if(!cloudOn()){infoModal("🎬 Libreria","La libreria dei video è disponibile nella versione <b>online</b> dell'editor (link condivisibile).");return;}
+  const{body}=openModal("🎬 Libreria video");body.innerHTML=`<p class="note">Caricamento…</p>`;
+  let list;try{const s=await CAP.db.collection("exports").orderBy("createdAt","desc").limit(100).get();
+    list=s.docs.map(d=>({id:d.id,...d.data()}));}catch(e){body.innerHTML=`<p class="empty-note">Impossibile leggere la libreria.</p>`;return;}
+  renderList(body,list,"Nessun video salvato.<br>Esporta un reel e scegli «Salva nella Libreria».",it=>{
+    const acts=[`<button class="btn sm accent" data-a="play">Riproduci</button>`,`<button class="btn sm ghost" data-a="dl">Scarica</button>`];
+    if(CAP.canWrite)acts.push(`<button class="btn sm ghost danger" data-a="del">Elimina</button>`);
+    return{thumb:it.thumb,title:it.name,sub:fmtDate(it.createdAt)+" · "+(it.durationSec||0)+"s · "+((it.sizeBytes||0)/1048576).toFixed(1)+" MB",acts:acts.join("")};
+  },async(it,a,row)=>{
+    const url="/_blob/"+it.assetId;
+    if(a==="play"){const{body:b2}=openModal("▶ "+esc(it.name));
+      b2.innerHTML=`<video src="${url}" controls autoplay playsinline style="width:100%;max-width:300px;border-radius:12px;display:block;margin:0 auto;background:#000"></video>`;}
+    else if(a==="dl"){
+      try{const blob=await (await fetch(url)).blob();const fn=(it.name||"reel").replace(/[^\w\-]+/g,"-")+"."+(it.ext||"webm");
+        if(DL){await DL.save({filename:fn,data:blob});toast("Scaricato");}
+        else{const u=URL.createObjectURL(blob);const x=document.createElement("a");x.href=u;x.download=fn;document.body.appendChild(x);x.click();x.remove();}}
+      catch(e){toast("Download non riuscito");}
+    }
+    else if(a==="del"){await CAP.db.collection("exports").doc(it.id).delete();
+      try{await CAP.assets.delete(it.assetId);}catch(e){}row.remove();toast("Video eliminato");}
+  });
+}
+
+/* ---- styles ---- */
+async function stylesList(){
+  if(CAP.db){const s=await CAP.db.collection("styles").orderBy("createdAt","desc").limit(100).get();
+    return s.docs.map(d=>({id:d.id,...d.data()}));}
+  return LS.get("verace_styles",[]);
+}
+async function styleSave(st){
+  st.createdAt=Date.now();
+  if(CAP.db&&CAP.canWrite){const r=await CAP.db.collection("styles").add(st);return r.id;}
+  st.id=uid();const arr=LS.get("verace_styles",[]);arr.unshift(st);LS.set("verace_styles",arr);return st.id;
+}
+async function styleDelete(id){
+  if(CAP.db&&CAP.canWrite){try{await CAP.db.collection("styles").doc(id).delete();return;}catch(e){}}
+  LS.set("verace_styles",LS.get("verace_styles",[]).filter(s=>s.id!==id));
+}
+function styleFromSelection(){
+  const o=getSelObj();if(!o||!S.sel)return null;
+  if(S.sel.kind==="segment")return{kind:"look",data:{eff:{...o.eff},fi:o.fi,fo:o.fo}};
+  if(S.sel.kind==="overlay"&&o.kind!=="emoji")return{kind:"text",data:{color:o.color,font:o.font,bold:o.bold,size:o.size}};
+  return null;
+}
+function applyStyle(st){
+  const o=getSelObj();
+  if(!o){toast("Seleziona prima un elemento");return;}
+  if(st.kind==="look"&&S.sel.kind==="segment"){snapshot();o.eff={...o.eff,...st.data.eff};o.fi=st.data.fi||0;o.fo=st.data.fo||0;renderProps();drawFrame();toast("Stile applicato");}
+  else if(st.kind==="text"&&S.sel.kind==="overlay"&&o.kind!=="emoji"){snapshot();Object.assign(o,st.data);renderProps();renderTracks();drawFrame();toast("Stile applicato");}
+  else toast(st.kind==="look"?"Seleziona un clip video":"Seleziona un testo");
+}
+async function openStyles(){
+  const{body}=openModal("🎨 Stili salvati");
+  const sel=styleFromSelection();
+  const head=document.createElement("div");head.style.marginBottom="10px";
+  if(sel){head.innerHTML=`<div class="field"><label>Salva stile dalla selezione (${sel.kind==="look"?"effetti del clip":"stile del testo"})</label>
+    <div class="row"><input type="text" id="stName" placeholder="Nome stile" maxlength="40" style="flex:1"><button class="btn accent sm" id="stSave">Salva</button></div></div>`;
+  }else{head.innerHTML=`<p class="note">Per salvare uno stile: seleziona un <b>clip video</b> (effetti/dissolvenze) o un <b>testo</b>, poi riapri qui.</p>`;}
+  body.appendChild(head);
+  const listWrap=document.createElement("div");body.appendChild(listWrap);
+  async function refresh(){
+    let arr;try{arr=await stylesList();}catch(e){arr=[];}
+    listWrap.innerHTML="";
+    if(!arr.length){listWrap.innerHTML=`<p class="empty-note">Nessuno stile salvato.</p>`;return;}
+    arr.forEach(st=>{
+      const row=document.createElement("div");row.className="litem";
+      const prev=st.kind==="look"?`<div class="styprev" style="background:${esc((st.data.eff&&pcolor(st.data.eff))||'#888')};color:#fff">A</div>`
+        :`<div class="styprev" style="background:${esc(st.data.color||'#888')};color:#2a2113;font-family:${esc(st.data.font||'Outfit')}">A</div>`;
+      row.innerHTML=`${prev}<div class="lmeta"><b>${esc(st.name||"Stile")}</b><span>${st.kind==="look"?"Effetto video":"Stile testo"}</span></div>
+        <div class="lacts"><button class="btn sm accent" data-a="apply">Applica</button><button class="btn sm ghost danger" data-a="del">Elimina</button></div>`;
+      row.querySelector('[data-a="apply"]').onclick=()=>applyStyle(st);
+      row.querySelector('[data-a="del"]').onclick=async()=>{await styleDelete(st.id);row.remove();if(!listWrap.querySelector(".litem"))refresh();toast("Stile eliminato");};
+      listWrap.appendChild(row);
+    });
+  }
+  if(sel){head.querySelector("#stSave").onclick=async()=>{
+    const name=(head.querySelector("#stName").value||"").trim()||(sel.kind==="look"?"Look":"Testo");
+    try{await styleSave({name,kind:sel.kind,data:sel.data});toast("Stile salvato");head.querySelector("#stName").value="";refresh();}
+    catch(e){toast("Salvataggio non riuscito");}
+  };}
+  refresh();
+}
+function pcolor(eff){if(eff.preset==="bw")return"#555";if(eff.preset==="warm")return"#b07a3a";if(eff.preset==="cold")return"#4a6b8a";if(eff.preset==="vivid")return"#AC3F3F";if(eff.preset==="soft")return"#9a8c76";return"#6b7e5a";}
+
+/* ---- generic list renderer ---- */
+function renderList(body,list,emptyHtml,mapFn,actFn){
+  body.innerHTML="";
+  if(!list.length){body.innerHTML=`<p class="empty-note">${emptyHtml}</p>`;return;}
+  list.forEach(it=>{
+    const m=mapFn(it);const row=document.createElement("div");row.className="litem";
+    row.innerHTML=`<img class="lthumb" src="${m.thumb||""}" alt=""><div class="lmeta"><b>${esc(m.title)}</b><span>${esc(m.sub)}</span></div><div class="lacts">${m.acts}</div>`;
+    row.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>actFn(it,b.dataset.a,row,body));
+    body.appendChild(row);
+  });
+}
+/* inline rename input */
+function prompt2(row,val,onok){
+  const meta=row.querySelector(".lmeta");const old=meta.innerHTML;
+  meta.innerHTML=`<input type="text" value="${esc(val)}" style="width:100%" maxlength="60"> <button class="btn sm accent" style="margin-top:4px">OK</button>`;
+  const inp=meta.querySelector("input");inp.focus();
+  meta.querySelector("button").onclick=async()=>{const v=(inp.value||"").trim();if(v){try{await onok(v);}catch(e){}}meta.innerHTML=old;};
+}
+
+/* ---- wire toolbar ---- */
+function updateStudioUI(){
+  const c=cloudOn();
+  const set=(sel,on,tip)=>{const b=$(sel);if(b){b.disabled=!on;if(tip)b.title=on?"":tip;}};
+  set("#saveProjBtn",c&&CAP.canWrite,"Disponibile online");
+  set("#projBtn",c,"Disponibile online");
+  set("#libBtn",c,"Disponibile online");
+}
+$("#saveProjBtn").addEventListener("click",doSaveProject);
+$("#projBtn").addEventListener("click",openProjects);
+$("#libBtn").addEventListener("click",openLibrary);
+$("#stylesBtn").addEventListener("click",openStyles);
+updateStudioUI();
 </script>
