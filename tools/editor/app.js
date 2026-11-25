@@ -16,11 +16,11 @@ const EMOJIS=["🎄","🎅","⛄","🦌","🎁","✨","❄️","🔔","⭐","�
 
 const S={src:null,segments:[],audios:[],overlays:[],playhead:0,playing:false,sel:null,pps:48,undo:[],
   projectId:null,projectName:"",projectCreatedAt:null,vibe:null,textStyle:{font:"Outfit",color:"#FBF4E6",bold:true},
-  refThumb:null,refBlob:null,chat:[],_greeted:false,
+  refThumb:null,refBlob:null,chat:[],_greeted:false,renderKaraoke:false,
   audioFx:{voice:false,noise:false},videoFx:{enhance:false},brand:{colors:[],font:null,logos:[]},chatAtt:null};
 let AC=null,master=null,exportDest=null,vidSrcNode=null,vidGain=null,playingSources=[],vHP=null,vEQ=null,vComp=null;
 let DL=null;const CAP={db:null,assets:null,user:null,sample:null,tts:null,ready:false,canWrite:true,sampleImages:false};
-let activeTab="vibe",relinkTarget=null,subStyle="classico",exportRes=[1440,2560];
+let activeTab="vibe",relinkTarget=null,subStyle="classico",exportRes=[1440,2560],capMode="frasi";
 const imgCache={};
 const canvas=$("#canvas"),ctx=canvas.getContext("2d");let CW=canvas.width,CH=canvas.height;
 const stage=$("#stage"),tlinner=$("#tlinner"),ruler=$("#ruler"),playheadEl=$("#playheadEl");
@@ -132,7 +132,15 @@ function select(sel){S.sel=sel;renderTracks();refreshButtons();renderPanel();dra
 function getSelObj(){if(!S.sel)return null;if(S.sel.kind==="segment")return S.segments.find(s=>s.id===S.sel.id);if(S.sel.kind==="audio")return S.audios.find(a=>a.id===S.sel.id);if(S.sel.kind==="overlay")return S.overlays.find(o=>o.id===S.sel.id);}
 
 /* ---- edits ---- */
-function splitAt(t){const loc=locate(t);if(!loc)return;const seg=S.segments[loc.i],srcT=loc.src;if(srcT<=seg.in+0.05||srcT>=seg.out-0.05)return;snapshot();const b=newSeg(srcT,seg.out);b.eff={...seg.eff};b.fx={...seg.fx};seg.out=srcT;seg.fo=0;b.fi=0;S.segments.splice(loc.i+1,0,b);renderAll();toast("Tagliato");}
+function splitAtCore(t){const loc=locate(t);if(!loc)return false;const seg=S.segments[loc.i],srcT=loc.src;if(srcT<=seg.in+0.05||srcT>=seg.out-0.05)return false;const b=newSeg(srcT,seg.out);b.eff={...seg.eff};b.fx={...seg.fx};seg.out=srcT;seg.fo=0;b.fi=0;S.segments.splice(loc.i+1,0,b);return true;}
+function splitAt(t){snapshot();if(splitAtCore(t)){renderAll();toast("Tagliato");}else S.undo.pop();}
+async function beatSyncCuts(){if(!S.src){toast("Carica prima un video");return;}const clip=S.audios.find(a=>a.sfx&&MUSIC[a.sfx])||S.audios.find(a=>a.buf);if(!clip||!clip.buf){toast("Aggiungi prima una musica dalla banca");return;}
+  toast("Cerco il ritmo…");const buf=clip.buf,ch=buf.getChannelData(0),sr=buf.sampleRate,win=Math.max(1,Math.floor(sr*0.02)),n=Math.floor(buf.length/win);const en=new Float32Array(n);let mx=1e-6;
+  for(let i=0;i<n;i++){let s=0;const base=i*win;for(let j=0;j<win;j++){const v=ch[base+j]||0;s+=v*v;}en[i]=s;if(en[i]>mx)mx=en[i];}
+  const beats=[];let last=-999;const minGap=Math.floor(0.45/(win/sr));
+  for(let i=1;i<n;i++){const flux=en[i]-en[i-1];if(flux>mx*0.06&&en[i]>mx*0.16&&(i-last)>minGap){beats.push(i*win/sr+clip.start);last=i;}}
+  if(beats.length<2){toast("Non trovo un ritmo chiaro in questa traccia");return;}
+  snapshot();let cuts=0;beats.forEach(bt=>{if(bt>0.15&&bt<total()-0.15&&splitAtCore(bt))cuts++;});renderAll();toast(cuts+" tagli a tempo di musica");}
 function delSel(){if(!S.sel)return;snapshot();if(S.sel.kind==="segment"){if(S.segments.length<=1){toast("Serve almeno un clip");S.undo.pop();return;}S.segments=S.segments.filter(s=>s.id!==S.sel.id);}else if(S.sel.kind==="audio")S.audios=S.audios.filter(a=>a.id!==S.sel.id);else if(S.sel.kind==="overlay")S.overlays=S.overlays.filter(o=>o.id!==S.sel.id);S.sel=null;S.playhead=clamp(S.playhead,0,total());renderAll();seekTo(S.playhead);toast("Eliminato");}
 $("#splitBtn").addEventListener("click",()=>splitAt(S.playhead));$("#delBtn").addEventListener("click",delSel);$("#undoBtn").addEventListener("click",undo);
 
@@ -249,7 +257,8 @@ function renderAudio(){const p=$("#paneAudio");p.innerHTML="";const a=S.sel&&S.s
   const cs=document.createElement("div");cs.className="sec-t";cs.textContent="Tagli automatici";p.appendChild(cs);
   let sens=0.5;p.appendChild(sliderEl("Sensibilità (più alta = taglia di più)",50,10,90,"%",v=>{sens=v/100;}));
   const cbtn=document.createElement("button");cbtn.className="btn sm gold";cbtn.textContent="✂️ Taglia silenzi e voci basse";cbtn.onclick=()=>cutSilences(sens);p.appendChild(cbtn);
-  p.appendChild(Object.assign(document.createElement("p"),{className:"hint",textContent:"Analizza l'audio e tiene solo le parti parlate. Annulla con Z."}));
+  const bbtn=document.createElement("button");bbtn.className="btn sm";bbtn.textContent="🎵 Tagli a tempo di musica";bbtn.onclick=beatSyncCuts;p.appendChild(bbtn);
+  p.appendChild(Object.assign(document.createElement("p"),{className:"hint",textContent:"Silenzi: tiene solo il parlato. Tempo di musica: aggiunge tagli sul ritmo (prima aggiungi una musica). Annulla con Z."}));
   const st=document.createElement("div");st.className="sec-t";st.textContent="Migliora audio";p.appendChild(st);
   p.appendChild(switchEl("Enfatizza voce","Compressione + presenza del microfono",S.audioFx.voice,v=>{S.audioFx.voice=v;ensureAudio();setAudioFx();}));
   p.appendChild(switchEl("Riduci rumore","Taglia ronzii e rumore di fondo basso",S.audioFx.noise,v=>{S.audioFx.noise=v;ensureAudio();setAudioFx();}));
@@ -286,12 +295,15 @@ function renderText(){const p=$("#paneText");p.innerHTML="";const r=document.cre
   const ct=document.createElement("div");ct.className="sec-t";ct.style.marginTop="4px";ct.textContent="Sottotitoli";p.appendChild(ct);
   const sl=document.createElement("div");sl.className="field";sl.innerHTML=`<label><span>Stile sottotitoli</span></label>`;const sc=document.createElement("div");sc.className="chips";Object.entries(SUBSTYLES).forEach(([k,v])=>{const c=document.createElement("button");c.className="chip"+(subStyle===k?" on":"");c.textContent=v.name;c.onclick=()=>{subStyle=k;renderText();};sc.appendChild(c);});sl.appendChild(sc);p.appendChild(sl);
   if(o&&o.kind==="text"){const ab=document.createElement("button");ab.className="btn sm";ab.textContent="Applica stile al testo selezionato";ab.onclick=applySubStyleToSel;p.appendChild(ab);}
+  const mr=document.createElement("div");mr.className="field";mr.innerHTML=`<label><span>Modalità</span></label>`;const tog=document.createElement("div");tog.className="toggle";const f1=document.createElement("button");f1.textContent="Frasi";f1.className=capMode==="frasi"?"on":"";const f2=document.createElement("button");f2.textContent="Karaoke (parole)";f2.className=capMode==="parole"?"on":"";f1.onclick=()=>{capMode="frasi";renderText();};f2.onclick=()=>{capMode="parole";renderText();};tog.appendChild(f1);tog.appendChild(f2);mr.appendChild(tog);p.appendChild(mr);
   const cf=document.createElement("div");cf.className="field";const cta=document.createElement("textarea");cta.id="capScript";cta.placeholder="Incolla il copione: lo divido in sottotitoli a tempo, con lo stile scelto.";cf.appendChild(cta);p.appendChild(cf);
-  const cb=document.createElement("button");cb.className="btn sm gold";cb.textContent="Genera sottotitoli";cb.onclick=()=>{const n=genCaptions(cta.value);if(n)toast(n+" sottotitoli creati");else toast("Scrivi prima il copione");};p.appendChild(cb);
-  p.appendChild(Object.assign(document.createElement("p"),{className:"hint",textContent:"Per i sottotitoli automatici dal parlato (trascrizione reale), mandami il video in chat: li genero io nel render."}));}
+  const cb=document.createElement("button");cb.className="btn sm gold";cb.textContent="Genera sottotitoli";cb.onclick=()=>{const n=capMode==="parole"?genKaraoke(cta.value):genCaptions(cta.value);if(n)toast(n+" sottotitoli creati");else toast("Scrivi prima il copione");};p.appendChild(cb);
+  p.appendChild(switchEl("Karaoke sincronizzato nel render","Parola-per-parola a tempo reale: lo faccio io nel render finale",S.renderKaraoke,v=>{S.renderKaraoke=v;}));
+  p.appendChild(Object.assign(document.createElement("p"),{className:"hint",textContent:"Qui i tempi sono uniformi. Per il karaoke sincronizzato dal parlato (trascrizione reale) mandami il video in chat: lo genero io nel render."}));}
 function colorSet(){const set=[...S.brand.colors,...PALETTE];return set.filter((c,i)=>set.indexOf(c)===i).slice(0,16);}
 function genCaptions(script){if(!S.src){toast("Carica prima un video");return 0;}const parts=(script||"").split(/\n|(?<=[.!?…])\s+/).map(s=>s.trim()).filter(Boolean);if(!parts.length)return 0;snapshot();const T=total(),per=T/parts.length,st=SUBSTYLES[subStyle];parts.forEach((txt,i)=>{S.overlays.push({id:uid(),kind:"text",text:txt.length>44?txt.slice(0,44)+"…":txt,x:0.5,y:0.74,size:st.size,color:st.color,font:st.font,bold:st.bold,box:st.box,start:+(i*per).toFixed(2),end:+((i+1)*per-0.05).toFixed(2)});});renderAll();drawFrame();return parts.length;}
 function applySubStyleToSel(){const o=getSelObj();if(!o||!S.sel||S.sel.kind!=="overlay"||o.kind!=="text"){toast("Seleziona un testo");return;}snapshot();const st=SUBSTYLES[subStyle];o.color=st.color;o.font=st.font;o.bold=st.bold;o.box=st.box;o.size=st.size;renderText();drawFrame();toast("Stile sottotitolo applicato");}
+function genKaraoke(script){if(!S.src){toast("Carica prima un video");return 0;}const words=(script||"").split(/\s+/).map(w=>w.trim()).filter(Boolean);if(!words.length)return 0;snapshot();const T=total(),st=SUBSTYLES[subStyle],groups=[];for(let i=0;i<words.length;i+=2)groups.push(words.slice(i,i+2).join(" "));const per=T/groups.length;groups.forEach((g,i)=>S.overlays.push({id:uid(),kind:"text",text:g,x:0.5,y:0.72,size:Math.max(st.size,32),color:st.color,font:st.font,bold:true,box:st.box,start:+(i*per).toFixed(2),end:+((i+1)*per).toFixed(2)}));renderAll();drawFrame();return groups.length;}
 function openEmoji(){if(!S.src){toast("Carica prima un video");return;}const m=document.createElement("div");m.className="modal";m.innerHTML=`<div class="card"><h2>Scegli un'emoji</h2><div class="chips" style="font-size:24px">${EMOJIS.map(e=>`<button class="chip" data-e="${e}" style="font-size:22px">${e}</button>`).join("")}</div><div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn ghost" data-x>Chiudi</button></div></div>`;m.addEventListener("click",ev=>{if(ev.target===m||ev.target.hasAttribute("data-x"))m.remove();const b=ev.target.closest("[data-e]");if(b){addOverlay("emoji",b.dataset.e);m.remove();}});document.body.appendChild(m);}
 
 /* ---- BRAND ---- */
@@ -391,7 +403,7 @@ $("#helpBtn").addEventListener("click",()=>{const m=document.createElement("div"
 function buildPlan(){return{format:"verace-studio-plan/3",createdAt:new Date().toISOString(),canvas:{w:1080,h:1920,fps:30},vibe:S.vibe,videoEnhance:S.videoFx.enhance,audioEnhance:S.audioFx,brand:{colors:S.brand.colors,font:S.brand.font,logoCount:S.brand.logos.length},totalDuration:+total().toFixed(2),source:S.src?{duration:+S.src.dur.toFixed(2),w:S.src.w,h:S.src.h}:null,
   segments:S.segments.map((s,i)=>({order:i,sourceIn:+s.in.toFixed(2),sourceOut:+s.out.toFixed(2),effects:s.eff,fx:s.fx,fadeIn:s.fi,fadeOut:s.fo})),
   audio:S.audios.map(a=>({name:a.name,sfx:a.sfx||null,timelineStart:+a.start.toFixed(2),clipIn:+a.in.toFixed(2),clipOut:+a.out.toFixed(2),volume:+a.vol.toFixed(2)})),
-  voiceOver:(LS.get("verace_vo","")||"").slice(0,800),
+  voiceOver:(LS.get("verace_vo","")||"").slice(0,800),renderKaraoke:S.renderKaraoke,captionStyle:subStyle,
   overlays:S.overlays.map(o=>o.kind==="image"?{type:"image",assetId:o.assetId||null,xPct:+(o.x*100).toFixed(1),yPct:+(o.y*100).toFixed(1),size:o.size,start:+o.start.toFixed(2),end:+o.end.toFixed(2)}:{type:o.kind,text:o.text,xPct:+(o.x*100).toFixed(1),yPct:+(o.y*100).toFixed(1),size:o.size,color:o.color,font:o.font,bold:o.bold,box:o.box||null,start:+o.start.toFixed(2),end:+o.end.toFixed(2)})};}
 function thumbDataUrl(){try{const c=document.createElement("canvas");c.width=120;c.height=213;c.getContext("2d").drawImage(canvas,0,0,120,213);return c.toDataURL("image/jpeg",0.5);}catch(e){return"";}}
 function openExport(){if(!S.src){toast("Carica prima un video");return;}const m=document.createElement("div");m.className="modal";m.innerHTML=`<div class="card"><h2>Esporta il reel</h2><p class="note">Durata <b>${fmt(total())}</b> · ${S.segments.length} clip · ${S.audios.length} audio · ${S.overlays.length} grafiche${S.vibe?" · vibe "+VIBES[S.vibe].name:""}</p><div class="field" style="margin:10px 0 2px"><label><span>Risoluzione download</span></label><div class="chips" id="resRow"></div></div><div style="display:flex;flex-direction:column;gap:10px;margin:12px 0"><button class="btn gold" id="exPlan">Copia il piano per Claude · render finale</button><button class="btn" id="exLib">Salva nella Libreria (Full HD)</button><button class="btn" id="exVideo">Scarica video adesso (.webm)</button></div><p class="note">Il piano contiene tagli, effetti, testi, suoni, voice over e brand: incollamelo in chat per il render finale con trascrizione, voce AI, pulizia audio/video e 2K+.</p><div id="exArea"></div><div class="row" style="margin-top:10px;justify-content:flex-end"><button class="btn ghost" data-x>Chiudi</button></div></div>`;
