@@ -1,0 +1,22 @@
+VERACE STUDIO - come metterlo online come APP (PWA installabile)
+
+Contenuto cartella: index.html, app (incluso nell'index), manifest.webmanifest, sw.js, icon-192.png, icon-512.png
+
+MODO PIU' SEMPLICE (gratis, 2 minuti): Netlify Drop
+1. Vai su https://app.netlify.com/drop
+2. Trascina QUESTA cartella intera nella pagina
+3. Ottieni un link tipo https://nome-a-caso.netlify.app
+4. Apri quel link dal telefono -> menu del browser -> "Aggiungi alla schermata Home"
+5. Ora hai un'icona come un'app, si apre a tutto schermo e funziona anche offline
+
+ALTERNATIVE DI HOSTING (stessa cosa, trascini la cartella):
+- Vercel (vercel.com)  - Cloudflare Pages  - GitHub Pages
+
+PER PUBBLICARLA SU APP STORE / PLAY STORE:
+- Serve "impacchettare" questa PWA con uno strumento come PWABuilder (pwabuilder.com)
+  oppure un wrapper (Capacitor). Richiede account sviluppatore:
+  Apple 99$/anno, Google 25$ una tantum. Di solito lo fa uno sviluppatore.
+
+NOTE
+- Deve stare su un indirizzo https (Netlify/Vercel lo danno in automatico): la "app installabile" funziona solo in https.
+- La chat AI e il salvataggio nel cloud non ci sono in questa versione (gira tutta nel telefono).
