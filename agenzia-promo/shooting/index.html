@@ -32,13 +32,14 @@
 .big2{font-weight:800;font-size:96px;line-height:1.05;letter-spacing:-.02em;margin-top:26px}
 .sub{font-family:'Playfair';font-style:italic;font-weight:700;font-size:54px;color:var(--oro);margin-top:36px}
 .note{font-family:'Caveat';font-weight:700;font-size:64px;color:var(--rosino);margin-top:28px;display:inline-block}
-/* marker highlight */
 .mk{position:relative;display:inline-block}
 .mk>.m{position:absolute;left:-8px;right:-8px;bottom:10px;height:40%;border-radius:10px;z-index:-1;transform:scaleX(0);transform-origin:left center}
 .mk.r>.m{background:rgba(192,57,43,.42)}
 .mk.o>.m{background:rgba(199,164,94,.6)}
 .mk.p>.m{background:rgba(168,99,106,.42)}
-/* steps */
+.spk{position:absolute;transform-origin:center;z-index:2}
+.doodle{position:absolute;opacity:.9;z-index:1}
+.heart{position:absolute;bottom:0}
 .steps{display:flex;flex-direction:column;gap:24px;width:772px}
 .step{display:flex;align-items:center;gap:26px;background:#fff;border:2px solid var(--line);border-radius:28px;padding:26px 32px;box-shadow:0 20px 44px -22px rgba(80,55,20,.5)}
 .step .ic{width:96px;height:96px;border-radius:22px;flex:0 0 auto;display:grid;place-items:center;font-size:48px}
@@ -47,16 +48,14 @@
 .step .tx span{font-size:33px;color:var(--ink2);font-weight:600}
 .step .n{margin-left:auto;font-family:'Playfair';font-style:italic;font-size:60px;color:var(--oro);font-weight:700}
 .tag{position:absolute;top:360px;right:120px;background:var(--oro);color:#2a2113;font-weight:800;font-size:30px;padding:12px 22px;border-radius:12px;transform:rotate(7deg);box-shadow:0 12px 26px -12px rgba(120,90,30,.6)}
-/* counter + phone */
 .cnt{font-weight:800;font-size:232px;line-height:.9;letter-spacing:-.04em;color:var(--rosino)}
 .cntlab{font-weight:800;font-size:44px;letter-spacing:.03em;margin-top:4px}
-.phone{width:540px;height:560px;border-radius:50px;background:#fff;border:3px solid var(--line);margin-top:40px;box-shadow:0 44px 90px -34px rgba(80,55,20,.55);padding:24px;position:relative;overflow:hidden}
+.phone{width:540px;height:560px;border-radius:50px;background:#fff;border:3px solid var(--line);margin-top:40px;box-shadow:0 44px 90px -34px rgba(80,55,20,.55);padding:24px;position:relative;overflow:hidden;z-index:2}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
 .rcard{aspect-ratio:9/16;border-radius:15px;position:relative;overflow:hidden;display:grid;place-items:center}
 .rcard::after{content:"";width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92)}
 .rcard::before{content:"";position:absolute;width:0;height:0;border-left:14px solid var(--ink);border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px;z-index:2}
-/* cta */
-.ctacard{background:#fff;border:2px solid var(--line);border-radius:40px;padding:60px 70px;box-shadow:0 30px 70px -30px rgba(80,55,20,.5);display:flex;flex-direction:column;align-items:center;position:relative}
+.ctacard{background:#fff;border:2px solid var(--line);border-radius:40px;padding:60px 70px;box-shadow:0 30px 70px -30px rgba(80,55,20,.5);display:flex;flex-direction:column;align-items:center;position:relative;z-index:2}
 .cta{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:52px;padding:30px 54px;border-radius:999px;box-shadow:0 22px 50px -18px rgba(192,57,43,.75)}
 .ctah{font-family:'Playfair';font-style:italic;font-weight:700;font-size:46px;color:var(--ink2);margin-top:34px}
 .arrow{position:absolute;top:-70px;right:70px;transform:rotate(8deg)}
@@ -71,6 +70,9 @@
 
   <!-- S1 FOMO -->
   <div class="scene" id="s1">
+    <svg class="doodle" style="right:130px;top:300px;transform:rotate(-8deg)" width="150" height="124" viewBox="0 0 48 40" fill="none" stroke="var(--rosino)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8l3-5h10l3 5h8a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z"/><circle cx="24" cy="23" r="7"/><path d="M39 16h2"/></svg>
+    <svg class="spk" style="left:150px;top:440px" width="46" height="46" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--oro)"/></svg>
+    <svg class="spk" style="right:160px;top:1040px" width="34" height="34" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--rosino)"/></svg>
     <div class="big">Mentre pensi<br>a cosa postare…</div>
     <div class="big2">il tuo competitor<br>ha <span class="mk r">già pubblicato<span class="m"></span></span>.</div>
     <div class="note">ops. 👀</div>
@@ -78,12 +80,17 @@
 
   <!-- S2 pain -->
   <div class="scene" id="s2">
+    <svg class="spk" style="left:170px;top:520px" width="40" height="40" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--oro)"/></svg>
+    <svg class="spk" style="right:150px;top:1000px" width="46" height="46" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--rosino)"/></svg>
     <div class="big">Creare contenuti<br>ti ruba <span class="mk o">tempo ed energie<span class="m"></span></span>.</div>
     <div class="sub">E spesso non sai da dove iniziare.</div>
   </div>
 
   <!-- S3 reframe -->
   <div class="scene" id="s3">
+    <svg class="doodle" style="left:50%;margin-left:-55px;top:420px" width="110" height="134" viewBox="0 0 36 44" fill="none" stroke="var(--oro)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5a12 12 0 0 1 7 21c-1.6 1.5-2 3-2 5h-10c0-2-.4-3.5-2-5A12 12 0 0 1 18 5z"/><path d="M13 36h10M14.5 40h7"/><path d="M18 1v-1M31 9l1-1M5 9 4 8" stroke="var(--rosino)"/></svg>
+    <svg class="spk" style="left:230px;top:640px" width="44" height="44" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--rosino)"/></svg>
+    <svg class="spk" style="right:230px;top:660px" width="34" height="34" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--oro)"/></svg>
     <div class="big">E se bastasse<br><span class="mk p">un solo giorno?<span class="m"></span></span></div>
     <div class="note">spoiler: sì 😏</div>
   </div>
@@ -92,6 +99,7 @@
   <div class="scene" id="s4">
     <div class="eyebrow" style="margin-bottom:46px">Un giorno insieme</div>
     <div class="tag" id="tag">tutto incluso</div>
+    <svg class="spk" style="left:150px;top:470px" width="40" height="40" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--oro)"/></svg>
     <div class="steps">
       <div class="step" id="st1"><div class="ic" style="background:#f6e6cf">📸</div><div class="tx"><b>Shooting</b><span>in un solo giorno</span></div><div class="n">01</div></div>
       <div class="step" id="st2"><div class="ic" style="background:#f3dfe1">✂️</div><div class="tx"><b>Lo montiamo noi</b><span>editing incluso</span></div><div class="n">02</div></div>
@@ -99,25 +107,32 @@
     </div>
   </div>
 
-  <!-- S5 counter + feed -->
+  <!-- S5 counter + feed + hearts -->
   <div class="scene" id="s5">
+    <svg class="spk" style="left:270px;top:430px" width="46" height="46" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--oro)"/></svg>
+    <svg class="spk" style="right:270px;top:460px" width="34" height="34" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--rosino)"/></svg>
     <div class="eyebrow" style="margin-bottom:20px">Esci con</div>
     <div class="cnt"><span id="cnum">1</span></div>
     <div class="cntlab">reel già pronti</div>
     <div class="phone"><div class="grid" id="grid"></div></div>
+    <div id="hearts"></div>
   </div>
 
   <!-- S6 riprova sociale -->
   <div class="scene" id="s6">
+    <svg class="spk" style="left:180px;top:560px" width="40" height="40" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--oro)"/></svg>
+    <svg class="spk" style="right:170px;top:1060px" width="44" height="44" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--rosino)"/></svg>
     <div class="big">Pensati e montati<br>da <span class="mk p">chi vive di social<span class="m"></span></span>.</div>
     <div class="sub">Contenuti che fermano il pollice.</div>
   </div>
 
   <!-- S7 scarsità + CTA -->
   <div class="scene" id="s7">
+    <svg class="spk" style="left:210px;top:760px" width="44" height="44" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--oro)"/></svg>
+    <svg class="spk" style="right:220px;top:1180px" width="36" height="36" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--rosino)"/></svg>
     <div class="eyebrow">Pochi posti ogni mese</div>
     <div class="ctacard">
-      <svg class="arrow" width="140" height="120" viewBox="0 0 140 120" fill="none" id="arrow"><path id="apath" d="M10 14 C70 6 120 36 108 92" stroke="var(--rosino)" stroke-width="7" stroke-linecap="round"/><path d="M108 92 l-24 -10 M108 92 l-2 -26" stroke="var(--rosino)" stroke-width="7" stroke-linecap="round"/></svg>
+      <svg class="arrow" width="140" height="120" viewBox="0 0 140 120" fill="none" id="arrow"><path d="M10 14 C70 6 120 36 108 92" stroke="var(--rosino)" stroke-width="7" stroke-linecap="round"/><path d="M108 92 l-24 -10 M108 92 l-2 -26" stroke="var(--rosino)" stroke-width="7" stroke-linecap="round"/></svg>
       <div class="cta">Prenota il tuo shooting</div>
       <div class="ctah">Scrivimi «REEL» nei DM</div>
     </div>
@@ -132,39 +147,48 @@
   for(let i=0;i<13;i++){const d=document.createElement('div');d.className='d';const sz=8+r()*22;d.style.width=sz+'px';d.style.height=sz+'px';d.style.left=Math.round(r()*1080)+'px';d.style.top=Math.round(r()*1920)+'px';d.style.opacity=(0.05+r()*0.08).toFixed(2);dw.appendChild(d);}
   const grads=['linear-gradient(135deg,#A8636A,#7e4a50)','linear-gradient(135deg,#C7A45E,#9a7a35)','linear-gradient(135deg,#2B2724,#4a443c)','linear-gradient(135deg,#C0392B,#7f2f2f)','linear-gradient(135deg,#3E7A54,#2c5a3f)','linear-gradient(135deg,#E0C488,#b8963f)'];
   const grid=document.getElementById('grid');for(let i=0;i<9;i++){const c=document.createElement('div');c.className='rcard';c.style.background=grads[i%grads.length];grid.appendChild(c);}
+  // hearts for S5
+  const hc=document.getElementById('hearts');const hx=[60,180,300,420,540,210,390];
+  for(let i=0;i<7;i++){const h=document.createElement('div');h.className='heart';h.style.left=(80+hx[i])+'px';
+    h.innerHTML='<svg width="'+(40+(i%3)*10)+'" height="'+(40+(i%3)*10)+'" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6.5 5 9 5 11 7 12 8.5 13 7 15 5 17.5 5 21.5 5 23 9 21.5 12 19 16.5 12 21 12 21z" fill="'+(i%2?'#C0392B':'#A8636A')+'"/></svg>';hc.appendChild(h);}
 
   const tl=gsap.timeline({paused:true});
   function scene(id,tin,tout){tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:.5,ease:'power1.out'},tin);if(tout)tl.to('#'+id,{opacity:0,duration:.45,ease:'power2.in'},tout);}
-  // ambient shapes drift
+  // ambient
   tl.fromTo('#sh1',{y:-20},{y:20,duration:38,ease:'none'},0);
   tl.fromTo('#sh2',{y:20},{y:-24,duration:38,ease:'none'},0);
+  // sparkle twinkle (coherent motif across all scenes)
+  tl.fromTo('.spk',{scale:.6,opacity:.4,rotation:-20},{scale:1,opacity:1,rotation:0,duration:.6,ease:'back.out(2)',stagger:{each:0.08,from:'random'}},0);
+  tl.to('.spk',{scale:1.28,opacity:.6,duration:.9,yoyo:true,repeat:-1,ease:'sine.inOut',stagger:{each:0.25,from:'random'}},0.6);
 
-  // S1 0-4.6 FOMO
+  // S1
   scene('s1',0.2,4.2);
   tl.fromTo('#s1 .big',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},0.5);
   tl.fromTo('#s1 .big2',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},1.4);
   tl.fromTo('#s1 .mk .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},2.1);
   tl.fromTo('#s1 .note',{opacity:0,rotation:-8,scale:.8},{opacity:1,rotation:-4,scale:1,duration:.5,ease:'back.out(1.8)'},2.6);
+  tl.fromTo('#s1 .doodle',{opacity:0,scale:.7,rotation:-20},{opacity:.9,scale:1,rotation:-8,duration:.6,ease:'back.out(1.8)'},0.9);
 
-  // S2 5-9.6 pain
+  // S2
   scene('s2',5.0,9.2);
   tl.fromTo('#s2 .big',{opacity:0,y:22},{opacity:1,y:0,duration:.7,ease:'power3.out'},5.3);
   tl.fromTo('#s2 .mk .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},6.2);
   tl.fromTo('#s2 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},6.6);
 
-  // S3 10-14.6 reframe
+  // S3
   scene('s3',10.0,14.2);
   tl.fromTo('#s3 .big',{opacity:0,scale:.92},{opacity:1,scale:1,duration:.7,ease:'back.out(1.4)'},10.3);
   tl.fromTo('#s3 .mk .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},11.0);
+  tl.fromTo('#s3 .doodle',{opacity:0,scale:.7,y:14},{opacity:.9,scale:1,y:0,duration:.6,ease:'back.out(1.8)'},10.6);
   tl.fromTo('#s3 .note',{opacity:0,rotation:6,scale:.8},{opacity:1,rotation:-3,scale:1,duration:.5,ease:'back.out(1.8)'},11.5);
 
-  // S4 15-21.6 offerta
+  // S4
   scene('s4',15.0,21.3);
   tl.fromTo('#s4 .eyebrow',{opacity:0},{opacity:1,duration:.4},15.2);
   ['#st1','#st2','#st3'].forEach((s,i)=>tl.fromTo(s,{opacity:0,x:-42},{opacity:1,x:0,duration:.55,ease:'power3.out'},15.5+i*0.55));
   tl.fromTo('#tag',{opacity:0,scale:.6,rotation:20},{opacity:1,scale:1,rotation:7,duration:.5,ease:'back.out(2)'},17.4);
 
-  // S5 22-29.6 counter
+  // S5
   scene('s5',22.0,29.2);
   tl.fromTo('#s5 .eyebrow',{opacity:0,y:-10},{opacity:1,y:0,duration:.4},22.2);
   tl.fromTo('#s5 .cnt',{opacity:0,scale:.7},{opacity:1,scale:1,duration:.5,ease:'back.out(1.6)'},22.4);
@@ -172,19 +196,21 @@
   tl.fromTo('#s5 .phone',{opacity:0,y:36},{opacity:1,y:0,duration:.6,ease:'power3.out'},22.6);
   const cnt={v:1};tl.fromTo(cnt,{v:1},{v:30,duration:3.2,ease:'power1.inOut',onUpdate:function(){const e=document.getElementById('cnum');if(e)e.textContent=Math.round(cnt.v);}},22.8);
   tl.fromTo('#grid .rcard',{opacity:0,scale:.5},{opacity:1,scale:1,stagger:0.2,duration:.4,ease:'back.out(1.7)'},22.9);
+  tl.fromTo('#hearts .heart',{y:40,opacity:0},{y:-230,opacity:1,duration:2.2,stagger:0.3,ease:'power1.out'},23.4);
+  tl.to('#hearts .heart',{opacity:0,duration:.7,stagger:0.3},26.4);
 
-  // S6 30-33.6 social proof
+  // S6
   scene('s6',30.0,33.3);
   tl.fromTo('#s6 .big',{opacity:0,y:22},{opacity:1,y:0,duration:.7,ease:'power3.out'},30.3);
   tl.fromTo('#s6 .mk .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},31.1);
   tl.fromTo('#s6 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},31.0);
 
-  // S7 34-38 CTA
+  // S7
   scene('s7',34.0);
   tl.fromTo('#s7 .eyebrow',{opacity:0,y:-10},{opacity:1,y:0,duration:.45},34.2);
   tl.fromTo('#s7 .ctacard',{opacity:0,y:30,scale:.94},{opacity:1,y:0,scale:1,duration:.6,ease:'back.out(1.5)'},34.4);
-  tl.fromTo('#s7 .cta',{scale:1},{scale:1.06,duration:.6,yoyo:true,repeat:3,ease:'sine.inOut'},35.4);
   tl.fromTo('#arrow',{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,ease:'back.out(2)'},35.0);
+  tl.fromTo('#s7 .cta',{scale:1},{scale:1.06,duration:.6,yoyo:true,repeat:3,ease:'sine.inOut'},35.4);
 
   window.__timelines=window.__timelines||{};
   window.__timelines['main']=tl;
