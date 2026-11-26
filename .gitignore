@@ -72,3 +72,8 @@ agenzia-promo/albero/export/
 agenzia-promo/albero/snapshots/
 agenzia-promo/albero/assets/sfx/
 agenzia-promo/albero/assets/sfx.wav
+# Promo agenzia — Shooting reel: output rigenerabili
+agenzia-promo/shooting/export/
+agenzia-promo/shooting/snapshots/
+agenzia-promo/shooting/assets/sfx/
+agenzia-promo/shooting/assets/sfx.wav
