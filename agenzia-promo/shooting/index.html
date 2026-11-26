@@ -20,145 +20,149 @@
 @font-face{font-family:'Outfit';src:url('assets/fonts/outfit-800.woff2') format('woff2');font-weight:800;font-display:block}
 @font-face{font-family:'Playfair';src:url('assets/fonts/playfair-display-700-italic.woff2') format('woff2');font-weight:700;font-style:italic;font-display:block}
 @font-face{font-family:'Caveat';src:url('assets/fonts/caveat-700.woff2') format('woff2');font-weight:700;font-display:block}
-:root{--panna:#F3E9D6;--cream:#FCF7EE;--ink:#2B2724;--ink2:#6b625a;--oro:#C7A45E;--oro2:#E0C488;--rosino:#A8636A;--red:#AC3F3F;--line:#e7dcc6}
+:root{--panna:#F3E9D6;--cream:#FCF7EE;--ink:#201C19;--ink2:#6b625a;--oro:#C7A45E;--oro2:#E0C488;--rosino:#A8636A;--red:#C0392B;--line:#e7dcc6}
 *{margin:0;padding:0;box-sizing:border-box}
 #root{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:'Outfit',system-ui,sans-serif;color:var(--ink);
   background:radial-gradient(1200px 760px at 50% -6%, #FDF9F1 0%, #F3E9D6 62%)}
 #dots .d{position:absolute;border-radius:50%;background:var(--oro)}
-.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 110px;text-align:center;opacity:0}
-.eyebrow{font-weight:800;letter-spacing:.22em;font-size:33px;color:var(--rosino);text-transform:uppercase;margin-bottom:38px}
-.h1{font-weight:800;font-size:106px;line-height:1.02;letter-spacing:-.02em}
-.h1 .o{color:var(--rosino)}
-.sub{font-family:'Playfair';font-style:italic;font-weight:700;font-size:60px;color:var(--oro);margin-top:34px}
-.h2{font-weight:800;font-size:86px;line-height:1.05;letter-spacing:-.01em}
-.h2 .o{color:var(--red)}
-.pill{display:inline-block;background:var(--ink);color:var(--cream);font-weight:800;font-size:30px;letter-spacing:.14em;text-transform:uppercase;padding:14px 26px;border-radius:999px;margin-bottom:40px}
-/* calendar */
-.cal{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;width:640px;margin-top:56px}
-.cal .c{aspect-ratio:1;border-radius:16px;background:#efe3cd;border:2px solid var(--line);display:grid;place-items:center;font-weight:800;color:#c9bca3;font-size:34px}
-.cal .c.q{color:var(--rosino);background:#fbeedf}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 108px;text-align:center;opacity:0}
+.scene.dark{background:var(--ink);color:var(--cream)}
+.scene.dark .eyebrow{color:var(--oro2)}
+.eyebrow{font-weight:800;letter-spacing:.24em;font-size:33px;color:var(--rosino);text-transform:uppercase;margin-bottom:40px}
+.eyebrow.red{color:var(--red)}
+.big{font-weight:800;font-size:98px;line-height:1.04;letter-spacing:-.02em}
+.big .o{color:var(--rosino)}
+.big .r{color:var(--red)}
+.big .y{color:var(--oro2)}
+.sub{font-family:'Playfair';font-style:italic;font-weight:700;font-size:56px;color:var(--oro);margin-top:34px}
+.scene.dark .sub{color:var(--oro2)}
+.flag{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:28px;letter-spacing:.16em;text-transform:uppercase;padding:13px 26px;border-radius:999px;margin-bottom:42px}
 /* steps */
-.steps{display:flex;flex-direction:column;gap:26px;width:760px}
-.step{display:flex;align-items:center;gap:26px;background:var(--cream);border:2px solid var(--line);border-radius:28px;padding:28px 32px;box-shadow:0 18px 40px -22px rgba(80,55,20,.45)}
-.step .ic{width:98px;height:98px;border-radius:22px;flex:0 0 auto;display:grid;place-items:center;font-size:50px}
+.steps{display:flex;flex-direction:column;gap:24px;width:770px}
+.step{display:flex;align-items:center;gap:26px;background:var(--cream);border:2px solid var(--line);border-radius:28px;padding:26px 32px;box-shadow:0 18px 40px -22px rgba(80,55,20,.45)}
+.step .ic{width:96px;height:96px;border-radius:22px;flex:0 0 auto;display:grid;place-items:center;font-size:48px}
 .step .tx{text-align:left}
-.step .tx b{display:block;font-weight:800;font-size:46px;line-height:1.1}
-.step .tx span{font-size:34px;color:var(--ink2);font-weight:600}
-.step .n{margin-left:auto;font-family:'Playfair';font-style:italic;font-size:64px;color:var(--oro);font-weight:700}
+.step .tx b{display:block;font-weight:800;font-size:46px;line-height:1.08}
+.step .tx span{font-size:33px;color:var(--ink2);font-weight:600}
+.step .n{margin-left:auto;font-family:'Playfair';font-style:italic;font-size:60px;color:var(--oro);font-weight:700}
 /* counter + phone */
-.cnt{font-weight:800;font-size:220px;line-height:.9;letter-spacing:-.04em;color:var(--rosino)}
-.cntlab{font-weight:800;font-size:46px;letter-spacing:.04em;margin-top:6px}
-.phone{width:560px;height:720px;border-radius:52px;background:var(--cream);border:3px solid var(--line);margin-top:50px;
-  box-shadow:0 40px 80px -30px rgba(80,55,20,.5);padding:26px;position:relative;overflow:hidden}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.rcard{aspect-ratio:9/16;border-radius:16px;position:relative;overflow:hidden;display:grid;place-items:center}
-.rcard::after{content:"";width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9)}
-.rcard::before{content:"";position:absolute;width:0;height:0;border-left:15px solid var(--ink);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px;z-index:2}
+.cnt{font-weight:800;font-size:230px;line-height:.9;letter-spacing:-.04em;color:var(--rosino)}
+.cntlab{font-weight:800;font-size:44px;letter-spacing:.03em;margin-top:4px}
+.phone{width:540px;height:560px;border-radius:50px;background:var(--cream);border:3px solid var(--line);margin-top:40px;
+  box-shadow:0 40px 80px -30px rgba(80,55,20,.5);padding:24px;position:relative;overflow:hidden}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.rcard{aspect-ratio:9/16;border-radius:15px;position:relative;overflow:hidden;display:grid;place-items:center}
+.rcard::after{content:"";width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92)}
+.rcard::before{content:"";position:absolute;width:0;height:0;border-left:14px solid var(--ink);border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px;z-index:2}
 /* cta */
-.cta{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:52px;padding:30px 54px;border-radius:999px;box-shadow:0 24px 50px -20px rgba(172,63,63,.7)}
-.ctah{font-family:'Playfair';font-style:italic;font-weight:700;font-size:48px;color:var(--ink2);margin-top:34px}
-.wm{position:absolute;bottom:90px;left:0;right:0;text-align:center;font-weight:800;letter-spacing:.2em;font-size:30px;color:var(--ink2);opacity:0}
+.cta{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:54px;padding:30px 56px;border-radius:999px;box-shadow:0 24px 60px -18px rgba(192,57,43,.8)}
+.ctah{font-family:'Playfair';font-style:italic;font-weight:700;font-size:48px;color:var(--oro2);margin-top:36px}
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="34.0" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="38.0" data-width="1080" data-height="1920">
   <div id="dots"></div>
 
-  <div class="scene" id="s1">
-    <div class="eyebrow">Per chi crea contenuti</div>
-    <div class="h1">Un giorno di shooting.<br><span class="o">Un mese di reel.</span></div>
-    <div class="sub">La tua attività, raccontata bene.</div>
+  <!-- S1 dark · FOMO -->
+  <div class="scene dark" id="s1">
+    <div class="big">Mentre pensi<br>a cosa postare…</div>
+    <div class="big r" style="margin-top:30px">il tuo competitor<br>ha già pubblicato.</div>
   </div>
 
+  <!-- S2 cream · pain -->
   <div class="scene" id="s2">
-    <div class="pill">Il problema</div>
-    <div class="h2">Arrivi sempre all'ultimo<br>senza <span class="o">niente da postare?</span></div>
-    <div class="cal" id="cal"></div>
+    <div class="big">Creare contenuti ogni giorno<br>ti porta via <span class="o">tempo ed energie.</span></div>
+    <div class="sub">E spesso non sai nemmeno da dove iniziare.</div>
   </div>
 
+  <!-- S3 cream · reframe / curiosità -->
   <div class="scene" id="s3">
-    <div class="eyebrow" style="margin-bottom:46px">Come funziona</div>
+    <div class="big">E se bastasse<br><span class="o">un solo giorno?</span></div>
+  </div>
+
+  <!-- S4 cream · offerta / specificità -->
+  <div class="scene" id="s4">
+    <div class="eyebrow" style="margin-bottom:46px">Un giorno insieme</div>
     <div class="steps">
       <div class="step" id="st1"><div class="ic" style="background:#f6e6cf">📸</div><div class="tx"><b>Shooting</b><span>in un solo giorno</span></div><div class="n">01</div></div>
-      <div class="step" id="st2"><div class="ic" style="background:#f3dfe1">✂️</div><div class="tx"><b>Editing</b><span>lo facciamo noi</span></div><div class="n">02</div></div>
+      <div class="step" id="st2"><div class="ic" style="background:#f3dfe1">✂️</div><div class="tx"><b>Lo montiamo noi</b><span>editing incluso</span></div><div class="n">02</div></div>
       <div class="step" id="st3"><div class="ic" style="background:#e6efe0">🎬</div><div class="tx"><b>20-30 reel</b><span>pronti da pubblicare</span></div><div class="n">03</div></div>
     </div>
   </div>
 
-  <div class="scene" id="s4">
-    <div class="eyebrow" style="margin-bottom:22px">Esci con</div>
+  <!-- S5 counter + feed · desiderio/contrasto -->
+  <div class="scene" id="s5">
+    <div class="eyebrow" style="margin-bottom:20px">Esci con</div>
     <div class="cnt"><span id="cnum">1</span></div>
-    <div class="cntlab">reel già montati</div>
+    <div class="cntlab">reel già pronti</div>
     <div class="phone"><div class="grid" id="grid"></div></div>
   </div>
 
-  <div class="scene" id="s5">
-    <div class="h1">Pensati su misura<br>per la <span class="o">tua attività.</span></div>
-    <div class="sub">Nessun contenuto a caso.</div>
+  <!-- S6 cream · riprova sociale / autorità -->
+  <div class="scene" id="s6">
+    <div class="big">Pensati e montati<br>da <span class="o">chi vive di social.</span></div>
+    <div class="sub">Contenuti che fermano il pollice.</div>
   </div>
 
-  <div class="scene" id="s6">
-    <div class="eyebrow">Pronta a partire?</div>
+  <!-- S7 dark · scarsità + CTA -->
+  <div class="scene dark" id="s7">
+    <div class="eyebrow red">Pochi posti ogni mese</div>
     <div class="cta">Prenota il tuo shooting</div>
-    <div class="ctah">Scrivimi «REEL» in DM</div>
+    <div class="ctah">Scrivimi «REEL» nei DM</div>
   </div>
-  <div class="wm" id="wm">MARKETING&nbsp;VERACE</div>
 </div>
 
 <script>
 (function(){
   function rnd(s){return function(){s=Math.sin(s*999)*1e4;return s-Math.floor(s);};}
-  const r=rnd(7);
-  // background dots
+  const r=rnd(11);
   const dw=document.getElementById('dots');
-  for(let i=0;i<16;i++){const d=document.createElement('div');d.className='d';const sz=8+r()*26;d.style.width=sz+'px';d.style.height=sz+'px';d.style.left=Math.round(r()*1080)+'px';d.style.top=Math.round(r()*1920)+'px';d.style.opacity=(0.06+r()*0.1).toFixed(2);dw.appendChild(d);}
-  // calendar cells
-  const cal=document.getElementById('cal');for(let i=0;i<15;i++){const c=document.createElement('div');c.className='c'+([3,7,11].includes(i)?' q':'');c.textContent=[3,7,11].includes(i)?'?':'';cal.appendChild(c);}
-  // feed grid cards
-  const grads=['linear-gradient(135deg,#A8636A,#7e4a50)','linear-gradient(135deg,#C7A45E,#9a7a35)','linear-gradient(135deg,#2B2724,#4a443c)','linear-gradient(135deg,#AC3F3F,#7f2f2f)','linear-gradient(135deg,#3E7A54,#2c5a3f)','linear-gradient(135deg,#E0C488,#b8963f)'];
-  const grid=document.getElementById('grid');for(let i=0;i<12;i++){const c=document.createElement('div');c.className='rcard';c.style.background=grads[i%grads.length];grid.appendChild(c);}
+  for(let i=0;i<14;i++){const d=document.createElement('div');d.className='d';const sz=8+r()*24;d.style.width=sz+'px';d.style.height=sz+'px';d.style.left=Math.round(r()*1080)+'px';d.style.top=Math.round(r()*1920)+'px';d.style.opacity=(0.05+r()*0.09).toFixed(2);dw.appendChild(d);}
+  const grads=['linear-gradient(135deg,#A8636A,#7e4a50)','linear-gradient(135deg,#C7A45E,#9a7a35)','linear-gradient(135deg,#201C19,#4a443c)','linear-gradient(135deg,#C0392B,#7f2f2f)','linear-gradient(135deg,#3E7A54,#2c5a3f)','linear-gradient(135deg,#E0C488,#b8963f)'];
+  const grid=document.getElementById('grid');for(let i=0;i<9;i++){const c=document.createElement('div');c.className='rcard';c.style.background=grads[i%grads.length];grid.appendChild(c);}
 
   const tl=gsap.timeline({paused:true});
   function scene(id,tin,tout){tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:.5,ease:'power1.out'},tin);if(tout)tl.to('#'+id,{opacity:0,duration:.45,ease:'power2.in'},tout);}
 
-  // S1 0-4.8
-  scene('s1',0.2,4.3);
-  tl.fromTo('#s1 .eyebrow',{opacity:0,y:-12},{opacity:1,y:0,duration:.5},0.4);
-  tl.fromTo('#s1 .h1',{opacity:0,y:26},{opacity:1,y:0,duration:.7,ease:'power3.out'},0.6);
-  tl.fromTo('#s1 .sub',{opacity:0,y:16},{opacity:1,y:0,duration:.6},1.1);
+  // S1 0-4.6 dark FOMO
+  scene('s1',0.2,4.2);
+  tl.fromTo('#s1 .big',{opacity:0,y:24},{opacity:1,y:0,duration:.6,ease:'power3.out'},0.5);
+  tl.fromTo('#s1 .big.r',{opacity:0,y:24},{opacity:1,y:0,duration:.6,ease:'power3.out'},1.6);
 
-  // S2 5-9.3
-  scene('s2',5.0,9.0);
-  tl.fromTo('#s2 .pill',{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:'back.out(1.7)'},5.2);
-  tl.fromTo('#s2 .h2',{opacity:0,y:22},{opacity:1,y:0,duration:.7,ease:'power3.out'},5.4);
-  tl.fromTo('#s2 .cal .c',{opacity:0,scale:.6},{opacity:1,scale:1,stagger:0.035,duration:.35,ease:'back.out(1.5)'},6.0);
+  // S2 5-9.6 pain
+  scene('s2',5.0,9.2);
+  tl.fromTo('#s2 .big',{opacity:0,y:22},{opacity:1,y:0,duration:.7,ease:'power3.out'},5.3);
+  tl.fromTo('#s2 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},6.1);
 
-  // S3 9.6-16.3
-  scene('s3',9.6,15.9);
-  tl.fromTo('#s3 .eyebrow',{opacity:0},{opacity:1,duration:.4},9.7);
-  ['#st1','#st2','#st3'].forEach((s,i)=>tl.fromTo(s,{opacity:0,x:-40},{opacity:1,x:0,duration:.55,ease:'power3.out'},10.0+i*0.55));
+  // S3 10-14.6 reframe
+  scene('s3',10.0,14.2);
+  tl.fromTo('#s3 .big',{opacity:0,scale:.9},{opacity:1,scale:1,duration:.7,ease:'back.out(1.4)'},10.3);
 
-  // S4 16.6-25.3  (counter + grid)
-  scene('s4',16.6,25.0);
-  tl.fromTo('#s4 .eyebrow',{opacity:0,y:-10},{opacity:1,y:0,duration:.4},16.8);
-  tl.fromTo('#s4 .cnt',{opacity:0,scale:.7},{opacity:1,scale:1,duration:.5,ease:'back.out(1.6)'},17.0);
-  tl.fromTo('#s4 .cntlab',{opacity:0},{opacity:1,duration:.4},17.3);
-  tl.fromTo('#s4 .phone',{opacity:0,y:40},{opacity:1,y:0,duration:.6,ease:'power3.out'},17.2);
-  const cnt={v:1};tl.fromTo(cnt,{v:1},{v:30,duration:3.4,ease:'power1.inOut',onUpdate:function(){const e=document.getElementById('cnum');if(e)e.textContent=Math.round(cnt.v);}},17.5);
-  tl.fromTo('#grid .rcard',{opacity:0,scale:.5},{opacity:1,scale:1,stagger:0.16,duration:.4,ease:'back.out(1.7)'},17.6);
+  // S4 15-21.6 offerta
+  scene('s4',15.0,21.3);
+  tl.fromTo('#s4 .eyebrow',{opacity:0},{opacity:1,duration:.4},15.2);
+  ['#st1','#st2','#st3'].forEach((s,i)=>tl.fromTo(s,{opacity:0,x:-42},{opacity:1,x:0,duration:.55,ease:'power3.out'},15.5+i*0.55));
 
-  // S5 25.6-30.3
-  scene('s5',25.6,30.0);
-  tl.fromTo('#s5 .h1',{opacity:0,y:24},{opacity:1,y:0,duration:.7,ease:'power3.out'},25.8);
-  tl.fromTo('#s5 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},26.3);
+  // S5 22-29.6 counter + feed
+  scene('s5',22.0,29.2);
+  tl.fromTo('#s5 .eyebrow',{opacity:0,y:-10},{opacity:1,y:0,duration:.4},22.2);
+  tl.fromTo('#s5 .cnt',{opacity:0,scale:.7},{opacity:1,scale:1,duration:.5,ease:'back.out(1.6)'},22.4);
+  tl.fromTo('#s5 .cntlab',{opacity:0},{opacity:1,duration:.4},22.7);
+  tl.fromTo('#s5 .phone',{opacity:0,y:36},{opacity:1,y:0,duration:.6,ease:'power3.out'},22.6);
+  const cnt={v:1};tl.fromTo(cnt,{v:1},{v:30,duration:3.2,ease:'power1.inOut',onUpdate:function(){const e=document.getElementById('cnum');if(e)e.textContent=Math.round(cnt.v);}},22.8);
+  tl.fromTo('#grid .rcard',{opacity:0,scale:.5},{opacity:1,scale:1,stagger:0.2,duration:.4,ease:'back.out(1.7)'},22.9);
 
-  // S6 30.6-34 (CTA) + wordmark
-  scene('s6',30.6);
-  tl.fromTo('#s6 .eyebrow',{opacity:0,y:-10},{opacity:1,y:0,duration:.45},30.8);
-  tl.fromTo('#s6 .cta',{opacity:0,scale:.85},{opacity:1,scale:1,duration:.55,ease:'back.out(1.7)'},31.0);
-  tl.to('#s6 .cta',{scale:1.05,duration:.6,yoyo:true,repeat:3,ease:'sine.inOut'},31.7);
-  tl.fromTo('#s6 .ctah',{opacity:0,y:12},{opacity:1,y:0,duration:.5},31.4);
-  tl.fromTo('#wm',{opacity:0},{opacity:.0,duration:.1},31.0);
+  // S6 30-33.6 riprova sociale
+  scene('s6',30.0,33.3);
+  tl.fromTo('#s6 .big',{opacity:0,y:22},{opacity:1,y:0,duration:.7,ease:'power3.out'},30.3);
+  tl.fromTo('#s6 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},30.9);
+
+  // S7 34-38 dark scarsità + CTA
+  scene('s7',34.0);
+  tl.fromTo('#s7 .eyebrow',{opacity:0,y:-10},{opacity:1,y:0,duration:.45},34.2);
+  tl.fromTo('#s7 .cta',{opacity:0,scale:.85},{opacity:1,scale:1,duration:.55,ease:'back.out(1.7)'},34.4);
+  tl.to('#s7 .cta',{scale:1.05,duration:.6,yoyo:true,repeat:3,ease:'sine.inOut'},35.2);
+  tl.fromTo('#s7 .ctah',{opacity:0,y:12},{opacity:1,y:0,duration:.5},34.8);
 
   window.__timelines=window.__timelines||{};
   window.__timelines['main']=tl;
