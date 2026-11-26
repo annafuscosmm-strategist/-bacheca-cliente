@@ -1,22 +1,15 @@
-VERACE STUDIO - come metterlo online come APP (PWA installabile)
+VERACE STUDIO - app installabile (PWA) + AI opzionale
 
-Contenuto cartella: index.html, app (incluso nell'index), manifest.webmanifest, sw.js, icon-192.png, icon-512.png
+METTERLO ONLINE (gratis): trascina questa cartella su https://app.netlify.com/drop
+Poi dal telefono: apri il link -> "Aggiungi alla schermata Home".
 
-MODO PIU' SEMPLICE (gratis, 2 minuti): Netlify Drop
-1. Vai su https://app.netlify.com/drop
-2. Trascina QUESTA cartella intera nella pagina
-3. Ottieni un link tipo https://nome-a-caso.netlify.app
-4. Apri quel link dal telefono -> menu del browser -> "Aggiungi alla schermata Home"
-5. Ora hai un'icona come un'app, si apre a tutto schermo e funziona anche offline
+ATTIVARE LA CHAT AI (facoltativo, a pagamento a consumo):
+1. Crea una chiave API su https://console.anthropic.com (sezione API Keys).
+2. Su Netlify: Site configuration -> Environment variables -> aggiungi:
+   ANTHROPIC_API_KEY = la-tua-chiave
+   (facoltativo) AI_MODEL = claude-haiku-5-5
+3. Rilancia il deploy (Deploys -> Trigger deploy), o ri-trascina la cartella.
+Da quel momento la tab "Chat" funziona anche qui. Il costo e' a tuo carico
+(pochi centesimi per messaggio) e lo controlli dai limiti del tuo account Anthropic.
 
-ALTERNATIVE DI HOSTING (stessa cosa, trascini la cartella):
-- Vercel (vercel.com)  - Cloudflare Pages  - GitHub Pages
-
-PER PUBBLICARLA SU APP STORE / PLAY STORE:
-- Serve "impacchettare" questa PWA con uno strumento come PWABuilder (pwabuilder.com)
-  oppure un wrapper (Capacitor). Richiede account sviluppatore:
-  Apple 99$/anno, Google 25$ una tantum. Di solito lo fa uno sviluppatore.
-
-NOTE
-- Deve stare su un indirizzo https (Netlify/Vercel lo danno in automatico): la "app installabile" funziona solo in https.
-- La chat AI e il salvataggio nel cloud non ci sono in questa versione (gira tutta nel telefono).
+Senza chiave: tutto il resto funziona lo stesso; solo la chat AI resta spenta.

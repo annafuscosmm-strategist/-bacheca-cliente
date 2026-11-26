@@ -628,19 +628,24 @@ function pushAiParsed(t){const quotes=[];const re=/«([^»]{2,60})»/g;let m;whi
 function detectVibe(t){const low=(t||"").toLowerCase();for(const k of Object.keys(VIBES))if(low.includes(k))return k;return null;}
 let typingEl=null;function typing(on){const log=$("#chatlog");if(!log)return;if(on){if(typingEl)return;typingEl=document.createElement("div");typingEl.className="typing";typingEl.textContent="Claude sta scrivendo…";log.appendChild(typingEl);log.scrollTop=log.scrollHeight;}else if(typingEl){typingEl.remove();typingEl=null;}}
 function greet(){if(S._greeted)return;S._greeted=true;setTab("chat");pushAiParsed("Ciao Anna! 🎬 Video pronto. Premi «Monta con AI» per un primo montaggio automatico, oppure dimmi di cosa parla il reel e ti propongo hook, testi ed effetti. Prova anche: «aggiungi un gancio iniziale».");}
+let AI_BACKEND=true;
+async function aiComplete(prompt,opts){opts=opts||{};
+  if(CAP.sample){const r=await CAP.sample(prompt,opts);return r.text||"";}
+  let resp;try{resp=await fetch("/.netlify/functions/ai",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({prompt})});}catch(e){AI_BACKEND=false;throw{code:"no_backend"};}
+  if(!resp.ok){AI_BACKEND=false;throw{code:"no_backend"};}
+  const j=await resp.json();if(j.error){if(j.error==="no_key")throw{code:"no_key"};throw{code:j.error};}return j.text||"";}
 async function askClaude(text){const att=S.chatAtt;pushMe(text||"(immagine)",att?att.dataUrl:null);const sendAtt=att;S.chatAtt=null;renderAttRow();
-  if(!CAP.sample){pushAi("La chat live è attiva nella versione online (il link condivisibile). Intanto: scegli una vibe, aggiungi un hook iniziale e un whoosh sul primo taglio. 💛");return;}
   typing(true);try{const hist=S.chat.slice(-8).map(m=>(m.role==="me"?"Anna: ":"Tu: ")+m.text).join("\n");
     const sys="Sei la direttrice creativa dello studio di Anna, social media manager dell'agenzia Marketing Verace. Aiuti a montare reel verticali. Rispondi SEMPRE in italiano, tono caldo e concreto, massimo 80 parole. Proponi elementi visivi: testi/hook da mostrare, effetti, vibe (elegante, creativo, minimal, energico, caldo, natalizio, cinema, dolce), ritmo. Le scritte da mettere nel video mettile tra «virgolette basse».";
     const ctx="Contesto: reel di "+fmt(total())+", "+S.segments.length+" clip, vibe: "+(S.vibe?VIBES[S.vibe].name:"nessuna")+(sendAtt?". Anna ha allegato un'immagine.":"") ;
     const opts={modelTier:"default"};if(CAP.sampleImages&&sendAtt&&sendAtt.blob)opts.images=[sendAtt.blob];
-    const r=await CAP.sample(sys+"\n\n"+ctx+"\n\nConversazione:\n"+hist+"\n\nRispondi all'ultimo messaggio.",opts);typing(false);pushAiParsed(r.text||"…");}
-  catch(e){typing(false);pushAi(e&&e.code==="rate_limited"?"Un attimo, troppe richieste — riprova tra poco.":"Non riesco a rispondere adesso.");}}
+    const out=await aiComplete(sys+"\n\n"+ctx+"\n\nConversazione:\n"+hist+"\n\nRispondi all'ultimo messaggio.",opts);typing(false);pushAiParsed(out||"…");}
+  catch(e){typing(false);const c=e&&e.code;pushAi(c==="no_key"?"La chat AI non è ancora collegata qui: va inserita la chiave AI nelle impostazioni del sito (te lo spiego io).":c==="no_backend"?"Qui la chat AI non è disponibile. Usa la versione su claude.ai, oppure collega la chiave AI al sito.":c==="rate_limited"?"Un attimo, troppe richieste — riprova tra poco.":"Non riesco a rispondere adesso.");}}
 
 /* ---- AUTO EDIT ---- */
 async function autoEdit(){if(!S.src){toast("Carica prima un video");return;}setTab("chat");S._greeted=true;pushAi("Faccio un primo montaggio automatico… ✨");typing(true);
   let vibe="elegante",hook="Guarda fino alla fine 👀",cta="Salva questo reel 💾";
-  if(CAP.sample){try{const r=await CAP.sample('Per un reel verticale di '+fmt(total())+' di una social media manager, rispondi SOLO con JSON: {"vibe":"una tra elegante,creativo,minimal,energico,caldo,natalizio,cinema,dolce","hook":"gancio iniziale max 5 parole","cta":"call to action finale breve"}',{modelTier:"quick"});const j=JSON.parse((r.text.match(/\{[\s\S]*\}/)||["{}"])[0]);if(j.vibe&&VIBES[j.vibe])vibe=j.vibe;if(j.hook)hook=String(j.hook).slice(0,40);if(j.cta)cta=String(j.cta).slice(0,40);}catch(e){}}
+  try{const txt=await aiComplete('Per un reel verticale di '+fmt(total())+' di una social media manager, rispondi SOLO con JSON: {"vibe":"una tra elegante,creativo,minimal,energico,caldo,natalizio,cinema,dolce","hook":"gancio iniziale max 5 parole","cta":"call to action finale breve"}',{modelTier:"quick"});const j=JSON.parse((txt.match(/\{[\s\S]*\}/)||["{}"])[0]);if(j.vibe&&VIBES[j.vibe])vibe=j.vibe;if(j.hook)hook=String(j.hook).slice(0,40);if(j.cta)cta=String(j.cta).slice(0,40);}catch(e){}
   typing(false);snapshot();applyVibeCore(vibe);
   if(S.segments[0])S.segments[0].fi=Math.max(S.segments[0].fi,0.4);if(S.segments.length)S.segments[S.segments.length-1].fo=Math.max(S.segments[S.segments.length-1].fo,0.5);
   addOverlayRaw("text",hook,0.5,0.22,0,Math.min(2.5,total()));addOverlayRaw("text",cta,0.5,0.8,Math.max(0,total()-2.5),total());
