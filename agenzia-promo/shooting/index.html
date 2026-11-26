@@ -20,69 +20,78 @@
 @font-face{font-family:'Outfit';src:url('assets/fonts/outfit-800.woff2') format('woff2');font-weight:800;font-display:block}
 @font-face{font-family:'Playfair';src:url('assets/fonts/playfair-display-700-italic.woff2') format('woff2');font-weight:700;font-style:italic;font-display:block}
 @font-face{font-family:'Caveat';src:url('assets/fonts/caveat-700.woff2') format('woff2');font-weight:700;font-display:block}
-:root{--panna:#F3E9D6;--cream:#FCF7EE;--ink:#201C19;--ink2:#6b625a;--oro:#C7A45E;--oro2:#E0C488;--rosino:#A8636A;--red:#C0392B;--line:#e7dcc6}
+:root{--panna:#F3E9D6;--cream:#FCF7EE;--ink:#2B2724;--ink2:#6b625a;--oro:#C7A45E;--oro2:#E0C488;--rosino:#A8636A;--red:#C0392B;--line:#e7dcc6}
 *{margin:0;padding:0;box-sizing:border-box}
 #root{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:'Outfit',system-ui,sans-serif;color:var(--ink);
-  background:radial-gradient(1200px 760px at 50% -6%, #FDF9F1 0%, #F3E9D6 62%)}
+  background:radial-gradient(1200px 820px at 50% -8%, #FEFBF4 0%, #F3E9D6 64%)}
+.shape{position:absolute;border-radius:28px;opacity:.1}
 #dots .d{position:absolute;border-radius:50%;background:var(--oro)}
-.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 108px;text-align:center;opacity:0}
-.scene.dark{background:var(--ink);color:var(--cream)}
-.scene.dark .eyebrow{color:var(--oro2)}
-.eyebrow{font-weight:800;letter-spacing:.24em;font-size:33px;color:var(--rosino);text-transform:uppercase;margin-bottom:40px}
-.eyebrow.red{color:var(--red)}
-.big{font-weight:800;font-size:98px;line-height:1.04;letter-spacing:-.02em}
-.big .o{color:var(--rosino)}
-.big .r{color:var(--red)}
-.big .y{color:var(--oro2)}
-.sub{font-family:'Playfair';font-style:italic;font-weight:700;font-size:56px;color:var(--oro);margin-top:34px}
-.scene.dark .sub{color:var(--oro2)}
-.flag{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:28px;letter-spacing:.16em;text-transform:uppercase;padding:13px 26px;border-radius:999px;margin-bottom:42px}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 104px;text-align:center;opacity:0}
+.eyebrow{font-weight:800;letter-spacing:.24em;font-size:33px;color:var(--rosino);text-transform:uppercase;margin-bottom:42px}
+.big{font-weight:800;font-size:98px;line-height:1.05;letter-spacing:-.02em}
+.big2{font-weight:800;font-size:96px;line-height:1.05;letter-spacing:-.02em;margin-top:26px}
+.sub{font-family:'Playfair';font-style:italic;font-weight:700;font-size:54px;color:var(--oro);margin-top:36px}
+.note{font-family:'Caveat';font-weight:700;font-size:64px;color:var(--rosino);margin-top:28px;display:inline-block}
+/* marker highlight */
+.mk{position:relative;display:inline-block}
+.mk>.m{position:absolute;left:-8px;right:-8px;bottom:10px;height:40%;border-radius:10px;z-index:-1;transform:scaleX(0);transform-origin:left center}
+.mk.r>.m{background:rgba(192,57,43,.42)}
+.mk.o>.m{background:rgba(199,164,94,.6)}
+.mk.p>.m{background:rgba(168,99,106,.42)}
 /* steps */
-.steps{display:flex;flex-direction:column;gap:24px;width:770px}
-.step{display:flex;align-items:center;gap:26px;background:var(--cream);border:2px solid var(--line);border-radius:28px;padding:26px 32px;box-shadow:0 18px 40px -22px rgba(80,55,20,.45)}
+.steps{display:flex;flex-direction:column;gap:24px;width:772px}
+.step{display:flex;align-items:center;gap:26px;background:#fff;border:2px solid var(--line);border-radius:28px;padding:26px 32px;box-shadow:0 20px 44px -22px rgba(80,55,20,.5)}
 .step .ic{width:96px;height:96px;border-radius:22px;flex:0 0 auto;display:grid;place-items:center;font-size:48px}
 .step .tx{text-align:left}
 .step .tx b{display:block;font-weight:800;font-size:46px;line-height:1.08}
 .step .tx span{font-size:33px;color:var(--ink2);font-weight:600}
 .step .n{margin-left:auto;font-family:'Playfair';font-style:italic;font-size:60px;color:var(--oro);font-weight:700}
+.tag{position:absolute;top:360px;right:120px;background:var(--oro);color:#2a2113;font-weight:800;font-size:30px;padding:12px 22px;border-radius:12px;transform:rotate(7deg);box-shadow:0 12px 26px -12px rgba(120,90,30,.6)}
 /* counter + phone */
-.cnt{font-weight:800;font-size:230px;line-height:.9;letter-spacing:-.04em;color:var(--rosino)}
+.cnt{font-weight:800;font-size:232px;line-height:.9;letter-spacing:-.04em;color:var(--rosino)}
 .cntlab{font-weight:800;font-size:44px;letter-spacing:.03em;margin-top:4px}
-.phone{width:540px;height:560px;border-radius:50px;background:var(--cream);border:3px solid var(--line);margin-top:40px;
-  box-shadow:0 40px 80px -30px rgba(80,55,20,.5);padding:24px;position:relative;overflow:hidden}
+.phone{width:540px;height:560px;border-radius:50px;background:#fff;border:3px solid var(--line);margin-top:40px;box-shadow:0 44px 90px -34px rgba(80,55,20,.55);padding:24px;position:relative;overflow:hidden}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
 .rcard{aspect-ratio:9/16;border-radius:15px;position:relative;overflow:hidden;display:grid;place-items:center}
 .rcard::after{content:"";width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92)}
 .rcard::before{content:"";position:absolute;width:0;height:0;border-left:14px solid var(--ink);border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px;z-index:2}
 /* cta */
-.cta{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:54px;padding:30px 56px;border-radius:999px;box-shadow:0 24px 60px -18px rgba(192,57,43,.8)}
-.ctah{font-family:'Playfair';font-style:italic;font-weight:700;font-size:48px;color:var(--oro2);margin-top:36px}
+.ctacard{background:#fff;border:2px solid var(--line);border-radius:40px;padding:60px 70px;box-shadow:0 30px 70px -30px rgba(80,55,20,.5);display:flex;flex-direction:column;align-items:center;position:relative}
+.cta{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:52px;padding:30px 54px;border-radius:999px;box-shadow:0 22px 50px -18px rgba(192,57,43,.75)}
+.ctah{font-family:'Playfair';font-style:italic;font-weight:700;font-size:46px;color:var(--ink2);margin-top:34px}
+.arrow{position:absolute;top:-70px;right:70px;transform:rotate(8deg)}
 </style>
 </head>
 <body>
 <div id="root" data-composition-id="main" data-start="0" data-duration="38.0" data-width="1080" data-height="1920">
+  <div class="shape" id="sh1" style="width:260px;height:260px;background:var(--rosino);left:-60px;top:160px;transform:rotate(-12deg)"></div>
+  <div class="shape" id="sh2" style="width:200px;height:200px;background:var(--oro);right:-40px;top:620px;transform:rotate(14deg)"></div>
+  <div class="shape" id="sh3" style="width:230px;height:230px;background:var(--red);left:-50px;bottom:300px;transform:rotate(10deg);opacity:.08"></div>
   <div id="dots"></div>
 
-  <!-- S1 dark · FOMO -->
-  <div class="scene dark" id="s1">
+  <!-- S1 FOMO -->
+  <div class="scene" id="s1">
     <div class="big">Mentre pensi<br>a cosa postare…</div>
-    <div class="big r" style="margin-top:30px">il tuo competitor<br>ha già pubblicato.</div>
+    <div class="big2">il tuo competitor<br>ha <span class="mk r">già pubblicato<span class="m"></span></span>.</div>
+    <div class="note">ops. 👀</div>
   </div>
 
-  <!-- S2 cream · pain -->
+  <!-- S2 pain -->
   <div class="scene" id="s2">
-    <div class="big">Creare contenuti ogni giorno<br>ti porta via <span class="o">tempo ed energie.</span></div>
-    <div class="sub">E spesso non sai nemmeno da dove iniziare.</div>
+    <div class="big">Creare contenuti<br>ti ruba <span class="mk o">tempo ed energie<span class="m"></span></span>.</div>
+    <div class="sub">E spesso non sai da dove iniziare.</div>
   </div>
 
-  <!-- S3 cream · reframe / curiosità -->
+  <!-- S3 reframe -->
   <div class="scene" id="s3">
-    <div class="big">E se bastasse<br><span class="o">un solo giorno?</span></div>
+    <div class="big">E se bastasse<br><span class="mk p">un solo giorno?<span class="m"></span></span></div>
+    <div class="note">spoiler: sì 😏</div>
   </div>
 
-  <!-- S4 cream · offerta / specificità -->
+  <!-- S4 offerta -->
   <div class="scene" id="s4">
     <div class="eyebrow" style="margin-bottom:46px">Un giorno insieme</div>
+    <div class="tag" id="tag">tutto incluso</div>
     <div class="steps">
       <div class="step" id="st1"><div class="ic" style="background:#f6e6cf">📸</div><div class="tx"><b>Shooting</b><span>in un solo giorno</span></div><div class="n">01</div></div>
       <div class="step" id="st2"><div class="ic" style="background:#f3dfe1">✂️</div><div class="tx"><b>Lo montiamo noi</b><span>editing incluso</span></div><div class="n">02</div></div>
@@ -90,7 +99,7 @@
     </div>
   </div>
 
-  <!-- S5 counter + feed · desiderio/contrasto -->
+  <!-- S5 counter + feed -->
   <div class="scene" id="s5">
     <div class="eyebrow" style="margin-bottom:20px">Esci con</div>
     <div class="cnt"><span id="cnum">1</span></div>
@@ -98,52 +107,64 @@
     <div class="phone"><div class="grid" id="grid"></div></div>
   </div>
 
-  <!-- S6 cream · riprova sociale / autorità -->
+  <!-- S6 riprova sociale -->
   <div class="scene" id="s6">
-    <div class="big">Pensati e montati<br>da <span class="o">chi vive di social.</span></div>
+    <div class="big">Pensati e montati<br>da <span class="mk p">chi vive di social<span class="m"></span></span>.</div>
     <div class="sub">Contenuti che fermano il pollice.</div>
   </div>
 
-  <!-- S7 dark · scarsità + CTA -->
-  <div class="scene dark" id="s7">
-    <div class="eyebrow red">Pochi posti ogni mese</div>
-    <div class="cta">Prenota il tuo shooting</div>
-    <div class="ctah">Scrivimi «REEL» nei DM</div>
+  <!-- S7 scarsità + CTA -->
+  <div class="scene" id="s7">
+    <div class="eyebrow">Pochi posti ogni mese</div>
+    <div class="ctacard">
+      <svg class="arrow" width="140" height="120" viewBox="0 0 140 120" fill="none" id="arrow"><path id="apath" d="M10 14 C70 6 120 36 108 92" stroke="var(--rosino)" stroke-width="7" stroke-linecap="round"/><path d="M108 92 l-24 -10 M108 92 l-2 -26" stroke="var(--rosino)" stroke-width="7" stroke-linecap="round"/></svg>
+      <div class="cta">Prenota il tuo shooting</div>
+      <div class="ctah">Scrivimi «REEL» nei DM</div>
+    </div>
   </div>
 </div>
 
 <script>
 (function(){
   function rnd(s){return function(){s=Math.sin(s*999)*1e4;return s-Math.floor(s);};}
-  const r=rnd(11);
+  const r=rnd(5);
   const dw=document.getElementById('dots');
-  for(let i=0;i<14;i++){const d=document.createElement('div');d.className='d';const sz=8+r()*24;d.style.width=sz+'px';d.style.height=sz+'px';d.style.left=Math.round(r()*1080)+'px';d.style.top=Math.round(r()*1920)+'px';d.style.opacity=(0.05+r()*0.09).toFixed(2);dw.appendChild(d);}
-  const grads=['linear-gradient(135deg,#A8636A,#7e4a50)','linear-gradient(135deg,#C7A45E,#9a7a35)','linear-gradient(135deg,#201C19,#4a443c)','linear-gradient(135deg,#C0392B,#7f2f2f)','linear-gradient(135deg,#3E7A54,#2c5a3f)','linear-gradient(135deg,#E0C488,#b8963f)'];
+  for(let i=0;i<13;i++){const d=document.createElement('div');d.className='d';const sz=8+r()*22;d.style.width=sz+'px';d.style.height=sz+'px';d.style.left=Math.round(r()*1080)+'px';d.style.top=Math.round(r()*1920)+'px';d.style.opacity=(0.05+r()*0.08).toFixed(2);dw.appendChild(d);}
+  const grads=['linear-gradient(135deg,#A8636A,#7e4a50)','linear-gradient(135deg,#C7A45E,#9a7a35)','linear-gradient(135deg,#2B2724,#4a443c)','linear-gradient(135deg,#C0392B,#7f2f2f)','linear-gradient(135deg,#3E7A54,#2c5a3f)','linear-gradient(135deg,#E0C488,#b8963f)'];
   const grid=document.getElementById('grid');for(let i=0;i<9;i++){const c=document.createElement('div');c.className='rcard';c.style.background=grads[i%grads.length];grid.appendChild(c);}
 
   const tl=gsap.timeline({paused:true});
   function scene(id,tin,tout){tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:.5,ease:'power1.out'},tin);if(tout)tl.to('#'+id,{opacity:0,duration:.45,ease:'power2.in'},tout);}
+  // ambient shapes drift
+  tl.fromTo('#sh1',{y:-20},{y:20,duration:38,ease:'none'},0);
+  tl.fromTo('#sh2',{y:20},{y:-24,duration:38,ease:'none'},0);
 
-  // S1 0-4.6 dark FOMO
+  // S1 0-4.6 FOMO
   scene('s1',0.2,4.2);
-  tl.fromTo('#s1 .big',{opacity:0,y:24},{opacity:1,y:0,duration:.6,ease:'power3.out'},0.5);
-  tl.fromTo('#s1 .big.r',{opacity:0,y:24},{opacity:1,y:0,duration:.6,ease:'power3.out'},1.6);
+  tl.fromTo('#s1 .big',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},0.5);
+  tl.fromTo('#s1 .big2',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},1.4);
+  tl.fromTo('#s1 .mk .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},2.1);
+  tl.fromTo('#s1 .note',{opacity:0,rotation:-8,scale:.8},{opacity:1,rotation:-4,scale:1,duration:.5,ease:'back.out(1.8)'},2.6);
 
   // S2 5-9.6 pain
   scene('s2',5.0,9.2);
   tl.fromTo('#s2 .big',{opacity:0,y:22},{opacity:1,y:0,duration:.7,ease:'power3.out'},5.3);
-  tl.fromTo('#s2 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},6.1);
+  tl.fromTo('#s2 .mk .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},6.2);
+  tl.fromTo('#s2 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},6.6);
 
   // S3 10-14.6 reframe
   scene('s3',10.0,14.2);
-  tl.fromTo('#s3 .big',{opacity:0,scale:.9},{opacity:1,scale:1,duration:.7,ease:'back.out(1.4)'},10.3);
+  tl.fromTo('#s3 .big',{opacity:0,scale:.92},{opacity:1,scale:1,duration:.7,ease:'back.out(1.4)'},10.3);
+  tl.fromTo('#s3 .mk .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},11.0);
+  tl.fromTo('#s3 .note',{opacity:0,rotation:6,scale:.8},{opacity:1,rotation:-3,scale:1,duration:.5,ease:'back.out(1.8)'},11.5);
 
   // S4 15-21.6 offerta
   scene('s4',15.0,21.3);
   tl.fromTo('#s4 .eyebrow',{opacity:0},{opacity:1,duration:.4},15.2);
   ['#st1','#st2','#st3'].forEach((s,i)=>tl.fromTo(s,{opacity:0,x:-42},{opacity:1,x:0,duration:.55,ease:'power3.out'},15.5+i*0.55));
+  tl.fromTo('#tag',{opacity:0,scale:.6,rotation:20},{opacity:1,scale:1,rotation:7,duration:.5,ease:'back.out(2)'},17.4);
 
-  // S5 22-29.6 counter + feed
+  // S5 22-29.6 counter
   scene('s5',22.0,29.2);
   tl.fromTo('#s5 .eyebrow',{opacity:0,y:-10},{opacity:1,y:0,duration:.4},22.2);
   tl.fromTo('#s5 .cnt',{opacity:0,scale:.7},{opacity:1,scale:1,duration:.5,ease:'back.out(1.6)'},22.4);
@@ -152,17 +173,18 @@
   const cnt={v:1};tl.fromTo(cnt,{v:1},{v:30,duration:3.2,ease:'power1.inOut',onUpdate:function(){const e=document.getElementById('cnum');if(e)e.textContent=Math.round(cnt.v);}},22.8);
   tl.fromTo('#grid .rcard',{opacity:0,scale:.5},{opacity:1,scale:1,stagger:0.2,duration:.4,ease:'back.out(1.7)'},22.9);
 
-  // S6 30-33.6 riprova sociale
+  // S6 30-33.6 social proof
   scene('s6',30.0,33.3);
   tl.fromTo('#s6 .big',{opacity:0,y:22},{opacity:1,y:0,duration:.7,ease:'power3.out'},30.3);
-  tl.fromTo('#s6 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},30.9);
+  tl.fromTo('#s6 .mk .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},31.1);
+  tl.fromTo('#s6 .sub',{opacity:0,y:14},{opacity:1,y:0,duration:.6},31.0);
 
-  // S7 34-38 dark scarsità + CTA
+  // S7 34-38 CTA
   scene('s7',34.0);
   tl.fromTo('#s7 .eyebrow',{opacity:0,y:-10},{opacity:1,y:0,duration:.45},34.2);
-  tl.fromTo('#s7 .cta',{opacity:0,scale:.85},{opacity:1,scale:1,duration:.55,ease:'back.out(1.7)'},34.4);
-  tl.to('#s7 .cta',{scale:1.05,duration:.6,yoyo:true,repeat:3,ease:'sine.inOut'},35.2);
-  tl.fromTo('#s7 .ctah',{opacity:0,y:12},{opacity:1,y:0,duration:.5},34.8);
+  tl.fromTo('#s7 .ctacard',{opacity:0,y:30,scale:.94},{opacity:1,y:0,scale:1,duration:.6,ease:'back.out(1.5)'},34.4);
+  tl.fromTo('#s7 .cta',{scale:1},{scale:1.06,duration:.6,yoyo:true,repeat:3,ease:'sine.inOut'},35.4);
+  tl.fromTo('#arrow',{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,ease:'back.out(2)'},35.0);
 
   window.__timelines=window.__timelines||{};
   window.__timelines['main']=tl;
