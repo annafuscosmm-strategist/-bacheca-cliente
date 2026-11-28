@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=1080, height=1920" />
-<title>Chi sono — presentazione</title>
+<title>Chi sono — stile Foretell</title>
 <script>/*!
  * GSAP 3.14.2
  * https://gsap.com
@@ -17,197 +17,238 @@
 
 </script>
 <style>
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit-300.ttf') format('truetype');font-weight:300;font-display:block}
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit-400.ttf') format('truetype');font-weight:400;font-display:block}
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit-500.ttf') format('truetype');font-weight:500;font-display:block}
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit-600.ttf') format('truetype');font-weight:600;font-display:block}
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit-700.ttf') format('truetype');font-weight:700;font-display:block}
 @font-face{font-family:'Outfit';src:url('assets/fonts/outfit-800.woff2') format('woff2');font-weight:800;font-display:block}
-@font-face{font-family:'Playfair';src:url('assets/fonts/playfair-display-700-italic.woff2') format('woff2');font-weight:700;font-style:italic;font-display:block}
-@font-face{font-family:'Caveat';src:url('assets/fonts/caveat-700.woff2') format('woff2');font-weight:700;font-display:block}
-:root{--panna:#F3E9D6;--cream:#FCF7EE;--ink:#2B2724;--ink2:#6b625a;--oro:#C7A45E;--oro2:#E0C488;--rosino:#A8636A;--red:#C0392B;--line:#e7dcc6}
+:root{--lime:#C3E000;--lime2:#DCEE6A;--limed:#8FAF00;--beige:#E9E1D4;--pink:#E85C9B}
 *{margin:0;padding:0;box-sizing:border-box}
-#root{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:'Outfit',system-ui,sans-serif;color:var(--ink);
-  background:radial-gradient(1200px 820px at 50% -8%, #FEFBF4 0%, #F3E9D6 64%)}
-.shape{position:absolute;border-radius:28px;opacity:.1}
-#dots .d{position:absolute;border-radius:50%;background:var(--oro)}
-.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 104px;text-align:center;opacity:0}
+#root{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:'Outfit',system-ui,sans-serif;color:#111;background:#000}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 96px;text-align:center;opacity:0}
 .bg{position:absolute;inset:0;z-index:0}
-.scene>*:not(.bg):not(.burst){position:relative;z-index:1}
-.small{font-weight:800;font-size:60px;letter-spacing:-.01em;color:var(--ink)}
-.eyebrow{font-weight:800;letter-spacing:.24em;font-size:33px;color:var(--rosino);text-transform:uppercase}
-.spk{position:absolute;transform-origin:center;z-index:2}
-/* burst behind hero */
-.burst{position:absolute;width:1280px;height:1280px;left:50%;top:50%;transform:translate(-50%,-50%) scale(.6);z-index:0;
-  background:repeating-conic-gradient(from 0deg at 50% 50%, var(--oro2) 0deg 2.4deg, transparent 2.4deg 9deg);
-  -webkit-mask:radial-gradient(circle at 50% 50%, #000 14%, #000 30%, transparent 60%);
-  mask:radial-gradient(circle at 50% 50%, #000 14%, #000 30%, transparent 60%);opacity:0}
-/* chunky 3D hero word */
-.hero{font-weight:800;font-size:168px;line-height:.92;letter-spacing:-.035em;display:inline-block;transform:rotate(-2deg)}
-.hero.red{color:var(--red);text-shadow:0 5px 0 #8f2a20,0 10px 22px rgba(120,30,20,.3)}
-.hero.ro{color:var(--rosino);text-shadow:0 5px 0 #7c474d,0 10px 22px rgba(120,60,65,.3)}
-.heror{font-weight:800;font-size:150px;line-height:.92;letter-spacing:-.03em;display:inline-block;transform:rotate(2deg);color:var(--oro);text-shadow:0 5px 0 #9a7a35,0 10px 22px rgba(120,90,30,.3)}
-.hbig{font-weight:800;font-size:112px;line-height:1.0;letter-spacing:-.02em}
-.ital{font-family:'Playfair';font-style:italic;font-weight:700}
-.sub{font-family:'Playfair';font-style:italic;font-weight:700;font-size:56px;color:var(--ink2);margin-top:30px}
-.note{font-family:'Caveat';font-weight:700;font-size:70px;color:var(--rosino);margin-top:26px;display:inline-block}
-.mk{position:relative;display:inline-block}
-.mk>.m{position:absolute;left:-10px;right:-10px;bottom:12px;height:42%;border-radius:12px;z-index:-1;transform:scaleX(0);transform-origin:left center}
-.mk.o>.m{background:rgba(199,164,94,.7)}
-.mk.r>.m{background:rgba(192,57,43,.4)}
-.mk.p>.m{background:rgba(168,99,106,.42)}
-/* services scroll */
-.svc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:132px;letter-spacing:-.02em;color:var(--cream);line-height:1.1;opacity:0}
-.svcnum{font-family:'Playfair';font-style:italic;font-weight:700;font-size:48px;color:rgba(255,255,255,.8);display:block;margin-bottom:6px}
-/* squiggle story scene */
-.squig{position:absolute;z-index:0;opacity:0}
-/* outro */
-.logo{display:flex;flex-direction:column;align-items:center;gap:30px}
-.logo .name{font-weight:800;font-size:138px;letter-spacing:-.02em;color:var(--ink)}
-.logo .tag{font-weight:800;letter-spacing:.28em;font-size:34px;color:var(--rosino);text-transform:uppercase}
+.scene>*:not(.bg):not(.obj):not(.grid):not(.sun){position:relative;z-index:2}
+.obj{position:absolute;z-index:1}
+.grid{position:absolute;inset:0;z-index:0}
+.grid i{position:absolute;width:12px;height:12px;border-radius:2px}
+.sun{position:absolute;z-index:0;left:50%;top:50%;transform:translate(-50%,-50%)}
+/* identity */
+.smallid{font-weight:500;font-size:72px;letter-spacing:-.01em;color:#1c1a16}
+.inf{font-weight:800;font-size:184px;line-height:.86;letter-spacing:-.02em;margin-top:6px;white-space:nowrap}
+.inf>span{display:inline-block;color:var(--pink);
+  text-shadow:-2px -3px 0 rgba(255,255,255,.65),0 4px 0 #b83a74,0 8px 0 #9c2f63,0 12px 16px rgba(120,20,70,.4);
+  transform:rotate(var(--r,0deg))}
+/* generic big rounded text */
+.t{font-weight:700;font-size:112px;line-height:1.02;letter-spacing:-.02em}
+.t.lite{font-weight:400}
+.obl{font-style:italic;font-weight:700}
+.lime{color:var(--lime)}
+.limeink{color:var(--limed)}
+.white{color:#fff}
+.ink{color:#111}
+/* service word */
+.svcw{font-weight:700;font-size:150px;letter-spacing:-.03em;color:#13160a;line-height:1.0}
+.svcn{display:block;font-weight:500;font-size:46px;letter-spacing:.12em;color:rgba(19,22,10,.6);margin-bottom:10px}
+/* squiggle scene text */
+.story{font-weight:400;font-size:104px;line-height:1.12;letter-spacing:-.02em;color:#111}
+.story b{font-weight:700}
+.squig{position:absolute;inset:0;z-index:0;opacity:0}
+/* logo */
+.logo{display:flex;flex-direction:column;align-items:center;gap:26px}
+.logo .nm{font-weight:600;font-size:150px;letter-spacing:-.03em;color:#fff;line-height:.9}
+.logo .tg{font-weight:500;letter-spacing:.3em;font-size:32px;color:rgba(255,255,255,.72);text-transform:uppercase}
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="21.5" data-width="1080" data-height="1920">
-  <div class="shape" id="sh1" style="width:260px;height:260px;background:var(--rosino);left:-60px;top:160px;transform:rotate(-12deg)"></div>
-  <div class="shape" id="sh2" style="width:200px;height:200px;background:var(--oro);right:-40px;top:620px;transform:rotate(14deg)"></div>
-  <div id="dots"></div>
+<div id="root" data-composition-id="main" data-start="0" data-duration="22.0" data-width="1080" data-height="1920">
 
-  <!-- S1 identità 1 -->
+  <!-- S1 identità: siamo un'agenzia creativa -->
   <div class="scene" id="s1">
-    <div class="burst" id="b1"></div>
-    <div class="small" id="s1a">Sono una social media</div>
-    <div class="hero red" id="s1b">strategist</div>
+    <div class="bg" style="background:var(--beige)"></div>
+    <svg class="sun" id="sunburst" width="1180" height="1180" viewBox="0 0 1180 1180"></svg>
+    <div class="smallid">Siamo un'agenzia</div>
+    <div class="inf" id="inf1"></div>
   </div>
 
-  <!-- S2 identità 2 -->
+  <!-- S2 trasformiamo i brand (dark + blob + grid) -->
   <div class="scene" id="s2">
-    <div class="burst" id="b2"></div>
-    <div class="heror" id="s2a">&amp; content</div>
-    <div class="hero ro" id="s2b" style="margin-top:6px">creator</div>
+    <div class="bg" style="background:radial-gradient(1200px 1000px at 60% 30%, #23260f 0%, #15170b 55%, #0c0d07 100%)"></div>
+    <div class="grid" id="grid2"></div>
+    <svg class="obj" id="blob2" style="left:50%;top:560px;transform:translate(-50%,0)" width="620" height="560" viewBox="0 0 310 280">
+      <defs><radialGradient id="bg2g" cx="40%" cy="34%" r="72%"><stop offset="0%" stop-color="#8a9a3e"/><stop offset="48%" stop-color="#4a5220"/><stop offset="100%" stop-color="#15170b"/></radialGradient></defs>
+      <path d="M156 24c40-6 78 20 86 58 7 33-10 52 6 84 14 28-4 62-36 74-30 11-52-6-86-4-37 2-72-18-80-52-7-32 16-50 10-82-6-33 16-66 50-76 18-5 30-30 50-34z" fill="url(#bg2g)"/>
+      <path d="M156 24c40-6 78 20 86 58 7 33-10 52 6 84 14 28-4 62-36 74-30 11-52-6-86-4-37 2-72-18-80-52-7-32 16-50 10-82-6-33 16-66 50-76 18-5 30-30 50-34z" fill="none" stroke="rgba(195,224,0,.3)" stroke-width="1.5"/>
+    </svg>
+    <div class="t obl lime" id="s2a" style="font-size:120px">trasformiamo</div>
+    <div class="t white" id="s2b" style="margin-top:4px">i brand</div>
   </div>
 
-  <!-- S3 trasformo (pannello oro) -->
+  <!-- S3 con una strategia su misura (white + ring + grid) -->
   <div class="scene" id="s3">
-    <div class="bg" id="bg3" style="background:radial-gradient(900px 900px at 50% 42%, #E8CF93 0%, #D9B76A 55%, #C7A45E 100%)"></div>
-    <svg class="spk" style="left:210px;top:560px" width="52" height="52" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="#fff"/></svg>
-    <svg class="spk" style="right:220px;top:1180px" width="40" height="40" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="#fff"/></svg>
-    <div class="hbig ital" id="s3a" style="color:#fff;font-size:120px">trasformo</div>
-    <div class="hbig" id="s3b" style="color:var(--ink);margin-top:10px">le attività</div>
+    <div class="bg" style="background:#F7F6F2"></div>
+    <div class="grid" id="grid3"></div>
+    <svg class="obj" id="ring3" style="left:50%;top:960px;transform:translate(-50%,-50%)" width="760" height="560" viewBox="0 0 400 300">
+      <defs><radialGradient id="rg3" cx="36%" cy="28%" r="78%"><stop offset="0%" stop-color="#EDF6A6"/><stop offset="45%" stop-color="#C3E000"/><stop offset="100%" stop-color="#7E9A00"/></radialGradient></defs>
+      <ellipse cx="200" cy="155" rx="150" ry="112" fill="none" stroke="url(#rg3)" stroke-width="70"/>
+      <path d="M86 118 A150 112 0 0 1 300 70" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="12" stroke-linecap="round"/>
+    </svg>
+    <div class="t ink" id="s3a">con una</div>
+    <div class="t ink" id="s3b" style="font-size:120px;margin-top:2px">strategia</div>
+    <div class="t ink" id="s3c" style="margin-top:2px">su misura.</div>
   </div>
 
-  <!-- S4 con contenuti che funzionano -->
+  <!-- S4 Ok bello (black) -->
   <div class="scene" id="s4">
-    <div class="hbig" id="s4a">con contenuti</div>
-    <div class="hbig" id="s4b" style="margin-top:8px">che <span class="mk o">funzionano<span class="m"></span></span>.</div>
+    <div class="bg" style="background:#0b0b0b"></div>
+    <div class="t white" id="s4a" style="font-size:126px">Ok, bello.</div>
   </div>
 
-  <!-- S5 Ok bello -->
+  <!-- S5 ma cosa facciamo davvero (black) -->
   <div class="scene" id="s5">
-    <div class="bg" style="background:radial-gradient(800px 700px at 50% 44%, #F7E4E5 0%, #F3E9D6 70%)"></div>
-    <div class="hbig" id="s5a" style="font-size:128px">Ok, bello.</div>
+    <div class="bg" style="background:#0b0b0b"></div>
+    <div class="t white" id="s5a">Ma cosa facciamo</div>
+    <div class="t" id="s5b" style="margin-top:4px"><span class="lime">davvero</span><span class="white">?</span></div>
   </div>
 
-  <!-- S6 ma cosa faccio davvero -->
+  <!-- S6 Strategia (lime + ring) -->
   <div class="scene" id="s6">
-    <div class="bg" style="background:radial-gradient(800px 700px at 50% 44%, #F7E4E5 0%, #F3E9D6 70%)"></div>
-    <svg class="spk" style="left:190px;top:560px" width="44" height="44" viewBox="0 0 24 24"><path d="M12 1.5c1 6.5 4 9.5 10.5 10.5C16 13 13 16 12 22.5 11 16 8 13 1.5 12 8 11 11 8 12 1.5z" fill="var(--rosino)"/></svg>
-    <div class="hbig" id="s6a">Ma cosa faccio</div>
-    <div class="hbig" id="s6b" style="margin-top:8px"><span class="mk r">davvero<span class="m"></span></span>?</div>
+    <div class="bg" style="background:radial-gradient(1000px 1000px at 50% 36%, #E7F27E 0%, #CDE62F 45%, #B6D400 100%)"></div>
+    <svg class="obj" id="ring6" style="left:50%;top:50%;transform:translate(-50%,-50%)" width="900" height="620" viewBox="0 0 400 280">
+      <defs><radialGradient id="rg6" cx="36%" cy="26%" r="80%"><stop offset="0%" stop-color="#F3FABF"/><stop offset="42%" stop-color="#AFCB12"/><stop offset="100%" stop-color="#6E8600"/></radialGradient></defs>
+      <ellipse cx="200" cy="145" rx="155" ry="100" fill="none" stroke="url(#rg6)" stroke-width="58" transform="rotate(-10 200 145)"/>
+      <path d="M80 110 A155 100 0 0 1 300 66" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="10" stroke-linecap="round" transform="rotate(-10 200 145)"/>
+    </svg>
+    <div class="svcw" id="s6w"><span class="svcn">01 — SERVIZI</span>Strategia</div>
   </div>
 
-  <!-- S7 servizi scroll (pannello rosino) -->
+  <!-- S7 Contenuti (lime + blob) -->
   <div class="scene" id="s7">
-    <div class="bg" style="background:radial-gradient(900px 900px at 50% 40%, #B97179 0%, #A8636A 60%, #8f535a 100%)"></div>
-    <div class="svc" id="sv1"><span class="svcnum">01</span>Strategia</div>
-    <div class="svc" id="sv2"><span class="svcnum">02</span>Contenuti &amp; Reel</div>
-    <div class="svc" id="sv3"><span class="svcnum">03</span>Editing &amp; montaggio</div>
+    <div class="bg" style="background:radial-gradient(1000px 1000px at 50% 60%, #EAF28C 0%, #CDE62F 48%, #B6D400 100%)"></div>
+    <svg class="obj" id="blob7" style="left:50%;top:50%;transform:translate(-50%,-50%)" width="680" height="640" viewBox="0 0 310 290">
+      <defs><radialGradient id="b7g" cx="38%" cy="30%" r="74%"><stop offset="0%" stop-color="#F2F9C4"/><stop offset="46%" stop-color="#AECB10"/><stop offset="100%" stop-color="#718A00"/></radialGradient></defs>
+      <path d="M160 20c44-4 80 26 88 64 7 35-12 54 4 86 15 30-6 64-40 76-32 11-56-8-92-4-38 4-70-20-78-54-7-34 18-52 12-84-6-34 18-66 52-76 18-5 34-26 54-30z" fill="url(#b7g)"/>
+      <path d="M118 70 A96 84 0 0 1 220 58" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="9" stroke-linecap="round"/>
+    </svg>
+    <div class="svcw" id="s7w"><span class="svcn">02 — SERVIZI</span>Contenuti</div>
   </div>
 
-  <!-- S8 la tua attività ha una storia -->
+  <!-- S8 Reel & Montaggio (lime + ribbon) -->
   <div class="scene" id="s8">
-    <svg class="squig" id="squig" style="left:50%;top:50%;transform:translate(-50%,-50%)" width="900" height="1100" viewBox="0 0 900 1100" fill="none"><path d="M120 250 C40 400 200 470 420 410 C680 340 820 470 760 640 C710 790 470 800 360 720 C250 640 300 500 470 520 C640 540 700 720 560 860 C470 950 250 940 170 840" stroke="var(--rosino)" stroke-width="5" stroke-linecap="round" opacity=".85"/></svg>
-    <div class="hbig" id="s8a" style="font-size:98px">La tua attività ha<br>una <span class="ital" style="color:var(--oro)">storia</span> da raccontare.</div>
-    <div class="hbig" id="s8b" style="margin-top:40px;color:var(--red);font-size:104px">Lascia che la<br>racconti io.</div>
+    <div class="bg" style="background:radial-gradient(1000px 1000px at 50% 40%, #E7F27E 0%, #CDE62F 46%, #B6D400 100%)"></div>
+    <svg class="obj" id="rib8" style="left:50%;top:50%;transform:translate(-50%,-50%)" width="940" height="560" viewBox="0 0 440 260">
+      <defs><radialGradient id="r8g" cx="34%" cy="28%" r="82%"><stop offset="0%" stop-color="#F3FABF"/><stop offset="44%" stop-color="#AFCB12"/><stop offset="100%" stop-color="#6E8600"/></radialGradient></defs>
+      <ellipse cx="220" cy="130" rx="185" ry="78" fill="none" stroke="url(#r8g)" stroke-width="52" transform="rotate(8 220 130)"/>
+      <path d="M70 108 A185 78 0 0 1 320 60" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="9" stroke-linecap="round" transform="rotate(8 220 130)"/>
+    </svg>
+    <div class="svcw" id="s8w" style="font-size:118px"><span class="svcn">03 — SERVIZI</span>Reel &amp; Montaggio</div>
   </div>
 
-  <!-- S9 outro logo -->
+  <!-- S9 storia + squiggle (white) -->
   <div class="scene" id="s9">
+    <div class="bg" style="background:#F7F6F2"></div>
+    <svg class="squig" id="squig" width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" preserveAspectRatio="none">
+      <path d="M250 120 C120 300 420 430 520 300 C640 150 360 60 300 240 C240 430 560 520 560 720 C560 920 240 940 300 1140 C350 1320 700 1260 720 1460 C735 1640 420 1700 520 1860" stroke="#111" stroke-width="3.2" stroke-linecap="round"/>
+    </svg>
+    <div class="story" id="s9a">La tua attività ha<br>una storia che<br>merita di essere<br>raccontata.</div>
+    <div class="story" id="s9b" style="margin-top:46px"><b>Lascia che la<br>racconti io.</b></div>
+  </div>
+
+  <!-- S10 logo -->
+  <div class="scene" id="s10">
+    <div class="bg" style="background:#0b0b0b"></div>
     <div class="logo">
-      <svg id="logostar" width="150" height="150" viewBox="0 0 24 24"><path d="M12 0.5c1.1 7.5 4 10.4 11 11.5C16 13.2 13.2 16 12 23.5 10.8 16 8 13.2 1 12 8 10.8 10.9 8 12 0.5z" fill="var(--oro)"/></svg>
-      <div class="name" id="logoname">Marketing Verace</div>
-      <div class="tag" id="logotag">strategia · contenuti · reel</div>
+      <svg id="logostar" width="200" height="200" viewBox="0 0 200 200"></svg>
+      <div class="nm">Marketing<br>Verace</div>
+      <div class="tg">strategia · contenuti · reel</div>
     </div>
   </div>
 </div>
 
 <script>
 (function(){
-  function rnd(s){return function(){s=Math.sin(s*999)*1e4;return s-Math.floor(s);};}
-  const r=rnd(7);
-  const dw=document.getElementById('dots');
-  for(let i=0;i<12;i++){const d=document.createElement('div');d.className='d';const sz=8+r()*20;d.style.width=sz+'px';d.style.height=sz+'px';d.style.left=Math.round(r()*1080)+'px';d.style.top=Math.round(r()*1920)+'px';d.style.opacity=(0.05+r()*0.07).toFixed(2);dw.appendChild(d);}
+  // spiky lime sunburst behind "creativa"
+  (function(){const s=document.getElementById('sunburst');if(!s)return;const cx=590,cy=590;let seed=3;function rr(){seed=Math.sin(seed*999)*1e4;return seed-Math.floor(seed);}
+    for(let i=0;i<46;i++){const a=(i/46)*Math.PI*2;const len=360+rr()*170;const w=0.055+rr()*0.02;
+      const x1=cx+Math.cos(a-w)*120,y1=cy+Math.sin(a-w)*120;const x2=cx+Math.cos(a+w)*120,y2=cy+Math.sin(a+w)*120;const xt=cx+Math.cos(a)*len,yt=cy+Math.sin(a)*len;
+      const p=document.createElementNS('http://www.w3.org/2000/svg','polygon');p.setAttribute('points',x1+','+y1+' '+x2+','+y2+' '+xt+','+yt);p.setAttribute('fill','#C3E000');s.appendChild(p);} })();
+
+  // inflated per-letter "creativa"
+  (function(){const el=document.getElementById('inf1');if(!el)return;const word='creativa';const rots=[-7,5,-4,6,-5,4,-6,5];
+    for(let i=0;i<word.length;i++){const sp=document.createElement('span');sp.textContent=word[i];sp.style.setProperty('--r',rots[i%rots.length]+'deg');el.appendChild(sp);} })();
+
+  // dot/square grids
+  function mkgrid(id,color,op){const g=document.getElementById(id);if(!g)return;let seed=9;function rr(){seed=Math.sin(seed*777)*1e4;return seed-Math.floor(seed);}
+    for(let y=60;y<1860;y+=78){for(let x=60;x<1020;x+=78){if(rr()<0.32)continue;const i=document.createElement('i');i.style.left=x+'px';i.style.top=y+'px';i.style.background=color;i.style.opacity=(op*(0.4+rr()*0.9)).toFixed(2);const sc=0.5+rr()*1.1;i.style.transform='scale('+sc.toFixed(2)+')';g.appendChild(i);}}}
+  mkgrid('grid2','#C3E000',0.22);
+  mkgrid('grid3','#c9c6bd',0.5);
+
+  // logo asterisk (thin rays)
+  (function(){const s=document.getElementById('logostar');if(!s)return;const cx=100,cy=100;
+    for(let i=0;i<28;i++){const a=(i/28)*Math.PI*2;const r1=20,r2=92;const l=document.createElementNS('http://www.w3.org/2000/svg','line');
+      l.setAttribute('x1',cx+Math.cos(a)*r1);l.setAttribute('y1',cy+Math.sin(a)*r1);l.setAttribute('x2',cx+Math.cos(a)*r2);l.setAttribute('y2',cy+Math.sin(a)*r2);
+      l.setAttribute('stroke','#fff');l.setAttribute('stroke-width','3');l.setAttribute('stroke-linecap','round');s.appendChild(l);} })();
 
   const tl=gsap.timeline({paused:true});
-  function scene(id,tin,tout){tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:.35,ease:'power1.out'},tin);if(tout)tl.to('#'+id,{opacity:0,duration:.35,ease:'power2.in'},tout);}
-  // ambient
-  tl.fromTo('#sh1',{y:-20},{y:20,duration:21,ease:'none'},0);
-  tl.fromTo('#sh2',{y:20},{y:-24,duration:21,ease:'none'},0);
-  tl.fromTo('.spk',{scale:.6,opacity:.3,rotation:-20},{scale:1,opacity:1,rotation:0,duration:.5,ease:'back.out(2)',stagger:{each:0.08,from:'random'}},0);
-  tl.to('.spk',{scale:1.3,opacity:.65,duration:.8,yoyo:true,repeat:-1,ease:'sine.inOut',stagger:{each:0.2,from:'random'}},0.6);
+  function scene(id,tin,tout){tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:.32,ease:'power1.out'},tin);if(tout)tl.to('#'+id,{opacity:0,duration:.3,ease:'power2.in'},tout);}
+  const pop={ease:'back.out(1.7)'};
 
   // S1
-  scene('s1',0.2,2.3);
-  tl.fromTo('#s1a',{opacity:0,y:18},{opacity:1,y:0,duration:.4},0.3);
-  tl.fromTo('#b1',{opacity:0,scale:.5,rotation:-30},{opacity:.6,scale:1,rotation:0,duration:.8,ease:'power2.out'},0.5);
-  tl.to('#b1',{rotation:60,duration:2.2,ease:'none'},0.5);
-  tl.fromTo('#s1b',{opacity:0,scale:.5,y:20},{opacity:1,scale:1,y:0,duration:.6,ease:'back.out(1.9)'},0.6);
+  scene('s1',0.2,3.0);
+  tl.fromTo('#sunburst',{opacity:0,scale:.3,rotation:-40},{opacity:1,scale:1,rotation:0,duration:.7,ease:'power2.out'},0.4);
+  tl.to('#sunburst',{rotation:30,duration:2.6,ease:'none'},0.5);
+  tl.fromTo('#s1 .smallid',{opacity:0,y:-18},{opacity:1,y:0,duration:.5},0.5);
+  tl.fromTo('#inf1>span',{opacity:0,y:40,scale:.4},{opacity:1,y:0,scale:1,duration:.6,ease:'back.out(2.2)',stagger:0.05},0.7);
 
   // S2
-  scene('s2',2.4,4.4);
-  tl.fromTo('#b2',{opacity:0,scale:.5,rotation:20},{opacity:.6,scale:1,rotation:0,duration:.8,ease:'power2.out'},2.5);
-  tl.to('#b2',{rotation:-55,duration:2.0,ease:'none'},2.5);
-  tl.fromTo('#s2a',{opacity:0,scale:.6,y:-16},{opacity:1,scale:1,y:0,duration:.5,ease:'back.out(1.8)'},2.6);
-  tl.fromTo('#s2b',{opacity:0,scale:.6,y:16},{opacity:1,scale:1,y:0,duration:.55,ease:'back.out(1.9)'},2.85);
+  scene('s2',3.1,5.6);
+  tl.fromTo('#blob2',{opacity:0,scale:.7,rotation:-18},{opacity:1,scale:1,rotation:0,duration:.8,ease:'power3.out'},3.2);
+  tl.to('#blob2',{y:-16,duration:2.4,yoyo:true,repeat:1,ease:'sine.inOut'},3.4);
+  tl.fromTo('#grid2',{opacity:0},{opacity:1,duration:.7},3.2);
+  tl.fromTo('#s2a',{opacity:0,x:-40},{opacity:1,x:0,duration:.6,ease:'power3.out'},3.5);
+  tl.fromTo('#s2b',{opacity:0,x:40},{opacity:1,x:0,duration:.6,ease:'power3.out'},3.75);
 
-  // S3 trasformo
-  scene('s3',4.5,6.6);
-  tl.fromTo('#bg3',{opacity:0},{opacity:1,duration:.4},4.5);
-  tl.fromTo('#s3a',{opacity:0,x:-40,rotation:-4},{opacity:1,x:0,rotation:0,duration:.6,ease:'power3.out'},4.7);
-  tl.fromTo('#s3b',{opacity:0,x:40},{opacity:1,x:0,duration:.6,ease:'power3.out'},4.95);
+  // S3
+  scene('s3',5.7,8.0);
+  tl.fromTo('#grid3',{opacity:0},{opacity:1,duration:.6},5.8);
+  tl.fromTo('#ring3',{opacity:0,scale:.6,rotation:-24},{opacity:1,scale:1,rotation:0,duration:.8,ease:'power3.out'},5.8);
+  tl.to('#ring3',{rotation:12,duration:2.2,ease:'sine.inOut'},6.2);
+  tl.fromTo('#s3a',{opacity:0,y:20},{opacity:1,y:0,duration:.45},6.0);
+  tl.fromTo('#s3b',{opacity:0,y:20},{opacity:1,y:0,duration:.45},6.2);
+  tl.fromTo('#s3c',{opacity:0,y:20},{opacity:1,y:0,duration:.45},6.4);
 
   // S4
-  scene('s4',6.7,8.7);
-  tl.fromTo('#s4a',{opacity:0,y:20},{opacity:1,y:0,duration:.55,ease:'power3.out'},6.9);
-  tl.fromTo('#s4b',{opacity:0,y:20},{opacity:1,y:0,duration:.55,ease:'power3.out'},7.2);
-  tl.fromTo('#s4b .m',{scaleX:0},{scaleX:1,duration:.5,ease:'power2.out'},7.7);
+  scene('s4',8.1,9.4);
+  tl.fromTo('#s4a',{opacity:0,scale:.9},{opacity:1,scale:1,duration:.4,ease:'back.out(1.5)'},8.25);
 
-  // S5 Ok bello
-  scene('s5',8.8,10.0);
-  tl.fromTo('#s5a',{opacity:0,scale:.9},{opacity:1,scale:1,duration:.45,ease:'back.out(1.5)'},8.95);
+  // S5
+  scene('s5',9.5,11.6);
+  tl.fromTo('#s5a',{opacity:0,y:18},{opacity:1,y:0,duration:.5,ease:'power3.out'},9.7);
+  tl.fromTo('#s5b',{opacity:0,y:18,scale:.95},{opacity:1,y:0,scale:1,duration:.5,ease:'back.out(1.6)'},10.0);
 
-  // S6 cosa faccio davvero
-  scene('s6',10.1,12.3);
-  tl.fromTo('#s6a',{opacity:0,y:18},{opacity:1,y:0,duration:.5,ease:'power3.out'},10.3);
-  tl.fromTo('#s6b',{opacity:0,y:18},{opacity:1,y:0,duration:.5,ease:'power3.out'},10.6);
-  tl.fromTo('#s6b .m',{scaleX:0},{scaleX:1,duration:.45,ease:'power2.out'},11.1);
+  // S6-S8 servizi
+  function svc(sidin,sidout,objid,wid){scene(sidin.id,sidin.t,sidout);
+    tl.fromTo('#'+objid,{opacity:0,scale:.6,rotation:-20},{opacity:1,scale:1,rotation:0,duration:.6,ease:'power3.out'},sidin.t+0.05);
+    tl.to('#'+objid,{rotation:14,duration:1.5,ease:'sine.inOut'},sidin.t+0.5);
+    tl.fromTo('#'+wid,{opacity:0,y:60},{opacity:1,y:0,duration:.5,ease:'back.out(1.5)'},sidin.t+0.2);
+  }
+  svc({id:'s6',t:11.7},13.4,'ring6','s6w');
+  svc({id:'s7',t:13.5},15.2,'blob7','s7w');
+  svc({id:'s8',t:15.3},17.0,'rib8','s8w');
 
-  // S7 servizi scroll
-  scene('s7',12.4,15.9);
-  const svc=['#sv1','#sv2','#sv3'];
-  svc.forEach((s,i)=>{
-    const t=12.7+i*1.0;
-    tl.fromTo(s,{opacity:0,y:120},{opacity:1,y:0,duration:.5,ease:'power3.out'},t);
-    tl.to(s,{opacity:0,y:-120,duration:.45,ease:'power2.in'},t+0.85);
-  });
+  // S9 storia
+  scene('s9',17.1,19.8);
+  tl.fromTo('#squig',{opacity:0},{opacity:1,duration:.5},17.2);
+  tl.fromTo('#squig path',{strokeDasharray:6200,strokeDashoffset:6200},{strokeDashoffset:0,duration:2.0,ease:'power1.inOut'},17.2);
+  tl.fromTo('#s9a',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},17.5);
+  tl.fromTo('#s9b',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},18.3);
 
-  // S8 storia
-  scene('s8',16.0,18.9);
-  tl.fromTo('#squig',{opacity:0,scale:.9,rotation:-4},{opacity:1,scale:1,rotation:0,duration:.8,ease:'power2.out'},16.1);
-  tl.fromTo('#s8a',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},16.3);
-  tl.fromTo('#s8b',{opacity:0,y:22,scale:.96},{opacity:1,y:0,scale:1,duration:.6,ease:'back.out(1.4)'},17.1);
-
-  // S9 outro
-  scene('s9',19.0);
-  tl.fromTo('#logostar',{opacity:0,scale:.3,rotation:-90},{opacity:1,scale:1,rotation:0,duration:.7,ease:'back.out(2)'},19.2);
-  tl.to('#logostar',{rotation:20,duration:1.4,yoyo:true,repeat:-1,ease:'sine.inOut'},19.9);
-  tl.fromTo('#logoname',{opacity:0,y:20},{opacity:1,y:0,duration:.55,ease:'power3.out'},19.5);
-  tl.fromTo('#logotag',{opacity:0,letterSpacing:'.5em'},{opacity:1,letterSpacing:'.28em',duration:.6,ease:'power2.out'},19.9);
+  // S10 logo
+  scene('s10',19.9);
+  tl.fromTo('#logostar',{opacity:0,scale:.3,rotation:-90},{opacity:1,scale:1,rotation:0,duration:.7,ease:'back.out(2)'},20.1);
+  tl.to('#logostar',{rotation:360,duration:8,ease:'none'},20.1);
+  tl.fromTo('.logo .nm',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},20.4);
+  tl.fromTo('.logo .tg',{opacity:0,letterSpacing:'.6em'},{opacity:1,letterSpacing:'.3em',duration:.7,ease:'power2.out'},20.8);
 
   window.__timelines=window.__timelines||{};
   window.__timelines['main']=tl;
