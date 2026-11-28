@@ -6,6 +6,12 @@
 - Lo stile di Anna è in `monta-reel-stile/`: prima di montare, se `~/.monta-reel/stile.json` non esiste, copia `monta-reel-stile/stile.json`, `stile.md` e i font di `monta-reel-stile/fonts/` in `~/.monta-reel/` (`fonts/` dentro). Non rifare le domande sullo stile.
 - Se la sessione gira nel cloud (non sul PC di Anna), dille che da lì non puoi scrivere nella cartella "reel anna" e mandale il file da scaricare.
 
+## Reel grafici / referenze
+- **Regola fissa:** ogni volta che Anna manda un reel/una referenza da replicare, ricrealo **sempre nei suoi colori** (panna/crema `#F3E9D6`/`#FCF7EE`, inchiostro `#2B2724`, oro `#C7A45E`, rosino `#A8636A`, rosso `#C0392B`) — mai nei colori della referenza. Riprendi struttura, ritmo ed elementi, ma traduci la palette nella sua. I testi vanno in italiano.
+- Elementi partenopei da riusare quando ha senso: sirena/Partenope, peperoncini portafortuna.
+- Finale: usa **sempre** il logo Marketing Verace (`agenzia-promo/loghi/`, Vesuvio + cuore) con tagline **STRATEGIA · SOCIAL · CONTENT · WEB**.
+- Niente sfondi scuri/neri: per il contrasto usa il rosino o l'oro, non il nero.
+
 ## Effetti video (skill effects)
 - È installata la skill **effects** (45 effetti per video parlati: zoom, grade, spotlight, widget in vetro, timeline, checklist, headline, iPhone/toggle, grafici, pop-up iMessage, ecc.).
 - **Usala in base al video**: scegli di volta in volta gli effetti che si adattano al contenuto e allo stile di Anna, dove aggiungono valore senza appesantire. Non applicare effetti a caso.
