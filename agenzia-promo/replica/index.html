@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=1080, height=1920" />
-<title>Chi sono — stile Foretell</title>
+<title>Marketing Verace — metodo in 5 step</title>
 <script>/*!
  * GSAP 3.14.2
  * https://gsap.com
@@ -23,132 +23,87 @@
 @font-face{font-family:'Outfit';src:url('assets/fonts/outfit-600.ttf') format('truetype');font-weight:600;font-display:block}
 @font-face{font-family:'Outfit';src:url('assets/fonts/outfit-700.ttf') format('truetype');font-weight:700;font-display:block}
 @font-face{font-family:'Outfit';src:url('assets/fonts/outfit-800.woff2') format('woff2');font-weight:800;font-display:block}
-:root{--lime:#C3E000;--lime2:#DCEE6A;--limed:#8FAF00;--beige:#E9E1D4;--pink:#E85C9B}
+@font-face{font-family:'Playfair';src:url('assets/fonts/playfair-display-700-italic.woff2') format('woff2');font-weight:700;font-style:italic;font-display:block}
+:root{--panna:#F3E9D6;--cream:#FCF7EE;--ink:#2B2724;--ink2:#6b625a;--oro:#C7A45E;--oroV:#E0B64A;--rosino:#A8636A;--red:#C0392B;--verde:#4E7A52}
 *{margin:0;padding:0;box-sizing:border-box}
-#root{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:'Outfit',system-ui,sans-serif;color:#111;background:#000}
+#root{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:'Outfit',system-ui,sans-serif;color:var(--ink);background:var(--panna)}
 .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 96px;text-align:center;opacity:0}
 .bg{position:absolute;inset:0;z-index:0}
-.scene>*:not(.bg):not(.obj):not(.grid):not(.sun){position:relative;z-index:2}
+.scene>*:not(.bg):not(.obj):not(.grid):not(.sun):not(.pep){position:relative;z-index:2}
 .obj{position:absolute;z-index:1}
 .grid{position:absolute;inset:0;z-index:0}
 .grid i{position:absolute;width:12px;height:12px;border-radius:2px}
 .sun{position:absolute;z-index:0;left:50%;top:50%;transform:translate(-50%,-50%)}
-/* identity */
-.smallid{font-weight:500;font-size:72px;letter-spacing:-.01em;color:#1c1a16}
-.inf{font-weight:800;font-size:184px;line-height:.86;letter-spacing:-.02em;margin-top:6px;white-space:nowrap}
-.inf>span{display:inline-block;color:var(--pink);
-  text-shadow:-2px -3px 0 rgba(255,255,255,.65),0 4px 0 #b83a74,0 8px 0 #9c2f63,0 12px 16px rgba(120,20,70,.4);
+.pep{position:absolute;z-index:1}
+.smallid{font-weight:500;font-size:72px;letter-spacing:-.01em;color:var(--ink)}
+.inf{font-weight:800;font-size:188px;line-height:.86;letter-spacing:-.02em;margin-top:6px;white-space:nowrap}
+.inf>span{display:inline-block;color:var(--red);
+  text-shadow:-2px -3px 0 rgba(255,255,255,.6),0 4px 0 #8f2a20,0 8px 0 #7a241c,0 12px 16px rgba(120,30,20,.4);
   transform:rotate(var(--r,0deg))}
-/* generic big rounded text */
 .t{font-weight:700;font-size:112px;line-height:1.02;letter-spacing:-.02em}
-.t.lite{font-weight:400}
 .obl{font-style:italic;font-weight:700}
-.lime{color:var(--lime)}
-.limeink{color:var(--limed)}
-.white{color:#fff}
-.ink{color:#111}
-/* service word */
-.svcw{font-weight:700;font-size:150px;letter-spacing:-.03em;color:#13160a;line-height:1.0}
-.svcn{display:block;font-weight:500;font-size:46px;letter-spacing:.12em;color:rgba(19,22,10,.6);margin-bottom:10px}
-/* squiggle scene text */
-.story{font-weight:400;font-size:104px;line-height:1.12;letter-spacing:-.02em;color:#111}
-.story b{font-weight:700}
+.white{color:var(--cream)}
+.ink{color:var(--ink)}
+.oroC{color:var(--oroV)}
+.redC{color:var(--red)}
+/* step */
+.meth{font-weight:600;letter-spacing:.22em;font-size:34px;text-transform:uppercase;color:var(--rosino);margin-bottom:26px}
+.stepicon{margin-bottom:22px}
+.stepnum{font-weight:800;font-size:158px;line-height:.86;letter-spacing:-.03em}
+.steptitle{font-weight:800;font-size:92px;line-height:1.0;letter-spacing:-.02em;margin-top:8px}
+.stepsub{font-weight:500;font-size:46px;margin-top:20px}
+.dots{display:flex;gap:18px;margin-top:48px}
+.dots b{width:26px;height:26px;border-radius:50%;display:block}
+/* story */
+.story{font-weight:400;font-size:104px;line-height:1.12;letter-spacing:-.02em;color:var(--ink)}
+.story b{font-weight:700;color:var(--red)}
 .squig{position:absolute;inset:0;z-index:0;opacity:0}
 /* logo */
-.logo{display:flex;flex-direction:column;align-items:center;gap:26px}
-.logo .nm{font-weight:600;font-size:150px;letter-spacing:-.03em;color:#fff;line-height:.9}
-.logo .tg{font-weight:500;letter-spacing:.3em;font-size:32px;color:rgba(255,255,255,.72);text-transform:uppercase}
+.logo{display:flex;flex-direction:column;align-items:center}
+.logo img{width:560px;height:auto;display:block}
+.logo .tg{font-weight:600;letter-spacing:.26em;font-size:34px;color:var(--rosino);text-transform:uppercase;margin-top:10px}
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="22.0" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="23.5" data-width="1080" data-height="1920">
 
-  <!-- S1 identità: siamo un'agenzia creativa -->
+  <!-- S1 identità -->
   <div class="scene" id="s1">
-    <div class="bg" style="background:var(--beige)"></div>
+    <div class="bg" style="background:var(--panna)"></div>
     <svg class="sun" id="sunburst" width="1180" height="1180" viewBox="0 0 1180 1180"></svg>
     <div class="smallid">Siamo un'agenzia</div>
     <div class="inf" id="inf1"></div>
   </div>
 
-  <!-- S2 trasformiamo i brand (dark + blob + grid) -->
+  <!-- S2 trasforma + sirena -->
   <div class="scene" id="s2">
-    <div class="bg" style="background:radial-gradient(1200px 1000px at 60% 30%, #23260f 0%, #15170b 55%, #0c0d07 100%)"></div>
+    <div class="bg" style="background:radial-gradient(1100px 1000px at 50% 34%, #C98088 0%, #A8636A 58%, #8f535a 100%)"></div>
     <div class="grid" id="grid2"></div>
-    <svg class="obj" id="blob2" style="left:50%;top:560px;transform:translate(-50%,0)" width="620" height="560" viewBox="0 0 310 280">
-      <defs><radialGradient id="bg2g" cx="40%" cy="34%" r="72%"><stop offset="0%" stop-color="#8a9a3e"/><stop offset="48%" stop-color="#4a5220"/><stop offset="100%" stop-color="#15170b"/></radialGradient></defs>
-      <path d="M156 24c40-6 78 20 86 58 7 33-10 52 6 84 14 28-4 62-36 74-30 11-52-6-86-4-37 2-72-18-80-52-7-32 16-50 10-82-6-33 16-66 50-76 18-5 30-30 50-34z" fill="url(#bg2g)"/>
-      <path d="M156 24c40-6 78 20 86 58 7 33-10 52 6 84 14 28-4 62-36 74-30 11-52-6-86-4-37 2-72-18-80-52-7-32 16-50 10-82-6-33 16-66 50-76 18-5 30-30 50-34z" fill="none" stroke="rgba(195,224,0,.3)" stroke-width="1.5"/>
+    <svg class="obj" id="sirena" style="left:50%;top:170px;transform:translateX(-50%)" width="440" height="609" viewBox="0 0 260 360" fill="none" stroke="#FBF4E6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M130 150 C108 118 74 92 44 74 C28 65 44 44 62 54 C96 72 120 104 130 150 C140 104 164 72 198 54 C216 44 232 65 216 74 C186 92 152 118 130 150 Z" fill="#EFD9A8"/>
+      <path d="M112 150 C116 206 150 262 130 322 C110 262 106 206 110 152 Z" fill="#EFD9A8"/>
+      <path d="M118 186 C125 193 135 193 142 186 M116 220 C124 228 136 228 144 220 M117 256 C125 264 135 264 143 256" stroke-width="2.4"/>
+      <path d="M130 150 C130 120 130 95 130 78" stroke-width="2.2"/>
+      <path d="M22 326 C60 312 92 342 130 328 C168 314 200 344 238 328 M28 350 C64 338 94 364 130 352 C166 340 196 364 232 352" stroke-width="2.8"/>
+      <circle cx="188" cy="158" r="5"/><circle cx="70" cy="208" r="4"/><circle cx="196" cy="258" r="6"/>
     </svg>
-    <div class="t obl lime" id="s2a" style="font-size:120px">trasformiamo</div>
-    <div class="t white" id="s2b" style="margin-top:4px">i brand</div>
+    <div class="t obl white" id="s2a" style="font-size:118px;margin-top:150px">trasformo</div>
+    <div class="t white" id="s2b" style="margin-top:4px">le attività</div>
   </div>
 
-  <!-- S3 con una strategia su misura (white + ring + grid) -->
+  <!-- S3 metodo intro -->
   <div class="scene" id="s3">
-    <div class="bg" style="background:#F7F6F2"></div>
+    <div class="bg" style="background:radial-gradient(900px 800px at 50% 42%, #FCF7EE 0%, #F3E9D6 72%)"></div>
     <div class="grid" id="grid3"></div>
-    <svg class="obj" id="ring3" style="left:50%;top:960px;transform:translate(-50%,-50%)" width="760" height="560" viewBox="0 0 400 300">
-      <defs><radialGradient id="rg3" cx="36%" cy="28%" r="78%"><stop offset="0%" stop-color="#EDF6A6"/><stop offset="45%" stop-color="#C3E000"/><stop offset="100%" stop-color="#7E9A00"/></radialGradient></defs>
-      <ellipse cx="200" cy="155" rx="150" ry="112" fill="none" stroke="url(#rg3)" stroke-width="70"/>
-      <path d="M86 118 A150 112 0 0 1 300 70" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="12" stroke-linecap="round"/>
-    </svg>
-    <div class="t ink" id="s3a">con una</div>
-    <div class="t ink" id="s3b" style="font-size:120px;margin-top:2px">strategia</div>
-    <div class="t ink" id="s3c" style="margin-top:2px">su misura.</div>
+    <div class="smallid" id="s3a" style="font-weight:600">Come? Con un metodo</div>
+    <div class="t ink" id="s3b" style="margin-top:8px">in <span class="redC" style="font-size:150px">5</span> step.</div>
   </div>
 
-  <!-- S4 Ok bello (black) -->
-  <div class="scene" id="s4">
-    <div class="bg" style="background:#0b0b0b"></div>
-    <div class="t white" id="s4a" style="font-size:126px">Ok, bello.</div>
-  </div>
-
-  <!-- S5 ma cosa facciamo davvero (black) -->
-  <div class="scene" id="s5">
-    <div class="bg" style="background:#0b0b0b"></div>
-    <div class="t white" id="s5a">Ma cosa facciamo</div>
-    <div class="t" id="s5b" style="margin-top:4px"><span class="lime">davvero</span><span class="white">?</span></div>
-  </div>
-
-  <!-- S6 Strategia (lime + ring) -->
-  <div class="scene" id="s6">
-    <div class="bg" style="background:radial-gradient(1000px 1000px at 50% 36%, #E7F27E 0%, #CDE62F 45%, #B6D400 100%)"></div>
-    <svg class="obj" id="ring6" style="left:50%;top:50%;transform:translate(-50%,-50%)" width="900" height="620" viewBox="0 0 400 280">
-      <defs><radialGradient id="rg6" cx="36%" cy="26%" r="80%"><stop offset="0%" stop-color="#F3FABF"/><stop offset="42%" stop-color="#AFCB12"/><stop offset="100%" stop-color="#6E8600"/></radialGradient></defs>
-      <ellipse cx="200" cy="145" rx="155" ry="100" fill="none" stroke="url(#rg6)" stroke-width="58" transform="rotate(-10 200 145)"/>
-      <path d="M80 110 A155 100 0 0 1 300 66" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="10" stroke-linecap="round" transform="rotate(-10 200 145)"/>
-    </svg>
-    <div class="svcw" id="s6w"><span class="svcn">01 — SERVIZI</span>Strategia</div>
-  </div>
-
-  <!-- S7 Contenuti (lime + blob) -->
-  <div class="scene" id="s7">
-    <div class="bg" style="background:radial-gradient(1000px 1000px at 50% 60%, #EAF28C 0%, #CDE62F 48%, #B6D400 100%)"></div>
-    <svg class="obj" id="blob7" style="left:50%;top:50%;transform:translate(-50%,-50%)" width="680" height="640" viewBox="0 0 310 290">
-      <defs><radialGradient id="b7g" cx="38%" cy="30%" r="74%"><stop offset="0%" stop-color="#F2F9C4"/><stop offset="46%" stop-color="#AECB10"/><stop offset="100%" stop-color="#718A00"/></radialGradient></defs>
-      <path d="M160 20c44-4 80 26 88 64 7 35-12 54 4 86 15 30-6 64-40 76-32 11-56-8-92-4-38 4-70-20-78-54-7-34 18-52 12-84-6-34 18-66 52-76 18-5 34-26 54-30z" fill="url(#b7g)"/>
-      <path d="M118 70 A96 84 0 0 1 220 58" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="9" stroke-linecap="round"/>
-    </svg>
-    <div class="svcw" id="s7w"><span class="svcn">02 — SERVIZI</span>Contenuti</div>
-  </div>
-
-  <!-- S8 Reel & Montaggio (lime + ribbon) -->
-  <div class="scene" id="s8">
-    <div class="bg" style="background:radial-gradient(1000px 1000px at 50% 40%, #E7F27E 0%, #CDE62F 46%, #B6D400 100%)"></div>
-    <svg class="obj" id="rib8" style="left:50%;top:50%;transform:translate(-50%,-50%)" width="940" height="560" viewBox="0 0 440 260">
-      <defs><radialGradient id="r8g" cx="34%" cy="28%" r="82%"><stop offset="0%" stop-color="#F3FABF"/><stop offset="44%" stop-color="#AFCB12"/><stop offset="100%" stop-color="#6E8600"/></radialGradient></defs>
-      <ellipse cx="220" cy="130" rx="185" ry="78" fill="none" stroke="url(#r8g)" stroke-width="52" transform="rotate(8 220 130)"/>
-      <path d="M70 108 A185 78 0 0 1 320 60" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="9" stroke-linecap="round" transform="rotate(8 220 130)"/>
-    </svg>
-    <div class="svcw" id="s8w" style="font-size:118px"><span class="svcn">03 — SERVIZI</span>Reel &amp; Montaggio</div>
-  </div>
-
-  <!-- S9 storia + squiggle (white) -->
+  <!-- S9 storia -->
   <div class="scene" id="s9">
-    <div class="bg" style="background:#F7F6F2"></div>
+    <div class="bg" style="background:radial-gradient(900px 800px at 50% 40%, #FCF7EE 0%, #F3E9D6 78%)"></div>
     <svg class="squig" id="squig" width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" preserveAspectRatio="none">
-      <path d="M250 120 C120 300 420 430 520 300 C640 150 360 60 300 240 C240 430 560 520 560 720 C560 920 240 940 300 1140 C350 1320 700 1260 720 1460 C735 1640 420 1700 520 1860" stroke="#111" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M250 130 C120 300 420 430 520 300 C640 150 360 60 300 240 C240 430 560 520 560 720 C560 920 240 940 300 1140 C350 1320 700 1260 720 1460 C735 1640 420 1700 520 1860" stroke="var(--rosino)" stroke-width="3.4" stroke-linecap="round"/>
     </svg>
     <div class="story" id="s9a">La tua attività ha<br>una storia che<br>merita di essere<br>raccontata.</div>
     <div class="story" id="s9b" style="margin-top:46px"><b>Lascia che la<br>racconti io.</b></div>
@@ -156,10 +111,11 @@
 
   <!-- S10 logo -->
   <div class="scene" id="s10">
-    <div class="bg" style="background:#0b0b0b"></div>
+    <div class="bg" style="background:radial-gradient(1000px 900px at 50% 42%, #FCF7EE 0%, #F0E4CC 100%)"></div>
+    <svg class="pep" id="peplogoL" style="left:150px;top:640px;transform:rotate(-18deg)" width="80" height="120"></svg>
+    <svg class="pep" id="peplogoR" style="right:150px;top:1180px;transform:rotate(14deg)" width="80" height="120"></svg>
     <div class="logo">
-      <svg id="logostar" width="200" height="200" viewBox="0 0 200 200"></svg>
-      <div class="nm">Marketing<br>Verace</div>
+      <img src="assets/logo_oro.png" alt="Marketing Verace">
       <div class="tg">strategia · contenuti · reel</div>
     </div>
   </div>
@@ -167,88 +123,117 @@
 
 <script>
 (function(){
-  // spiky lime sunburst behind "creativa"
+  var SVGNS='http://www.w3.org/2000/svg';
+  // peperoncino markup builder
+  function pep(el,scale){if(!el)return;el.setAttribute('viewBox','0 0 40 60');
+    el.innerHTML='<path d="M20 13 C19 6 25 5 28 8 C26 10 25 12 22 13" fill="#4E7A52"/>'+
+     '<path d="M23 12 C34 18 33 40 21 52 C16 58 8 55 9 47 C9 43 13 41 16 43 C14 34 15 22 23 12 Z" fill="#C0392B"/>'+
+     '<path d="M24 18 C21 24 21 34 23 42" stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none" stroke-linecap="round"/>';}
+  pep(document.getElementById('peplogoL'));
+  pep(document.getElementById('peplogoR'));
+
+  // sunburst oro behind creativa
   (function(){const s=document.getElementById('sunburst');if(!s)return;const cx=590,cy=590;let seed=3;function rr(){seed=Math.sin(seed*999)*1e4;return seed-Math.floor(seed);}
     for(let i=0;i<46;i++){const a=(i/46)*Math.PI*2;const len=360+rr()*170;const w=0.055+rr()*0.02;
       const x1=cx+Math.cos(a-w)*120,y1=cy+Math.sin(a-w)*120;const x2=cx+Math.cos(a+w)*120,y2=cy+Math.sin(a+w)*120;const xt=cx+Math.cos(a)*len,yt=cy+Math.sin(a)*len;
-      const p=document.createElementNS('http://www.w3.org/2000/svg','polygon');p.setAttribute('points',x1+','+y1+' '+x2+','+y2+' '+xt+','+yt);p.setAttribute('fill','#C3E000');s.appendChild(p);} })();
+      const p=document.createElementNS(SVGNS,'polygon');p.setAttribute('points',x1+','+y1+' '+x2+','+y2+' '+xt+','+yt);p.setAttribute('fill','#E0B64A');s.appendChild(p);} })();
 
-  // inflated per-letter "creativa"
+  // inflated creativa
   (function(){const el=document.getElementById('inf1');if(!el)return;const word='creativa';const rots=[-7,5,-4,6,-5,4,-6,5];
     for(let i=0;i<word.length;i++){const sp=document.createElement('span');sp.textContent=word[i];sp.style.setProperty('--r',rots[i%rots.length]+'deg');el.appendChild(sp);} })();
 
-  // dot/square grids
+  // grids
   function mkgrid(id,color,op){const g=document.getElementById(id);if(!g)return;let seed=9;function rr(){seed=Math.sin(seed*777)*1e4;return seed-Math.floor(seed);}
-    for(let y=60;y<1860;y+=78){for(let x=60;x<1020;x+=78){if(rr()<0.32)continue;const i=document.createElement('i');i.style.left=x+'px';i.style.top=y+'px';i.style.background=color;i.style.opacity=(op*(0.4+rr()*0.9)).toFixed(2);const sc=0.5+rr()*1.1;i.style.transform='scale('+sc.toFixed(2)+')';g.appendChild(i);}}}
-  mkgrid('grid2','#C3E000',0.22);
-  mkgrid('grid3','#c9c6bd',0.5);
+    for(let y=60;y<1860;y+=80){for(let x=60;x<1020;x+=80){if(rr()<0.34)continue;const i=document.createElement('i');i.style.left=x+'px';i.style.top=y+'px';i.style.background=color;i.style.opacity=(op*(0.4+rr()*0.9)).toFixed(2);const sc=0.5+rr()*1.0;i.style.transform='scale('+sc.toFixed(2)+')';g.appendChild(i);}}}
+  mkgrid('grid2','#FCF7EE',0.22);
+  mkgrid('grid3','#C7A45E',0.3);
 
-  // logo asterisk (thin rays)
-  (function(){const s=document.getElementById('logostar');if(!s)return;const cx=100,cy=100;
-    for(let i=0;i<28;i++){const a=(i/28)*Math.PI*2;const r1=20,r2=92;const l=document.createElementNS('http://www.w3.org/2000/svg','line');
-      l.setAttribute('x1',cx+Math.cos(a)*r1);l.setAttribute('y1',cy+Math.sin(a)*r1);l.setAttribute('x2',cx+Math.cos(a)*r2);l.setAttribute('y2',cy+Math.sin(a)*r2);
-      l.setAttribute('stroke','#fff');l.setAttribute('stroke-width','3');l.setAttribute('stroke-linecap','round');s.appendChild(l);} })();
+  // icons (24x24 stroke)
+  const ICON={
+    target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/>',
+    flag:'<path d="M7 21V4"/><path d="M7 5h11l-3 3.5L18 12H7"/>',
+    cam:'<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8.5 7l1.8-3h3.4l1.8 3"/><circle cx="12" cy="13.5" r="3.6"/>',
+    cast:'<path d="M4 15a5 5 0 0 1 5 5"/><path d="M4 10a10 10 0 0 1 10 10"/><circle cx="4.5" cy="19.5" r="1.4" fill="currentColor"/><rect x="3" y="4" width="18" height="12" rx="2"/>',
+    chart:'<path d="M4 19l5-5 4 3 7-8"/><path d="M21 9V5h-4"/>'
+  };
+  const steps=[
+    {n:'01',t:"Offerta &amp; target",s:'a chi parli e cosa offri',ic:'target'},
+    {n:'02',t:'Strategia',s:'un piano, non post a caso',ic:'flag'},
+    {n:'03',t:'Contenuti',s:'girati e montati bene',ic:'cam'},
+    {n:'04',t:'Multicanalità',s:'presente dove conta',ic:'cast'},
+    {n:'05',t:'Risultati',s:'misuriamo e cresciamo',ic:'chart'}
+  ];
+  const root=document.getElementById('root');
+  steps.forEach((st,idx)=>{
+    const even=(idx%2===1);
+    const sc=document.createElement('div');sc.className='scene';sc.id='st'+(idx+1);
+    const bg=even?'radial-gradient(1000px 900px at 50% 40%, #F0D98F 0%, #E0B64A 46%, #CDA235 100%)':'radial-gradient(900px 800px at 50% 42%, #FCF7EE 0%, #F3E9D6 76%)';
+    const numCol=even?'#FFFDF6':'#E0B64A';
+    const inactive=even?'rgba(43,39,36,.22)':'rgba(43,39,36,.16)';
+    let dots='';for(let d=0;d<5;d++){dots+='<b style="background:'+(d===idx?'#C0392B':inactive)+'"></b>';}
+    sc.innerHTML='<div class="bg" style="background:'+bg+'"></div>'+
+      '<svg class="pep" style="'+(even?'right:140px;top:300px;transform:rotate(16deg)':'left:140px;top:320px;transform:rotate(-16deg)')+'" width="76" height="114" id="pep'+idx+'"></svg>'+
+      '<div class="meth">Il metodo verace</div>'+
+      '<svg class="stepicon" width="104" height="104" viewBox="0 0 24 24" fill="none" stroke="'+(even?'#2B2724':'#A8636A')+'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">'+ICON[st.ic]+'</svg>'+
+      '<div class="stepnum" style="color:'+numCol+'">'+st.n+'</div>'+
+      '<div class="steptitle ink">'+st.t+'</div>'+
+      '<div class="stepsub" style="color:'+(even?'#5a4a2a':'#6b625a')+'">'+st.s+'</div>'+
+      '<div class="dots">'+dots+'</div>';
+    root.appendChild(sc);
+    pep(sc.querySelector('#pep'+idx));
+  });
 
   const tl=gsap.timeline({paused:true});
   function scene(id,tin,tout){tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:.32,ease:'power1.out'},tin);if(tout)tl.to('#'+id,{opacity:0,duration:.3,ease:'power2.in'},tout);}
-  const pop={ease:'back.out(1.7)'};
 
   // S1
-  scene('s1',0.2,3.0);
+  scene('s1',0.2,2.6);
   tl.fromTo('#sunburst',{opacity:0,scale:.3,rotation:-40},{opacity:1,scale:1,rotation:0,duration:.7,ease:'power2.out'},0.4);
-  tl.to('#sunburst',{rotation:30,duration:2.6,ease:'none'},0.5);
+  tl.to('#sunburst',{rotation:30,duration:2.4,ease:'none'},0.5);
   tl.fromTo('#s1 .smallid',{opacity:0,y:-18},{opacity:1,y:0,duration:.5},0.5);
   tl.fromTo('#inf1>span',{opacity:0,y:40,scale:.4},{opacity:1,y:0,scale:1,duration:.6,ease:'back.out(2.2)',stagger:0.05},0.7);
 
-  // S2
-  scene('s2',3.1,5.6);
-  tl.fromTo('#blob2',{opacity:0,scale:.7,rotation:-18},{opacity:1,scale:1,rotation:0,duration:.8,ease:'power3.out'},3.2);
-  tl.to('#blob2',{y:-16,duration:2.4,yoyo:true,repeat:1,ease:'sine.inOut'},3.4);
-  tl.fromTo('#grid2',{opacity:0},{opacity:1,duration:.7},3.2);
-  tl.fromTo('#s2a',{opacity:0,x:-40},{opacity:1,x:0,duration:.6,ease:'power3.out'},3.5);
-  tl.fromTo('#s2b',{opacity:0,x:40},{opacity:1,x:0,duration:.6,ease:'power3.out'},3.75);
+  // S2 sirena
+  scene('s2',2.7,5.2);
+  tl.fromTo('#grid2',{opacity:0},{opacity:1,duration:.7},2.8);
+  tl.fromTo('#sirena',{opacity:0,y:40,scale:.9},{opacity:1,y:0,scale:1,duration:.8,ease:'power3.out'},2.9);
+  tl.to('#sirena',{y:-14,duration:2.2,yoyo:true,repeat:1,ease:'sine.inOut'},3.4);
+  tl.fromTo('#s2a',{opacity:0,x:-40},{opacity:1,x:0,duration:.6,ease:'power3.out'},3.3);
+  tl.fromTo('#s2b',{opacity:0,x:40},{opacity:1,x:0,duration:.6,ease:'power3.out'},3.55);
 
-  // S3
-  scene('s3',5.7,8.0);
-  tl.fromTo('#grid3',{opacity:0},{opacity:1,duration:.6},5.8);
-  tl.fromTo('#ring3',{opacity:0,scale:.6,rotation:-24},{opacity:1,scale:1,rotation:0,duration:.8,ease:'power3.out'},5.8);
-  tl.to('#ring3',{rotation:12,duration:2.2,ease:'sine.inOut'},6.2);
-  tl.fromTo('#s3a',{opacity:0,y:20},{opacity:1,y:0,duration:.45},6.0);
-  tl.fromTo('#s3b',{opacity:0,y:20},{opacity:1,y:0,duration:.45},6.2);
-  tl.fromTo('#s3c',{opacity:0,y:20},{opacity:1,y:0,duration:.45},6.4);
+  // S3 metodo intro
+  scene('s3',5.3,7.3);
+  tl.fromTo('#grid3',{opacity:0},{opacity:1,duration:.6},5.4);
+  tl.fromTo('#s3a',{opacity:0,y:18},{opacity:1,y:0,duration:.5},5.5);
+  tl.fromTo('#s3b',{opacity:0,y:20,scale:.95},{opacity:1,y:0,scale:1,duration:.55,ease:'back.out(1.6)'},5.8);
 
-  // S4
-  scene('s4',8.1,9.4);
-  tl.fromTo('#s4a',{opacity:0,scale:.9},{opacity:1,scale:1,duration:.4,ease:'back.out(1.5)'},8.25);
-
-  // S5
-  scene('s5',9.5,11.6);
-  tl.fromTo('#s5a',{opacity:0,y:18},{opacity:1,y:0,duration:.5,ease:'power3.out'},9.7);
-  tl.fromTo('#s5b',{opacity:0,y:18,scale:.95},{opacity:1,y:0,scale:1,duration:.5,ease:'back.out(1.6)'},10.0);
-
-  // S6-S8 servizi
-  function svc(sidin,sidout,objid,wid){scene(sidin.id,sidin.t,sidout);
-    tl.fromTo('#'+objid,{opacity:0,scale:.6,rotation:-20},{opacity:1,scale:1,rotation:0,duration:.6,ease:'power3.out'},sidin.t+0.05);
-    tl.to('#'+objid,{rotation:14,duration:1.5,ease:'sine.inOut'},sidin.t+0.5);
-    tl.fromTo('#'+wid,{opacity:0,y:60},{opacity:1,y:0,duration:.5,ease:'back.out(1.5)'},sidin.t+0.2);
-  }
-  svc({id:'s6',t:11.7},13.4,'ring6','s6w');
-  svc({id:'s7',t:13.5},15.2,'blob7','s7w');
-  svc({id:'s8',t:15.3},17.0,'rib8','s8w');
+  // steps
+  const stTimes=[7.3,9.2,11.1,13.0,14.9];
+  stTimes.forEach((t,idx)=>{
+    const id='st'+(idx+1);const out=(idx===4)?17.0:(t+1.9);
+    scene(id,t,out);
+    tl.fromTo('#'+id+' .meth',{opacity:0,y:-12},{opacity:1,y:0,duration:.4},t+0.1);
+    tl.fromTo('#'+id+' .stepicon',{opacity:0,scale:.5,rotation:-15},{opacity:1,scale:1,rotation:0,duration:.5,ease:'back.out(1.8)'},t+0.2);
+    tl.fromTo('#'+id+' .stepnum',{opacity:0,y:30},{opacity:1,y:0,duration:.5,ease:'back.out(1.5)'},t+0.3);
+    tl.fromTo('#'+id+' .steptitle',{opacity:0,y:20},{opacity:1,y:0,duration:.45},t+0.45);
+    tl.fromTo('#'+id+' .stepsub',{opacity:0},{opacity:1,duration:.45},t+0.6);
+    tl.fromTo('#'+id+' .dots b',{opacity:0,scale:.3},{opacity:1,scale:1,duration:.3,stagger:0.06,ease:'back.out(2)'},t+0.5);
+    tl.fromTo('#'+id+' .pep',{opacity:0,scale:.4,rotation:'+=30'},{opacity:1,scale:1,rotation:'-=30',duration:.5,ease:'back.out(1.8)'},t+0.3);
+  });
 
   // S9 storia
-  scene('s9',17.1,19.8);
+  scene('s9',17.1,20.0);
   tl.fromTo('#squig',{opacity:0},{opacity:1,duration:.5},17.2);
   tl.fromTo('#squig path',{strokeDasharray:6200,strokeDashoffset:6200},{strokeDashoffset:0,duration:2.0,ease:'power1.inOut'},17.2);
   tl.fromTo('#s9a',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},17.5);
   tl.fromTo('#s9b',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},18.3);
 
   // S10 logo
-  scene('s10',19.9);
-  tl.fromTo('#logostar',{opacity:0,scale:.3,rotation:-90},{opacity:1,scale:1,rotation:0,duration:.7,ease:'back.out(2)'},20.1);
-  tl.to('#logostar',{rotation:360,duration:8,ease:'none'},20.1);
-  tl.fromTo('.logo .nm',{opacity:0,y:22},{opacity:1,y:0,duration:.6,ease:'power3.out'},20.4);
-  tl.fromTo('.logo .tg',{opacity:0,letterSpacing:'.6em'},{opacity:1,letterSpacing:'.3em',duration:.7,ease:'power2.out'},20.8);
+  scene('s10',20.1);
+  tl.fromTo('#s10 .logo img',{opacity:0,scale:.82,y:20},{opacity:1,scale:1,y:0,duration:.8,ease:'back.out(1.5)'},20.3);
+  tl.fromTo('#s10 .tg',{opacity:0,letterSpacing:'.5em'},{opacity:1,letterSpacing:'.26em',duration:.7,ease:'power2.out'},20.9);
+  tl.fromTo('#peplogoL',{opacity:0,scale:.4,rotation:-40},{opacity:1,scale:1,rotation:-18,duration:.6,ease:'back.out(1.8)'},20.7);
+  tl.fromTo('#peplogoR',{opacity:0,scale:.4,rotation:40},{opacity:1,scale:1,rotation:14,duration:.6,ease:'back.out(1.8)'},20.9);
 
   window.__timelines=window.__timelines||{};
   window.__timelines['main']=tl;
