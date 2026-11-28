@@ -77,3 +77,6 @@ agenzia-promo/shooting/export/
 agenzia-promo/shooting/snapshots/
 agenzia-promo/shooting/assets/sfx/
 agenzia-promo/shooting/assets/sfx.wav
+# Promo agenzia — Presentazione (replica reel): output rigenerabili
+agenzia-promo/replica/export/
+agenzia-promo/replica/snapshots/
