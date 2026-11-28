@@ -80,3 +80,6 @@ agenzia-promo/shooting/assets/sfx.wav
 # Promo agenzia — Presentazione (replica reel): output rigenerabili
 agenzia-promo/replica/export/
 agenzia-promo/replica/snapshots/
+# Promo agenzia — Non solo post (verde/bianco): output rigenerabili
+agenzia-promo/non-solo-post/export/
+agenzia-promo/non-solo-post/snapshots/
